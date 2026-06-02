@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class Package(models.Model):
     name = models.CharField(max_length=100)
@@ -27,3 +28,29 @@ class PackageFeature(models.Model):
 
     def __str__(self):
         return f'{self.package.name} - {self.feature_text}'
+
+class PackageAddon(models.Model):
+    name = models.CharField(max_length=100)
+    description = models.CharField(max_length=255)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    is_active = models.BooleanField(default=True)
+    display_order = models.IntegerField(default=0)
+
+    class Meta:
+        ordering = ['display_order']
+
+    def __str__(self):
+        return f'{self.name} - £{self.price}'
+
+
+class CustomPackageSelection(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, related_name='custom_selections')
+    session_key = models.CharField(max_length=255, blank=True, null=True)
+    addons = models.ManyToManyField(PackageAddon, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def get_total(self):
+        return sum(addon.price for addon in self.addons.all())
+
+    def __str__(self):
+        return f'Custom selection - {self.user or self.session_key}'
