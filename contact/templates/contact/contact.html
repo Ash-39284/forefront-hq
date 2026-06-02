@@ -1,85 +1,100 @@
 {% extends 'base.html' %}
 {% load static %}
+
 {% block title %}Contact | Forefront HQ{% endblock %}
 
 {% block content %}
-<div class="container">
-    <div class="row">
+<section class="contact-section">
+    <div class="container-xl">
+        <div class="row g-5 align-items-center">
 
+            <!-- Left col -->
+            <div class="col-12 col-lg-5">
+                <span class="label">// Contact</span>
+                <h1 class="contact-title">
+                    Let's build something
+                    <span class="contact-title-blue">great together.</span>
+                </h1>
+                <p class="contact-sub">Whether you have a clear brief or just an idea — we'd love to hear from you. Initial consultations are always free.</p>
 
-    <h3>// Contact</h3>
-    <h2>Let's Build Something Great Together!</h2>
-    <p>Whether you have a clear brief or just an idea - 
-        we'd love to hear from you. Initial consultations are always free.
-    </p>
+                <div class="contact-info">
 
-<!-- Contact details -->
-    <div class="">
-
-        <div>
-            <span>Email</span>
-            <p>hello@forefronthq.co.uk</p>
-        </div>
-
-        <div>
-            <span>Response Time</span>
-            <p>Within 24 hours.</p>
-        </div>
-
-        <div>
-            <span>Location</span>
-            <p>United Kingdom</p>
-        </div>
-
-        <div>
-            <span>Consultation</span>
-            <p>Free first call</p>
-        </div>
-
-    </div>
-
-    <!-- Contact form -->
-        <div class="container auth-wrapper ">
-            <div class="row auth-card">
-                <form method="POST">
-                    {% csrf_token %}
-
-                    
-
-                    <h2>Send a message</h2>
-
-                    <div class="form-group">
-                        <label class="field-label">Name <span class="req">*</span></label>
-                        <input type="text" name="Name" class="field" placeholder="Name" required>
+                    <div class="contact-info-item">
+                        <div class="contact-info-icon">✉</div>
+                        <div>
+                            <p class="contact-info-label">Email</p>
+                            <p class="contact-info-value">hello@forefronthq.co.uk</p>
+                        </div>
                     </div>
 
-                    <div class="form-group">
-                            <label class="field-label">Email address <span class="req">*</span></label>
-                            <input type="email" name="email" class="field" placeholder="you@example.com" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="field-label">Service of Interest</label>
-                        <select name="services" class="field" placeholder="Select a service" required>
-                            <option value="Select a service" disabled>Select a service</option>
-                            <option value="Software Development">Software Development</option>
-                            <option value="Digital Marketing">Digital Marketing</option>
-                            <option value="Consultation">Consultation</option>
-                            <option value="Other">Other...</option>
-                        </select>
-                    </div>
-                    
-
-                    <div class="form-group">
-                        <label class="field-label">Your Message <span class="req">*</span></label>
-                        <textarea name="message" class="field" rows="15" cols="15" required>Tell us about your project...</textarea>
+                    <div class="contact-info-item">
+                        <div class="contact-info-icon">⏱</div>
+                        <div>
+                            <p class="contact-info-label">Response Time</p>
+                            <p class="contact-info-value">Within 24 hours</p>
+                        </div>
                     </div>
 
-                    <button type="submit" class="btn btn-primary btn-full">Submit</button>
-                </form>
+                    <div class="contact-info-item">
+                        <div class="contact-info-icon">📍</div>
+                        <div>
+                            <p class="contact-info-label">Location</p>
+                            <p class="contact-info-value">United Kingdom</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-info-item">
+                        <div class="contact-info-icon">💬</div>
+                        <div>
+                            <p class="contact-info-label">Consultation</p>
+                            <p class="contact-info-value">Free first call</p>
+                        </div>
+                    </div>
+
+                </div>
             </div>
+
+            <!-- Right col -->
+            <div class="col-12 col-lg-7">
+                <div class="contact-card">
+                    <h2 class="contact-form-title">Send a Message</h2>
+
+                    <form method="POST">
+                        {% csrf_token %}
+
+                        <div class="form-group">
+                            <label class="field-label">Your Name <span class="req">*</span></label>
+                            <input type="text" name="name" class="field" placeholder="Enter your name..."
+                                   value="{% if user.is_authenticated %}{{ user.get_full_name }}{% endif %}" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="field-label">Email Address <span class="req">*</span></label>
+                            <input type="email" name="email" class="field" placeholder="Enter your email..."
+                                   value="{% if user.is_authenticated %}{{ user.email }}{% endif %}" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="field-label">Service of Interest</label>
+                            <select name="service" class="field">
+                                <option value="">Select a service...</option>
+                                {% for service in services %}
+                                <option value="{{ service.id }}">{{ service.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="field-label">Your Message <span class="req">*</span></label>
+                            <textarea name="message" class="field" rows="6" placeholder="Tell us about your project..." required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-full">Send Message →</button>
+                    </form>
+                </div>
+            </div>
+
         </div>
     </div>
-</div>
-
+</section>
 {% endblock %}

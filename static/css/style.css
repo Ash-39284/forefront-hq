@@ -352,3 +352,79 @@ p { color: #6B84A0; line-height: 1.7; }
     appearance: none;
 }
 .alert-close:hover { opacity: 1; }
+
+/* Contact page */
+.contact-section {
+    padding: 5rem 0;
+    min-height: calc(100vh - 60px);
+    display: flex;
+    align-items: center;
+}
+ 
+.contact-title {
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    font-weight: 700;
+    line-height: 1.15;
+    margin: 0.75rem 0 1rem;
+}
+ 
+.contact-title-blue { color: #1A6CF6; }
+ 
+.contact-sub {
+    font-size: 0.95rem;
+    color: #6B84A0;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+}
+ 
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+ 
+.contact-info-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+ 
+.contact-info-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 0.5rem;
+    background: #162947;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+}
+ 
+.contact-info-label {
+    font-size: 0.75rem;
+    color: #6B84A0;
+    margin: 0;
+    line-height: 1.4;
+}
+ 
+.contact-info-value {
+    font-size: 0.875rem;
+    color: #E8EDF5;
+    margin: 0;
+    line-height: 1.4;
+}
+ 
+.contact-card {
+    background: #0B1220;
+    border: 1px solid rgba(107, 132, 160, 0.15);
+    border-radius: 1.25rem;
+    padding: 2.5rem;
+}
+ 
+.contact-form-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #E8EDF5;
+    margin-bottom: 1.75rem;
+}
