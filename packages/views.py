@@ -2,9 +2,10 @@ import stripe
 from django.conf import settings
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .models import Package
+from .models import Package, PackageAddon
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
+
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
@@ -94,3 +95,69 @@ def stripe_webhook(request):
             print(f'Webhook error: {e}')
 
     return HttpResponse(status=200)
+
+def custom_package(request):
+    addons = PackageAddon.objects.filter(is_active=True)
+    return render(request, 'packages/custom_package.html', {'addons': addons})
+
+
+def custom_summary(request):
+    if request.method == 'POST':
+        selected_addon_ids = request.POST.getlist('addons')
+        
+        # Save selection to session
+        request.session['selected_addons'] = selected_addon_ids
+        return redirect('custom_summary')
+
+    selected_addon_ids = request.session.get('selected_addons', [])
+    addons = PackageAddon.objects.filter(id__in=selected_addon_ids)
+    total = sum(addon.price for addon in addons)
+
+    return render(request, 'packages/custom_summary.html', {
+        'addons': addons,
+        'total': total,
+    })
+
+
+def remove_addon(request, addon_id):
+    selected_addons = request.session.get('selected_addons', [])
+    selected_addons = [a for a in selected_addons if a != str(addon_id)]
+    request.session['selected_addons'] = selected_addons
+    return redirect('custom_summary')
+
+
+@login_required
+def custom_checkout(request):
+    selected_addon_ids = request.session.get('selected_addons', [])
+    addons = PackageAddon.objects.filter(id__in=selected_addon_ids)
+    total = sum(addon.price for addon in addons)
+
+    if not addons or total == 0:
+        return redirect('custom_package')
+
+    line_items = [{
+        'price_data': {
+            'currency': 'gbp',
+            'product_data': {
+                'name': addon.name,
+            },
+            'unit_amount': int(addon.price * 100),
+        },
+        'quantity': 1,
+    } for addon in addons]
+
+    checkout_session = stripe.checkout.Session.create(
+        payment_method_types=['card'],
+        line_items=line_items,
+        mode='payment',
+        customer_email=request.user.email,
+        success_url=request.build_absolute_uri('/packages/success/'),
+        cancel_url=request.build_absolute_uri('/packages/'),
+        metadata={
+            'user_id': request.user.id,
+            'custom_package': True,
+            'addon_ids': ','.join(selected_addon_ids),
+        }
+    )
+
+    return redirect(checkout_session.url, code=303)
