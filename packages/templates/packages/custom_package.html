@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Build Your Package | Forefront HQ{% endblock %}
+
+{% block content %}
+<section class="packages-section">
+    <div class="container-xl">
+
+        <div class="packages-header">
+            <span class="label">Build Your Own</span>
+            <h1 class="packages-title">Choose what you need.</h1>
+            <p class="packages-sub">Select the features you want and only pay for what you need. Your total updates as you select.</p>
+        </div>
+
+        <form method="POST" action="/packages/custom/summary/">
+            {% csrf_token %}
+
+            <div class="row g-4 mb-5">
+                {% for addon in addons %}
+                <div class="col-12 col-md-6 col-lg-4">
+                    <label class="addon-card" for="addon-{{ addon.id }}">
+                        <div class="addon-card-inner">
+                            <div class="addon-header">
+                                <input type="checkbox" name="addons" value="{{ addon.id }}"
+                                    id="addon-{{ addon.id }}" class="addon-checkbox"
+                                    data-price="{{ addon.price }}">
+                                <span class="addon-name">{{ addon.name }}</span>
+                            </div>
+                            <p class="addon-description">{{ addon.description }}</p>
+                            <p class="addon-price">£{{ addon.price|floatformat:0 }}</p>
+                        </div>
+                    </label>
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- Running total -->
+            <div class="addon-total-bar">
+                <div class="addon-total-left">
+                    <span class="addon-total-label">Your total</span>
+                    <span class="addon-total-amount">£<span id="running-total">0</span></span>
+                </div>
+                <button type="submit" class="btn btn-primary" id="summary-btn" disabled>
+                    Review My Package →
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+</section>
+{% endblock %}
