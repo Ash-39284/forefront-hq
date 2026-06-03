@@ -609,6 +609,96 @@ p { color: #6B84A0; line-height: 1.7; }
     margin: 0;
 }
 
+/* Custom package page */
+
+.addon-card {
+    display: block;
+    cursor: pointer;
+    height: 100%;
+}
+ 
+.addon-card-inner {
+    background: #0B1220;
+    border: 1px solid rgba(22, 41, 71, 0.8);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    transition: border-color 0.2s;
+}
+ 
+.addon-card:has(.addon-checkbox:checked) .addon-card-inner {
+    border-color: #1A6CF6;
+    background: #0F1B2D;
+}
+ 
+.addon-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+ 
+.addon-checkbox {
+    width: 18px;
+    height: 18px;
+    accent-color: #1A6CF6;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+ 
+.addon-name {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #E8EDF5;
+}
+ 
+.addon-description {
+    font-size: 0.82rem;
+    color: #6B84A0;
+    line-height: 1.5;
+    flex: 1;
+    margin: 0;
+}
+ 
+.addon-price {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1A6CF6;
+    margin: 0;
+}
+ 
+.addon-total-bar {
+    position: sticky;
+    bottom: 1.5rem;
+    background: #0B1220;
+    border: 1px solid rgba(26, 108, 246, 0.3);
+    border-radius: 1rem;
+    padding: 1.25rem 1.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+ 
+.addon-total-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+ 
+.addon-total-label {
+    font-size: 0.875rem;
+    color: #6B84A0;
+}
+ 
+.addon-total-amount {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #E8EDF5;
+}
+
 /* Summary package page */
 .summary-card {
     background: #0B1220;
