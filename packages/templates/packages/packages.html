@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Packages{% endblock %}
+{% block title %}Packages | Forefront HQ{% endblock %}
 
 {% block content %}
 <section class="packages-section">
@@ -9,14 +9,15 @@
 
         <!-- Header -->
         <div class="packages-header">
+            <span class="label">Pricing</span>
             <h1 class="packages-title">Scaled solutions for digital ecosystems.</h1>
             <p class="packages-sub">Transparent technical frameworks designed for precision growth. Select the engine that powers your next deployment.</p>
         </div>
 
-        <!-- Cards -->
-        <div class="row g-4">
+        <!-- Starter & Growth -->
+        <div class="row g-4 mb-5">
             {% for package in packages %}
-            <div class="col-12 col-md-6 col-lg-3">
+            <div class="col-12 col-md-6">
                 <div class="package-card {% if package.is_recommended %}package-card--recommended{% endif %}">
 
                     {% if package.is_recommended %}
@@ -51,18 +52,12 @@
 
                     <!-- CTA -->
                     <div class="package-cta">
-                        {% if package.price %}
-                            {% if user.is_authenticated %}
-                                <a href="/packages/checkout/{{ package.id }}/" class="btn {% if package.is_recommended %}btn-primary{% else %}btn-outline{% endif %} btn-full package-btn">
-                                    {{ package.cta_label }}
-                                </a>
-                            {% else %}
-                                <a href="/login/" class="btn {% if package.is_recommended %}btn-primary{% else %}btn-outline{% endif %} btn-full package-btn">
-                                    {{ package.cta_label }}
-                                </a>
-                            {% endif %}
+                        {% if user.is_authenticated %}
+                            <a href="/packages/checkout/{{ package.id }}/" class="btn {% if package.is_recommended %}btn-primary{% else %}btn-outline{% endif %} btn-full package-btn">
+                                {{ package.cta_label }}
+                            </a>
                         {% else %}
-                            <a href="/contact/" class="btn btn-outline btn-full package-btn">
+                            <a href="/login/" class="btn {% if package.is_recommended %}btn-primary{% else %}btn-outline{% endif %} btn-full package-btn">
                                 {{ package.cta_label }}
                             </a>
                         {% endif %}
@@ -71,6 +66,29 @@
                 </div>
             </div>
             {% endfor %}
+        </div>
+
+        <!-- Build Your Own -->
+        <div class="custom-package-section">
+            <div class="custom-package-header">
+                <div>
+                    <span class="label">Build Your Own</span>
+                    <h2 class="custom-package-title">Not sure which package fits?</h2>
+                    <p class="custom-package-sub">Pick exactly what you need. Select individual features and only pay for what you want.</p>
+                </div>
+                <a href="/packages/custom/" class="btn btn-outline">Start building →</a>
+            </div>
+
+            <div class="row g-3 mt-3">
+                {% for addon in addons %}
+                <div class="col-6 col-md-4 col-lg-2">
+                    <div class="addon-preview">
+                        <p class="addon-preview-name">{{ addon.name }}</p>
+                        <p class="addon-preview-price">£{{ addon.price|floatformat:0 }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
         </div>
 
     </div>

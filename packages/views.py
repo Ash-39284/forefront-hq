@@ -11,7 +11,11 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 
 def packages(request):
     packages = Package.objects.filter(is_active=True)
-    return render(request, 'packages/packages.html', {'packages': packages})
+    addons = PackageAddon.objects.filter(is_active=True)
+    return render(request, 'packages/packages.html', {
+        'packages': packages,
+        'addons': addons,
+    })
 
 @login_required
 def checkout(request, package_id):
