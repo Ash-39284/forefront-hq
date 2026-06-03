@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Your Package Summary | Forefront HQ{% endblock %}
+
+{% block content %}
+<section class="packages-section">
+    <div class="container-xl">
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-7">
+
+                <span class="label">Summary</span>
+                <h1 class="packages-title">Your custom package.</h1>
+                <p class="packages-sub">Review your selections below. Remove anything you don't need before checking out.</p>
+
+                {% if addons %}
+                <div class="summary-card">
+                    {% for addon in addons %}
+                    <div class="summary-item">
+                        <div class="summary-item-info">
+                            <p class="summary-item-name">{{ addon.name }}</p>
+                            <p class="summary-item-desc">{{ addon.description }}</p>
+                        </div>
+                        <div class="summary-item-right">
+                            <span class="summary-item-price">£{{ addon.price|floatformat:0 }}</span>
+                            <a href="/packages/custom/remove/{{ addon.id }}/" class="summary-remove">Remove</a>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+                    <div class="summary-total">
+                        <span>Total</span>
+                        <span class="summary-total-amount">£{{ total|floatformat:0 }}</span>
+                    </div>
+                </div>
+
+                <div class="summary-actions">
+                    <a href="/packages/custom/" class="btn btn-outline">← Add more</a>
+                    {% if user.is_authenticated %}
+                        <a href="/packages/custom/checkout/" class="btn btn-primary">Proceed to checkout →</a>
+                    {% else %}
+                        <a href="/login/" class="btn btn-primary">Login to checkout →</a>
+                    {% endif %}
+                </div>
+
+                {% else %}
+                <div class="summary-empty">
+                    <p>You haven't selected any addons yet.</p>
+                    <a href="/packages/custom/" class="btn btn-primary" style="margin-top: 1rem;">Build your package →</a>
+                </div>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
