@@ -2,9 +2,80 @@
 
 ## Table of Contents
 
+[Introduction](#introduction)
 
-- Testing
-    - Bugs Discovered
+[View Live Site](#view-live-site)
+
+1. [UX](#ux)
+    - [Project Goals](#project-goals)
+    - [User Goals](#user-goals)
+    - [User Stories](#user-stories)
+    - [Developer Goals](#developer-goals)
+    - [Design Choices](#design-choices)
+        - [Colour Palette](#colour-palette)
+        - [Frontend Design (Canva)](#frontend-design-canva)
+            - [Home Page](#home-page)
+            - [About Page](#about-page)
+            - [Genre Page](#genre-page)
+            - [Explore Page](#explore-page)
+            - [Album Discussion Page](#album-discussion-page)
+            - [Login Page](#login-page)
+            - [Signup Page](#signup-page)
+        - [Wireframes](#wireframes)
+            - [Mobile](#mobile)
+            - [Tablet](#tablet)
+            - [Desktop](#desktop)
+        - [ERD](#erd)
+2. [Agile Development](#agile-development)
+    - [GitHub Projects Board](#github-projects-board)
+    - [MoSCoW Prioritisation](#moscow-prioritisation)
+    - [Development Phases](#development-phases)
+3. [Features](#features)
+    - [Existing Features](#existing-features)
+    - [Features to Implement](#features-to-implement)
+4. [Technologies Used](#technologies-used)
+5. [Testing](#testing)
+    - [Code Validation](#code-validation)
+    - [Bugs Discovered](#bugs-discovered)
+    - [Usability Testing](#usability-testing)
+    - [Responsiveness Testing](#responsiveness-testing)
+    - [Data Managemnt Testing](#data-management-testing)
+    - [Manual Testing](#manual-testing)
+    - [Automated Testing](#automated-testing)
+    - [Lighthouse Testing](#lighthouse-testing)
+6. [Deployment](#deployment)
+    - [Prerequisites](#prerequisites)
+    - [Deploying to Heroku](#deploying-to-heroku)
+    - [How To Run The Project Locally](#how-to-run-the-project-locally)
+7. [Credits](#credits)
+    - [Content](#content)
+    - [Code](#code)
+    - [Images](#images)
+    - [API](#api)
+    - [Acknowledgements](#acknowledgements)
+
+## Introduction 
+
+**Forefront HQ** 
+
+## View Live Site
+
+
+
+# UX
+
+## Project Goals
+
+## User Goals
+
+## User Stories
+
+## Developer Goals
+
+## Design Choices
+
+# Testing
+
 
 ## Bugs Discovered
 

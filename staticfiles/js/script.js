@@ -9,6 +9,7 @@ document.querySelectorAll('.fhq-alert').forEach(el => {
 
 // Custom package builder
 const checkboxes = document.querySelectorAll('.addon-checkbox');
+const pageInput = document.getElementById('addon-pages-input');
 
 if (checkboxes.length > 0) {
     const totalEl = document.getElementById('running-total');
@@ -19,9 +20,18 @@ if (checkboxes.length > 0) {
         checkboxes.forEach(cb => {
             if (cb.checked) total += parseFloat(cb.dataset.price);
         });
+        if (pageInput) {
+            const pages = parseInt(pageInput.value) || 0;
+            const pricePerPage = parseFloat(pageInput.dataset.price) || 0;
+            total += pages * pricePerPage;
+        }
         totalEl.textContent = total.toFixed(0);
         summaryBtn.disabled = total === 0;
     }
 
     checkboxes.forEach(cb => cb.addEventListener('change', updateTotal));
+    if (pageInput) pageInput.addEventListener('input', updateTotal);
+
+    // Run on page load to reflect pre-checked boxes
+    updateTotal();
 }

@@ -24,7 +24,8 @@
                             <div class="addon-header">
                                 <input type="checkbox" name="addons" value="{{ addon.id }}"
                                     id="addon-{{ addon.id }}" class="addon-checkbox"
-                                    data-price="{{ addon.price }}">
+                                    data-price="{{ addon.price }}"
+                                {% if addon.id|stringformat:'s' in selected_addon_ids %}checked{% endif %}>
                                 <span class="addon-name">{{ addon.name }}</span>
                             </div>
                             <p class="addon-description">{{ addon.description }}</p>

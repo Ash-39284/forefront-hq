@@ -102,7 +102,11 @@ def stripe_webhook(request):
 
 def custom_package(request):
     addons = PackageAddon.objects.filter(is_active=True)
-    return render(request, 'packages/custom_package.html', {'addons': addons})
+    selected_addon_ids = request.session.get('selected_addons', [])
+    return render(request, 'packages/custom_package.html', {
+        'addons': addons,
+        'selected_addon_ids': [str(id) for id in selected_addon_ids],
+    })
 
 
 def custom_summary(request):
@@ -128,6 +132,7 @@ def remove_addon(request, addon_id):
     selected_addons = [a for a in selected_addons if a != str(addon_id)]
     request.session['selected_addons'] = selected_addons
     return redirect('custom_summary')
+        
 
 
 @login_required
