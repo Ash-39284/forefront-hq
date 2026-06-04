@@ -699,6 +699,24 @@ p { color: #6B84A0; line-height: 1.7; }
     color: #E8EDF5;
 }
 
+.addon-pages-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin: 0.5rem 0;
+}
+
+.addon-pages-input {
+    width: 80px;
+    padding: 0.5rem;
+    text-align: center;
+}
+
+.addon-pages-label {
+    font-size: 0.82rem;
+    color: #6B84A0;
+}
+
 /* Summary package page */
 .summary-card {
     background: #0B1220;
