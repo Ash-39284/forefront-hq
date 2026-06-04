@@ -699,6 +699,24 @@ p { color: #6B84A0; line-height: 1.7; }
     color: #E8EDF5;
 }
 
+.addon-pages-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin: 0.5rem 0;
+}
+
+.addon-pages-input {
+    width: 80px;
+    padding: 0.5rem;
+    text-align: center;
+}
+
+.addon-pages-label {
+    font-size: 0.82rem;
+    color: #6B84A0;
+}
+
 /* Summary package page */
 .summary-card {
     background: #0B1220;
@@ -777,4 +795,35 @@ p { color: #6B84A0; line-height: 1.7; }
     text-align: center;
     padding: 3rem 0;
     color: #6B84A0;
+}
+
+.pages-adjuster {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.4rem;
+}
+
+.pages-btn {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #162947;
+    border: 1px solid rgba(107, 132, 160, 0.2);
+    color: #E8EDF5;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+}
+.pages-btn:hover { background: #1A6CF6; border-color: #1A6CF6; }
+
+.pages-count {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #E8EDF5;
+    min-width: 24px;
+    text-align: center;
 }
