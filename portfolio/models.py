@@ -7,3 +7,29 @@ class ProjectTag(models.Model):
     def __str__(self):
         return self.name
 
+class PortfolioProject(models.Model):
+    title = models.CharField(max_length=200)
+    slug = models.CharField(max_length=200, unique=True)
+    client_name = models.CharField(max_length=200)
+    category = models.CharField(max_length=100)
+    description = models.TextField()
+    image_url = models.CharField(max_length=500, blank=True, null=True)
+    live_url = models.CharField(max_length=500, blank=True, null=True)
+    is_live = models.BooleanField(default=False)
+    is_featured = models.BooleanField(default=False)
+    completed_at = models.DateField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    tags = models.ManyToManyField(ProjectTag, through='PortfolioProjectTag', blank=True)
+
+    class Meta:
+        ordering = ['-completed_at']
+
+    def __str__(self):
+        return self.title
+    
+class PortfolioProjectTag(models.Model):
+    project = models.ForeignKey(PortfolioProject, on_delete=models.CASCADE)
+    tag = models.ForeignKey(ProjectTag, on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = ('project', 'tag')
