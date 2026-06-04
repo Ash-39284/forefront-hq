@@ -13,8 +13,32 @@
                 <h1 class="packages-title">Your custom package.</h1>
                 <p class="packages-sub">Review your selections below. Remove anything you don't need before checking out.</p>
 
-                {% if addons %}
+                {% if addons or selected_pages > 0 %}
                 <div class="summary-card">
+
+                    <!-- Additional pages line item -->
+                    {% if selected_pages > 0 and page_addon %}
+                        <div class="summary-item">
+                            <div class="summary-item-info">
+                                <p class="summary-item-name">Additional Pages</p>
+                                <p class="summary-item-desc">{{ page_addon.description }}</p>
+                            </div>
+                            <div class="summary-item-right">
+                                <form method="POST" action="/packages/custom/update-pages/">
+                                    {% csrf_token %}
+                                    <div class="pages-adjuster">
+                                        <button type="submit" name="action" value="decrease" class="pages-btn">−</button>
+                                        <span class="pages-count">{{ selected_pages }}</span>
+                                        <button type="submit" name="action" value="increase" class="pages-btn">+</button>
+                                    </div>
+                                    <span class="summary-item-price">£{{ page_total|floatformat:0 }}</span>
+                                </form>
+                                <a href="/packages/custom/remove/pages/" class="summary-remove">Remove</a>
+                            </div>
+                        </div>
+                        {% endif %}
+
+                    <!-- Other addons -->
                     {% for addon in addons %}
                     <div class="summary-item">
                         <div class="summary-item-info">
@@ -28,10 +52,12 @@
                     </div>
                     {% endfor %}
 
+                    <!-- Total -->
                     <div class="summary-total">
                         <span>Total</span>
                         <span class="summary-total-amount">£{{ total|floatformat:0 }}</span>
                     </div>
+
                 </div>
 
                 <div class="summary-actions">

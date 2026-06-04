@@ -103,27 +103,38 @@ def stripe_webhook(request):
 def custom_package(request):
     addons = PackageAddon.objects.filter(is_active=True)
     selected_addon_ids = request.session.get('selected_addons', [])
+    selected_pages = request.session.get('selected_pages', 0)
     return render(request, 'packages/custom_package.html', {
         'addons': addons,
         'selected_addon_ids': [str(id) for id in selected_addon_ids],
+        'selected_pages': selected_pages,
     })
 
 
 def custom_summary(request):
     if request.method == 'POST':
         selected_addon_ids = request.POST.getlist('addons')
-        
-        # Save selection to session
+        selected_pages = int(request.POST.get('addon_pages', 0))
         request.session['selected_addons'] = selected_addon_ids
+        request.session['selected_pages'] = selected_pages
         return redirect('custom_summary')
 
     selected_addon_ids = request.session.get('selected_addons', [])
+    selected_pages = request.session.get('selected_pages', 0)
     addons = PackageAddon.objects.filter(id__in=selected_addon_ids)
-    total = sum(addon.price for addon in addons)
+    
+    # Get page addon price
+    page_addon = PackageAddon.objects.filter(name='Additional Page').first()
+    page_total = page_addon.price * selected_pages if page_addon and selected_pages else 0
+    
+    total = sum(addon.price for addon in addons) + page_total
 
     return render(request, 'packages/custom_summary.html', {
         'addons': addons,
         'total': total,
+        'selected_pages': selected_pages,
+        'page_addon': page_addon,
+        'page_total': page_total,
     })
 
 
@@ -170,3 +181,17 @@ def custom_checkout(request):
     )
 
     return redirect(checkout_session.url, code=303)
+
+def remove_pages(request):
+    request.session['selected_pages'] = 0
+    return redirect('custom_summary')
+
+def update_pages(request):
+    if request.method == 'POST':
+        action = request.POST.get('action')
+        current = request.session.get('selected_pages', 0)
+        if action == 'increase' and current < 30:
+            request.session['selected_pages'] = current + 1
+        elif action == 'decrease' and current > 1:
+            request.session['selected_pages'] = current - 1
+    return redirect('custom_summary')
