@@ -144,27 +144,44 @@ def remove_addon(request, addon_id):
     request.session['selected_addons'] = selected_addons
     return redirect('custom_summary')
         
-
-
 @login_required
 def custom_checkout(request):
     selected_addon_ids = request.session.get('selected_addons', [])
+    selected_pages = request.session.get('selected_pages', 0)
     addons = PackageAddon.objects.filter(id__in=selected_addon_ids)
-    total = sum(addon.price for addon in addons)
 
-    if not addons or total == 0:
-        return redirect('custom_package')
+    line_items = []
 
-    line_items = [{
-        'price_data': {
-            'currency': 'gbp',
-            'product_data': {
-                'name': addon.name,
+    # Add regular addons
+    for addon in addons:
+        line_items.append({
+            'price_data': {
+                'currency': 'gbp',
+                'product_data': {
+                    'name': addon.name,
+                },
+                'unit_amount': int(addon.price * 100),
             },
-            'unit_amount': int(addon.price * 100),
-        },
-        'quantity': 1,
-    } for addon in addons]
+            'quantity': 1,
+        })
+
+    # Add additional pages if selected
+    if selected_pages and selected_pages > 0:
+        page_addon = PackageAddon.objects.filter(name='Additional Page').first()
+        if page_addon:
+            line_items.append({
+                'price_data': {
+                    'currency': 'gbp',
+                    'product_data': {
+                        'name': f'Additional Pages (x{selected_pages})',
+                    },
+                    'unit_amount': int(page_addon.price * 100),
+                },
+                'quantity': selected_pages,
+            })
+
+    if not line_items:
+        return redirect('custom_package')
 
     checkout_session = stripe.checkout.Session.create(
         payment_method_types=['card'],
@@ -175,8 +192,9 @@ def custom_checkout(request):
         cancel_url=request.build_absolute_uri('/packages/'),
         metadata={
             'user_id': request.user.id,
-            'custom_package': True,
+            'custom_package': 'true',
             'addon_ids': ','.join(selected_addon_ids),
+            'selected_pages': selected_pages,
         }
     )
 
