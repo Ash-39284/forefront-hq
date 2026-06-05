@@ -1,19 +1,75 @@
 {% extends 'base.html' %}
 {% load static %}
+
 {% block title %}Portfolio | Forefront HQ{% endblock %}
 
 {% block content %}
-<section class="container-xl">
-    <div>
-        <!-- title and content -->
-        <div class="col-sm-4 col-md-6">
-            <h3 class="label">// Portfolio</h3>
-            <h2 class="contact-title">Selected Work</h2>
-            <p>Projects We've built and shipped for real clients.</p>
+<section class="portfolio-section">
+    <div class="container-xl">
+
+        <!-- Header -->
+        <div class="portfolio-header">
+            <span class="label">// Portfolio</span>
+            <h1 class="portfolio-title">Selected Work</h1>
+            <p class="portfolio-sub">Projects I've built and shipped for real clients.</p>
         </div>
 
-        <!-- Project cards -->
-        
+        <!-- Projects grid -->
+        <div class="row g-4">
+            {% for project in projects %}
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="portfolio-card">
+
+                    <!-- Image -->
+                    <div class="portfolio-card-image">
+                        {% if project.image_url %}
+                            <img src="{{ project.image_url }}" alt="{{ project.title }}">
+                        {% else %}
+                            <div class="portfolio-card-placeholder">
+                                <span>{{ project.title }}</span>
+                            </div>
+                        {% endif %}
+                        {% if project.is_live %}
+                        <span class="badge-live portfolio-live-badge">LIVE</span>
+                        {% endif %}
+                    </div>
+
+                    <!-- Content -->
+                    <div class="portfolio-card-content">
+                        <p class="portfolio-card-category">{{ project.category|upper }} — {{ project.client_name }}</p>
+                        <h3 class="portfolio-card-title">{{ project.title }}</h3>
+                        <p class="portfolio-card-desc">{{ project.description }}</p>
+
+                        <!-- Tags -->
+                        {% if project.tags.all %}
+                        <div class="portfolio-card-tags">
+                            {% for tag in project.tags.all %}
+                            <span class="portfolio-tag">{{ tag.name }}</span>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+
+                        <!-- Link -->
+                        {% if project.live_url %}
+                        <a href="{{ project.live_url }}" target="_blank" rel="noopener" class="portfolio-card-link">
+                            View project →
+                        </a>
+                        {% endif %}
+                    </div>
+
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12">
+                <p class="portfolio-empty">No projects yet — check back soon.</p>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- CTA -->
+        <div class="portfolio-cta">
+            <a href="/contact/" class="btn btn-primary">Start a Project</a>
+        </div>
 
     </div>
 </section>
