@@ -173,3 +173,86 @@ python manage.py changepassword AshRoberts
  
 ---
 
+### Bug 11 — Duplicate CSS Rules in `style.css`
+**Description:** Navbar and burger menu styles were duplicated in `style.css` causing potential style conflicts.  
+**Cause:** CSS was appended multiple times during iterative development without removing previous versions.  
+**Fix:** Audited and rewrote `style.css` removing all duplicate rules.
+
+---
+
+### Bug 12 — `ConnectionRefusedError` on Google OAuth Callback
+**Description:** After completing Google sign in, the app returned a `ConnectionRefusedError` at `/accounts/google/login/callback/`.  
+**Cause:** Allauth was attempting to send an email verification to a user who had previously registered with email/password, but no email backend was configured.  
+**Fix:** Added email backend configuration to `settings.py`:
+```python
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+```
+And set `ACCOUNT_EMAIL_VERIFICATION = 'none'` temporarily during development.
+ 
+---
+
+### Bug 13 — `MultipleObjectsReturned` on Google Login
+**Description:** Clicking "Continue with Google" returned a `MultipleObjectsReturned` error.  
+**Cause:** Two Google Social Application entries existed in the database — one for local development and one for Heroku — both linked to the same site.  
+**Fix:** Removed the duplicate entry in the Django admin under Social Applications and ensured each entry was linked to the correct site.
+ 
+---
+
+### Bug 14 — `InvalidRequestError: No such price` on Stripe Checkout
+**Description:** Clicking a package CTA button returned a Stripe `InvalidRequestError`.  
+**Cause:** The `stripe_price_id` field in the Django admin had the Stripe **Product ID** (`prod_...`) instead of the **Price ID** (`price_...`).  
+**Fix:** Updated the `stripe_price_id` field in the Django admin with the correct Price ID from the Stripe dashboard.
+ 
+---
+
+### Bug 15 — Stripe Checkout 500 Error on Heroku
+**Description:** Stripe checkout returned a 500 error on the deployed Heroku app but worked locally.  
+**Cause:** `STRIPE_SECRET_KEY` and `STRIPE_PUBLIC_KEY` config vars were not set on Heroku.  
+**Fix:**
+```
+heroku config:set STRIPE_SECRET_KEY=sk_test_... --app forefront-hq
+heroku config:set STRIPE_PUBLIC_KEY=pk_test_... --app forefront-hq
+```
+Packages also needed to be re-added to the Heroku database with their Stripe price IDs.
+ 
+---
+ 
+### Bug 16 — Webhook `UserProfile matching query does not exist`
+**Description:** The Stripe webhook handler returned a 500 error when processing `checkout.session.completed`.  
+**Cause:** Existing user accounts did not have a `UserProfile` record as they were created before the model was added.  
+**Fix:** Updated the webhook view to use `get_or_create` instead of `get`:
+```python
+profile, created = UserProfile.objects.get_or_create(user=user)
+```
+ 
+---
+ 
+### Bug 17 — `AttributeError: get` in Stripe Webhook
+**Description:** The webhook handler raised an `AttributeError` when trying to access session data.  
+**Cause:** Stripe objects don't support Python's `.get()` method — they require direct dictionary access with `[]`.  
+**Fix:** Replaced all `.get()` calls with direct key access:
+```python
+email = session['customer_email'] or ''
+payment_intent = session['payment_intent'] or ''
+```
+ 
+---
+ 
+### Bug 18 — Login Page CSS Not Applying
+**Description:** The login page rendered without any custom styling — the auth card, form fields and layout were unstyled.  
+**Cause:** The browser was serving a cached version of `style.css` that did not include the auth page styles.  
+**Fix:** Performed a hard refresh using `Cmd + Shift + R` and cleared the browser cache via DevTools → Right-click refresh → Empty Cache and Hard Reload.
+ 
+---
+ 
+### Bug 19 — Portfolio Image Not Displaying
+**Description:** The portfolio project image showed a "Missing key" placeholder despite an image URL being set in the admin.  
+**Cause:** The imgbb **Viewer link** was used instead of the **Direct link**. The viewer link is a webpage, not a direct image URL.  
+**Fix:** Updated the `image_url` field in the Django admin with the imgbb **Direct link** ending in `.jpg`.
+ 
+---
+ 
+### Bug 20 — Custom Package Summary Page Not Showing All Items
+**Description:** The summary page only showed the Additional Pages line item, not the other selected addons.  
+**Cause:** The `{% for addon in addons %}` loop in `custom_summary.html` was opened but never displayed any content — the Additional Pages block and the total were inside the loop incorrectly.  
+**Fix:** Restructured the template to render the Additional Pages block and addon loop separately, with the total outside both.
