@@ -6,10 +6,11 @@ from .models import Package, PackageAddon
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 from django.core.mail import send_mail
-from django.conf import settings
+from django.contrib import messages
 
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
+
 
 def packages(request):
     packages = Package.objects.filter(is_active=True)
@@ -18,6 +19,7 @@ def packages(request):
         'packages': packages,
         'addons': addons,
     })
+
 
 @login_required
 def checkout(request, package_id):
@@ -41,8 +43,10 @@ def checkout(request, package_id):
 
     return redirect(checkout_session.url, code=303)
 
+
 def success(request):
     return render(request, 'packages/success.html')
+
 
 @csrf_exempt
 def stripe_webhook(request):
@@ -60,12 +64,13 @@ def stripe_webhook(request):
 
     if event['type'] == 'checkout.session.completed':
         session = event['data']['object']
-        package_id = session['metadata']['package_id']
+        package_id = session['metadata'].get('package_id')  # ← .get() for custom packages
         user_id = session['metadata']['user_id']
         amount = session['amount_total']
         email = session['customer_email'] or ''
         payment_intent = session['payment_intent'] or ''
         customer_id = session['customer'] or ''
+        is_custom = session['metadata'].get('custom_package') == 'true'
 
         try:
             from django.contrib.auth.models import User
@@ -73,9 +78,18 @@ def stripe_webhook(request):
             from orders.models import Order, Payment
 
             user = User.objects.get(id=user_id)
-            user = User.objects.get(id=user_id)
             profile, created = UserProfile.objects.get_or_create(user=user)
-            package = Package.objects.get(id=package_id)
+
+            if customer_id:
+                profile.stripe_customer_id = customer_id
+                profile.save()
+
+            if is_custom:
+                package_name = 'Custom Package'
+                package = None
+            else:
+                package = Package.objects.get(id=package_id)
+                package_name = package.name
 
             order = Order.objects.create(
                 user_profile=profile,
@@ -83,7 +97,8 @@ def stripe_webhook(request):
                 full_name=user.get_full_name() or email,
                 email=email,
                 order_total=amount / 100,
-                status='paid'
+                status='paid',
+                confirmation_email_sent=False
             )
 
             Payment.objects.create(
@@ -95,12 +110,39 @@ def stripe_webhook(request):
                 status='succeeded'
             )
 
-            print(f'Order {order.id} created for {email}')
+            send_mail(
+                subject=f'Order Confirmed — {package_name}',
+                message=f'''Hi {user.get_full_name() or email},
+
+Thank you for your purchase!
+
+Order Summary:
+— Package: {package_name}
+— Amount: £{amount / 100:.2f}
+— Date: {order.created_at.strftime("%d %B %Y")}
+
+We'll be in touch shortly to get started on your project.
+
+Thanks,
+Ashley
+Forefront HQ
+hello@forefronthq.co.uk
+''',
+                from_email=settings.DEFAULT_FROM_EMAIL,
+                recipient_list=[email],
+                fail_silently=False,
+            )
+
+            order.confirmation_email_sent = True
+            order.save()
+
+            print(f'Order {order.id} created and confirmation email sent to {email}')
 
         except Exception as e:
             print(f'Webhook error: {e}')
 
     return HttpResponse(status=200)
+
 
 def custom_package(request):
     addons = PackageAddon.objects.filter(is_active=True)
@@ -124,11 +166,10 @@ def custom_summary(request):
     selected_addon_ids = request.session.get('selected_addons', [])
     selected_pages = request.session.get('selected_pages', 0)
     addons = PackageAddon.objects.filter(id__in=selected_addon_ids)
-    
-    # Get page addon price
+
     page_addon = PackageAddon.objects.filter(name='Additional Page').first()
     page_total = page_addon.price * selected_pages if page_addon and selected_pages else 0
-    
+
     total = sum(addon.price for addon in addons) + page_total
 
     return render(request, 'packages/custom_summary.html', {
@@ -145,7 +186,8 @@ def remove_addon(request, addon_id):
     selected_addons = [a for a in selected_addons if a != str(addon_id)]
     request.session['selected_addons'] = selected_addons
     return redirect('custom_summary')
-        
+
+
 @login_required
 def custom_checkout(request):
     selected_addon_ids = request.session.get('selected_addons', [])
@@ -154,29 +196,23 @@ def custom_checkout(request):
 
     line_items = []
 
-    # Add regular addons
     for addon in addons:
         line_items.append({
             'price_data': {
                 'currency': 'gbp',
-                'product_data': {
-                    'name': addon.name,
-                },
+                'product_data': {'name': addon.name},
                 'unit_amount': int(addon.price * 100),
             },
             'quantity': 1,
         })
 
-    # Add additional pages if selected
     if selected_pages and selected_pages > 0:
         page_addon = PackageAddon.objects.filter(name='Additional Page').first()
         if page_addon:
             line_items.append({
                 'price_data': {
                     'currency': 'gbp',
-                    'product_data': {
-                        'name': f'Additional Pages (x{selected_pages})',
-                    },
+                    'product_data': {'name': f'Additional Pages (x{selected_pages})'},
                     'unit_amount': int(page_addon.price * 100),
                 },
                 'quantity': selected_pages,
@@ -202,9 +238,11 @@ def custom_checkout(request):
 
     return redirect(checkout_session.url, code=303)
 
+
 def remove_pages(request):
     request.session['selected_pages'] = 0
     return redirect('custom_summary')
+
 
 def update_pages(request):
     if request.method == 'POST':
@@ -216,82 +254,6 @@ def update_pages(request):
             request.session['selected_pages'] = current - 1
     return redirect('custom_summary')
 
-if event['type'] == 'checkout.session.completed':
-    session = event['data']['object']
-    package_id = session['metadata'].get('package_id')
-    user_id = session['metadata']['user_id']
-    amount = session['amount_total']
-    email = session['customer_email'] or ''
-    payment_intent = session['payment_intent'] or ''
-    customer_id = session['customer'] or ''
-    is_custom = session['metadata'].get('custom_package') == 'true'
-
-    try:
-        from django.contrib.auth.models import User
-        from accounts.models import UserProfile
-        from orders.models import Order, Payment
-
-        user = User.objects.get(id=user_id)
-        profile, created = UserProfile.objects.get_or_create(user=user)
-
-        # Get package name for email
-        if is_custom:
-            package_name = 'Custom Package'
-            package = None
-        else:
-            package = Package.objects.get(id=package_id)
-            package_name = package.name
-
-        order = Order.objects.create(
-            user_profile=profile,
-            package=package,
-            full_name=user.get_full_name() or email,
-            email=email,
-            order_total=amount / 100,
-            status='paid',
-            confirmation_email_sent=False
-        )
-
-        Payment.objects.create(
-            order=order,
-            stripe_payment_intent=payment_intent,
-            stripe_customer_id=customer_id or '',
-            amount=amount / 100,
-            currency='gbp',
-            status='succeeded'
-        )
-
-        # Send confirmation email
-        send_mail(
-            subject=f'Order Confirmed — {package_name}',
-            message=f'''Hi {user.get_full_name() or email},
-
-Thank you for your purchase!
-
-Order Summary:
-— Package: {package_name}
-— Amount: £{amount / 100:.2f}
-— Date: {order.created_at.strftime("%d %B %Y")}
-
-We'll be in touch shortly to get started on your project.
-
-Thanks,
-Ashley
-Forefront HQ
-hello@forefronthq.co.uk
-''',
-            from_email=settings.DEFAULT_FROM_EMAIL,
-            recipient_list=[email],
-            fail_silently=False,
-        )
-
-        order.confirmation_email_sent = True
-        order.save()
-
-        print(f'Order {order.id} created and confirmation email sent to {email}')
-
-    except Exception as e:
-        print(f'Webhook error: {e}')
 
 def cancel(request):
     messages.error(request, 'Payment was cancelled or failed. Please try again.')
