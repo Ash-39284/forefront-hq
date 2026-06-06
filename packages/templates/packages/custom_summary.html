@@ -65,7 +65,7 @@
                     {% if user.is_authenticated %}
                         <a href="/packages/custom/checkout/" class="btn btn-primary">Proceed to checkout →</a>
                     {% else %}
-                        <a href="/login/" class="btn btn-primary">Login to checkout →</a>
+                        <a href="/login/?next=/packages/custom/checkout/" class="btn btn-primary">Login to checkout →</a>
                     {% endif %}
                 </div>
 
