@@ -12,4 +12,5 @@ urlpatterns = [
     path('packages/webhook/', views.stripe_webhook, name='stripe_webhook'),
     path('packages/custom/remove/pages/', views.remove_pages, name='remove_pages'),
     path('packages/custom/update-pages/', views.update_pages, name='update_pages'),
+    path('packages/cancel/', views.cancel, name='payment_cancel'),
 ]

@@ -56,7 +56,7 @@
 
 ## Introduction 
 
-**Forefront HQ** 
+**Forefront HQ** is a business website 
 
 ## View Live Site
 

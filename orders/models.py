@@ -18,6 +18,7 @@ class Order(models.Model):
     order_total = models.DecimalField(max_digits=10, decimal_places=2)
     status = models.CharField(max_length=50, choices=STATUS_CHOICES, default='pending')
     created_at = models.DateTimeField(auto_now_add=True)
+    confirmation_email_sent = models.BooleanField(default=False)
 
     def __str__(self):
         return f'Order {self.id} - {self.email}'
