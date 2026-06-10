@@ -29,38 +29,68 @@
         </div>
     </div>
 </section>
- 
 
-<!-- The Team -->
+<!-- The Team Section -->
 <section class="about-team-section">
     <div class="container-xl">
- 
         <span class="label">// The Team</span>
- 
-        <div class="row g-4 mt-3">
-            {% for member in team_members %}
-            <div class="col-12 col-md-6 col-lg-4">
-                <div class="team-card">
+
+        {% for member in team_members %}
+            {% if forloop.first %}
+            <div class="team-feature">
+                <div class="team-feature-image">
                     {% if member.profile_img_url %}
-                    <img src="{{ member.profile_img_url }}" alt="{{ member.name }}" class="team-card-img">
+                        <img src="{{ member.profile_img_url }}" alt="{{ member.name }}">
                     {% else %}
-                    <div class="team-card-placeholder">
-                        <span>{{ member.name|slice:":2"|upper }}</span>
-                    </div>
+                        <div class="team-profile-placeholder">
+                            {{ member.name|first }}
+                        </div>
                     {% endif %}
-                    <div class="team-card-content">
-                        <p class="team-card-name">{{ member.name }}</p>
-                        <p class="team-card-title">{{ member.job_title }}</p>
-                        <p class="team-card-bio">{{ member.bio_description }}</p>
-                    </div>
+                </div>
+                <div class="team-feature-content">
+                    <h2>{{ member.name }}</h2>
+                    <p class="team-role">{{ member.job_title }}</p>
+                    {% for paragraph in member.bio_description.splitlines %}
+                        {% if paragraph %}
+                            <p class="team-bio">{{ paragraph }}</p>
+                        {% endif %}
+                    {% endfor %}
                 </div>
             </div>
-            {% endfor %}
+
+            {% if team_members|length > 1 %}
+            <div class="row g-4 mt-5">
+            {% endif %}
+
+            {% else %}
+            <div class="col-md-4">
+                <div class="team-card">
+                    {% if member.profile_img_url %}
+                        <img src="{{ member.profile_img_url }}" alt="{{ member.name }}">
+                    {% else %}
+                        <div class="team-profile-placeholder">
+                            {{ member.name|first }}
+                        </div>
+                    {% endif %}
+                    <h3>{{ member.name }}</h3>
+                    <p class="team-role">{{ member.job_title }}</p>
+                    <p class="team-bio">{{ member.bio_description }}</p>
+                </div>
+            </div>
+            {% endif %}
+
+        {% empty %}
+            <p>No team members found.</p>
+        {% endfor %}
+
+        {% if team_members|length > 1 %}
         </div>
- 
+        {% endif %}
+
     </div>
 </section>
  
+
 <!-- CTA -->
 <section class="about-cta-section">
     <div class="container-xl">
@@ -70,4 +100,6 @@
         </div>
     </div>
 </section>
+
+
 {% endblock %}
