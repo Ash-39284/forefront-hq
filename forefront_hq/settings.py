@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'contact',
     'portfolio',
     'about',
+    'services',
 ]
 
 SITE_ID = 1
