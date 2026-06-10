@@ -4,35 +4,70 @@
 {% block title %}About | Forefront HQ{% endblock %}
 
 {% block content %}
-<div class="container">
-    <div class="row">
-        <div>
-            <img src="{% static 'images/ForefrrontHQ_Logo_FHQ.svg' %}" alt="Forefront HQ" height="150" width="150">
+
+<!-- About Hero -->
+<section class="about-section">
+    <div class="container-xl">
+        <div class="row align-items-center g-5">
+ 
+            <!-- Left — Logo -->
+            <div class="col-12 col-md-4 text-center">
+                <div class="about-logo-wrap">
+                    <img src="{% static 'images/ForefrrontHQ_Logo_FHQ.svg' %}" alt="Forefront HQ" class="about-logo">
+                </div>
+            </div>
+ 
+            <!-- Right — Text -->
+            <div class="col-12 col-md-8">
+                <span class="label">// About Us</span>
+                <span class="label" style="color: #1A6CF6;">Who We Are</span>
+                <h1 class="about-title">Forefront HQ is a digital studio helping startups and small businesses grow online.</h1>
+                <p class="about-body">We combine full-stack development with digital marketing to deliver end-to-end solutions — from first consult to launch. We believe great digital products start with understanding your goals.</p>
+                <p class="about-body">Whether you need a landing page or a full-stack web app, we bring care, craft, and strategic thinking to every project.</p>
+            </div>
+ 
         </div>
+    </div>
+</section>
+ 
 
-        <div>
-            <h3 class="label">// About Us</h3>
-            <h3 class="label">Who We Are</h3>
-
-            <h2>Webhive is a digital studio helping startups and small businesses grow online.</h2>
-            <p>
-                We combine full-stack development with digital marketing to deliver end-to-end solutions
-                - from first consult to launch. We believe great digital products start with understanding your goals.
-                Whether you need a landing page or a full-stack web app, we bring care, craft, and strategic thinking to every
-            </p>
+<!-- The Team -->
+<section class="about-team-section">
+    <div class="container-xl">
+ 
+        <span class="label">// The Team</span>
+ 
+        <div class="row g-4 mt-3">
+            {% for member in team_members %}
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="team-card">
+                    {% if member.profile_img_url %}
+                    <img src="{{ member.profile_img_url }}" alt="{{ member.name }}" class="team-card-img">
+                    {% else %}
+                    <div class="team-card-placeholder">
+                        <span>{{ member.name|slice:":2"|upper }}</span>
+                    </div>
+                    {% endif %}
+                    <div class="team-card-content">
+                        <p class="team-card-name">{{ member.name }}</p>
+                        <p class="team-card-title">{{ member.job_title }}</p>
+                        <p class="team-card-bio">{{ member.bio_description }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
         </div>
-
-        <div class="hero-actions">
-            <a href="/packages/" class="btn btn-primary">Work with us</a>
+ 
+    </div>
+</section>
+ 
+<!-- CTA -->
+<section class="about-cta-section">
+    <div class="container-xl">
+        <div class="about-actions">
+            <a href="/contact/" class="btn btn-primary">Work With Us</a>
             <a href="/portfolio/" class="btn btn-outline">See Our Work</a>
         </div>
     </div>
-</div>
-
-<div class="container">
-    <div class="row">
-
-
-    </div>
-</div>
+</section>
 {% endblock %}
