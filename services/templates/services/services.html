@@ -4,4 +4,83 @@
 
 {% block content %}
 
+<!-- Services Hero -->
+<section class="services-hero">
+    <div class="container-xl">
+        <p class="services-label">// SERVICES</p>
+        <h1 class="services-heading">What I Can Do For You</h1>
+        <p class="services-subheading">End-to-end digital support, tailored for startups and growing businesses.</p>
+    </div>
+</section>
+
+<!-- Services Cards -->
+<section class="services-cards">
+    <div class="container-xl">
+        <div class="row g-4">
+            {% for service in services %}
+            <div class="col-12 col-lg-6">
+                <div class="service-card">
+                    <div class="service-card-inner">
+                        <div class="service-card-left">
+
+                            <!-- Icon -->
+                            <div class="service-icon">
+                                {% if service.slug == "website-development" %}
+                                <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <rect x="1" y="7" width="18" height="18" rx="2" transform="rotate(-15 1 7)" stroke="#1A6CF6" stroke-width="1.8" fill="none"/>
+                                    <rect x="9" y="3" width="18" height="18" rx="2" transform="rotate(15 9 3)" stroke="#1A6CF6" stroke-width="1.8" fill="none"/>
+                                </svg>
+                                {% elif service.slug == "initial-consultation" %}
+                                <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <polygon points="14,2 26,8 26,20 14,26 2,20 2,8" stroke="#1A6CF6" stroke-width="1.8" fill="none"/>
+                                </svg>
+                                {% elif service.slug == "social-media-setup" %}
+                                <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="14" cy="14" r="10" stroke="#1A6CF6" stroke-width="1.8" fill="none"/>
+                                    <circle cx="14" cy="14" r="4" stroke="#1A6CF6" stroke-width="1.8" fill="#1A6CF6"/>
+                                </svg>
+                                {% elif service.slug == "digital-marketing" %}
+                                <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="14" cy="14" r="11" stroke="#1A6CF6" stroke-width="1.8" fill="none"/>
+                                    <circle cx="14" cy="14" r="6" stroke="#1A6CF6" stroke-width="1.8" fill="none"/>
+                                </svg>
+                                {% endif %}
+                            </div>
+
+                            <!-- Title -->
+                            <h3 class="service-title">{{ service.name }}</h3>
+
+                            <!-- Tagline -->
+                            <p class="service-tagline">
+                                {% if service.slug == "website-development" %}
+                                    Your digital storefront, built right.
+                                {% elif service.slug == "initial-consultation" %}
+                                    Clarity before code.
+                                {% elif service.slug == "social-media-setup" %}
+                                    First impressions on every platform.
+                                {% elif service.slug == "digital-marketing" %}
+                                    Get found. Get clicks. Get customers.
+                                {% endif %}
+                            </p>
+
+                            <!-- Short description -->
+                            <p class="service-desc">{{ service.short_description }}</p>
+                        </div>
+
+                        <div class="service-card-divider"></div>
+
+                        <!-- Feature list from description field -->
+                        <div class="service-card-right">
+                            <p class="service-features-text">{{ service.description }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <p class="text-muted">No services available right now.</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
 {% endblock %}

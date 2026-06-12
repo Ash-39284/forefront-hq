@@ -52,11 +52,11 @@
     - [Code](#code)
     - [Images](#images)
     - [API](#api)
-    - [Acknowledgements](#acknowledgements)
+    - [Acknowledgements](#acknowledgdements)
 
 ## Introduction 
 
-**Forefront HQ** is a business website 
+**Forefront HQ** is a business website where potential clients can explore the companies services, 
 
 ## View Live Site
 
@@ -256,3 +256,81 @@ payment_intent = session['payment_intent'] or ''
 **Description:** The summary page only showed the Additional Pages line item, not the other selected addons.  
 **Cause:** The `{% for addon in addons %}` loop in `custom_summary.html` was opened but never displayed any content — the Additional Pages block and the total were inside the loop incorrectly.  
 **Fix:** Restructured the template to render the Additional Pages block and addon loop separately, with the total outside both.
+
+# Deployment 
+
+## Deploying to Heroku
+
+The project was deployed to Heroku by connecting the GitHub repository through the Heroku dashboard. The following steps were followed:
+
+1. Log in to [Heroku](https://www.heroku.com/) and click **New → Create new app**
+2. Give the app a unique name and select your region, then click **Create app**
+3. In the **Resources** tab, search for **Heroku Postgres** and add it as an add-on to provision the database
+4. In the **Settings** tab, click **Reveal Config Vars** and add the following environment variables:
+
+| Key | Value |
+|-----|-------|
+| `DATABASE_URL` | Your Heroku PostgreSQL URL (added automatically) |
+| `SECRET_KEY` | Your Django secret key |
+| `DEBUG` | `False` |
+
+5. In the **Deploy** tab, select **GitHub** as the deployment method
+6. Search for your repository name and click **Connect**
+7. Scroll down to **Manual Deploy**, select the `main` branch and click **Deploy Branch**
+8. Once the build completes, click **Open App** to view the live site
+
+---
+
+## How To Run The Project Locally
+
+To clone this project from GitHub:
+
+1. Follow this link to the [GitHub Repository](https://github.com/Ash-39284/forefront-hq)
+2. Under the repository name, click the green **Code** button to reveal a dropdown menu
+3. Select the **HTTPS** tab and copy the URL
+4. In your local IDE open **Git Bash**
+5. Change the current working directory to the location where you want the cloned directory
+6. Type `git clone` followed by the URL you copied, then press **Enter**:
+    ```bash
+    git clone https://github.com/Ash-39284/forefront-hq
+    ```
+7. Navigate into the cloned directory:
+    ```bash
+    cd forefront_hq
+    ```
+8. Create and activate a virtual environment:
+    ```bash
+    python -m venv venv
+    source venv/bin/activate  # On Windows: venv\Scripts\activate
+    ```
+9. Install the required dependencies:
+    ```bash
+    pip install -r requirements.txt
+    ```
+10. Create an `env.py` file in the root directory and add your environment variables:
+    ```python
+    import os
+    os.environ["SECRET_KEY"] = "your-secret-key"
+    os.environ["DATABASE_URL"] = "your-database-url"
+    ```
+11. Run the database migrations:
+    ```bash
+    python manage.py migrate
+    ```
+12. Create a superuser to access the admin panel:
+    ```bash
+    python manage.py createsuperuser
+    ```
+13. Start the development server:
+    ```bash
+    python manage.py runserver
+    ```
+14. Open your browser and navigate to `http://127.0.0.1:8000/`
+
+
+
+---
+
+## Acknowledgdements
+
+This project was developed and coded by Ashley Roberts in 2026.
