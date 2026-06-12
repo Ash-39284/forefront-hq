@@ -1071,3 +1071,165 @@ p { color: #6B84A0; line-height: 1.7; }
     gap: 1rem;
     flex-wrap: wrap;
 }
+
+/* =============================================
+   SERVICES PAGE
+   ============================================= */
+
+/* Hero */
+.services-hero {
+    padding: 80px 0 48px;
+}
+
+.services-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    font-weight: 400;
+    color: #1A6CF6;
+    letter-spacing: 0.08em;
+    margin-bottom: 16px;
+}
+
+.services-heading {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 700;
+    color: #E8EDF5;
+    line-height: 1.1;
+    margin-bottom: 16px;
+}
+
+.services-subheading {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1rem;
+    color: #6B84A0;
+    max-width: 480px;
+    margin-bottom: 0;
+    line-height: 1.6;
+}
+
+/* Cards Section */
+.services-cards {
+    padding: 16px 0 80px;
+}
+
+/* Individual Card */
+.service-card {
+    background: #0B1220;
+    border: 1px solid #162947;
+    border-radius: 12px;
+    padding: 32px;
+    height: 100%;
+    transition: border-color 0.2s ease;
+}
+
+.service-card:hover {
+    border-color: #1A6CF6;
+}
+
+.service-card-inner {
+    display: flex;
+    gap: 28px;
+    height: 100%;
+}
+
+.service-card-left {
+    flex: 0 0 200px;
+    display: flex;
+    flex-direction: column;
+}
+
+.service-icon {
+    width: 44px;
+    height: 44px;
+    background: #162947;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    flex-shrink: 0;
+}
+
+.service-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #E8EDF5;
+    margin-bottom: 8px;
+    line-height: 1.3;
+}
+
+.service-tagline {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    color: #1A6CF6;
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+.service-desc {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.875rem;
+    color: #6B84A0;
+    line-height: 1.6;
+    margin-bottom: 0;
+    flex: 1;
+}
+
+/* Vertical divider */
+.service-card-divider {
+    width: 1px;
+    background: #162947;
+    flex-shrink: 0;
+    align-self: stretch;
+}
+
+/* Feature list */
+.service-features {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+}
+
+.service-features li {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.875rem;
+    color: #E8EDF5;
+    padding-left: 20px;
+    position: relative;
+    line-height: 1.4;
+}
+
+.service-features li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: #1A6CF6;
+    font-size: 0.8rem;
+    font-weight: 700;
+    top: 0;
+}
+
+/* Responsive: stack the two-column card layout on mobile */
+@media (max-width: 768px) {
+    .service-card-inner {
+        flex-direction: column;
+        gap: 24px;
+    }
+
+    .service-card-left {
+        flex: unset;
+    }
+
+    .service-card-divider {
+        width: 100%;
+        height: 1px;
+        align-self: auto;
+    }
+}
