@@ -151,7 +151,9 @@ hello@forefronthq.co.uk
 
         except Exception as e:
             import sys
+            import traceback
             print(f'Webhook error: {e}', file=sys.stderr)
+            print(traceback.format_exc(), file=sys.stderr)
 
     return HttpResponse(status=200)
 
