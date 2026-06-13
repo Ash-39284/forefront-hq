@@ -22,6 +22,16 @@ def login_view(request):
         except User.DoesNotExist:
             user = None
         if user:
+            # Block login if email not verified
+            from allauth.account.models import EmailAddress
+            try:
+                email_address = EmailAddress.objects.get(user=user, primary=True)
+                if not email_address.verified:
+                    messages.error(request, 'Please verify your email address before logging in. Check your inbox for the confirmation link.')
+                    return render(request, 'accounts/login.html', {'next': request.GET.get('next', '/')})
+            except EmailAddress.DoesNotExist:
+                # Google OAuth users won't have an EmailAddress record — let them through
+                pass
             login(request, user)
             next_url = request.POST.get('next') or '/'
             return redirect(next_url)
@@ -53,11 +63,19 @@ def register_view(request):
             return render(request, 'accounts/register.html', {'next': request.POST.get('next', '/')})
 
         user = User.objects.create_user(username=email, email=email, password=password1)
-        user.backend = 'django.contrib.auth.backends.ModelBackend'
-        login(request, user)
-        messages.success(request, 'Account created successfully. Welcome!')
-        next_url = request.POST.get('next') or '/'
-        return redirect(next_url)
+
+        # Create allauth EmailAddress record and send confirmation
+        from allauth.account.models import EmailAddress
+        email_address = EmailAddress.objects.create(
+            user=user,
+            email=email,
+            primary=True,
+            verified=False
+        )
+        email_address.send_confirmation(request)
+
+        messages.info(request, 'Please check your email and click the confirmation link to activate your account.')
+        return redirect('account_email_verification_sent')
 
     return render(request, 'accounts/register.html', {'next': request.GET.get('next', '/')})
 
