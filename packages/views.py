@@ -69,15 +69,14 @@ def stripe_webhook(request):
     if event['type'] == 'checkout.session.completed':
         try:
             session = event['data']['object']
-            metadata = dict(session['metadata']) if session['metadata'] else {}
-            
-            package_id = metadata.get('package_id')
-            user_id = metadata.get('user_id')
+            metadata = session['metadata']
+            package_id = metadata['package_id'] if 'package_id' in metadata else None
+            user_id = metadata['user_id'] if 'user_id' in metadata else None
             amount = session['amount_total']
-            email = session.get('customer_email') or ''
-            payment_intent = session.get('payment_intent') or ''
-            customer_id = session.get('customer') or ''
-            is_custom = metadata.get('custom_package') == 'true'
+            email = session['customer_email'] or ''
+            payment_intent = session['payment_intent'] or ''
+            customer_id = session['customer'] or ''
+            is_custom = metadata.get('custom_package') == 'true' if metadata else False
 
             if not user_id:
                 import sys
