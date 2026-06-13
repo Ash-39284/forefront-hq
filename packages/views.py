@@ -57,14 +57,18 @@ def stripe_webhook(request):
         event = stripe.Webhook.construct_event(
             payload, sig_header, settings.STRIPE_WEBHOOK_SECRET
         )
-    except ValueError:
+    except ValueError as e:
+        import sys
+        print(f'Webhook ValueError: {e}', file=sys.stderr)
         return HttpResponse(status=400)
-    except stripe.error.SignatureVerificationError:
+    except stripe.error.SignatureVerificationError as e:
+        import sys
+        print(f'Webhook SignatureVerificationError: {e}', file=sys.stderr)
         return HttpResponse(status=400)
 
     if event['type'] == 'checkout.session.completed':
         session = event['data']['object']
-        package_id = session['metadata'].get('package_id')  # ← .get() for custom packages
+        package_id = session['metadata'].get('package_id')
         user_id = session['metadata']['user_id']
         amount = session['amount_total']
         email = session['customer_email'] or ''
@@ -136,10 +140,9 @@ hello@forefronthq.co.uk
             order.confirmation_email_sent = True
             order.save()
 
-            print(f'Order {order.id} created and confirmation email sent to {email}')
-
         except Exception as e:
-            print(f'Webhook error: {e}')
+            import sys
+            print(f'Webhook error: {e}', file=sys.stderr)
 
     return HttpResponse(status=200)
 
