@@ -67,16 +67,21 @@ def stripe_webhook(request):
         return HttpResponse(status=400)
 
     if event['type'] == 'checkout.session.completed':
-        session = event['data']['object']
-        package_id = session['metadata'].get('package_id')
-        user_id = session['metadata']['user_id']
-        amount = session['amount_total']
-        email = session['customer_email'] or ''
-        payment_intent = session['payment_intent'] or ''
-        customer_id = session['customer'] or ''
-        is_custom = session['metadata'].get('custom_package') == 'true'
-
         try:
+            session = event['data']['object']
+            package_id = session['metadata'].get('package_id')
+            user_id = session['metadata'].get('user_id')
+            amount = session['amount_total']
+            email = session['customer_email'] or ''
+            payment_intent = session['payment_intent'] or ''
+            customer_id = session['customer'] or ''
+            is_custom = session['metadata'].get('custom_package') == 'true'
+
+            if not user_id:
+                import sys
+                print('Webhook error: no user_id in metadata', file=sys.stderr)
+                return HttpResponse(status=200)
+
             from django.contrib.auth.models import User
             from accounts.models import UserProfile
             from orders.models import Order, Payment
@@ -139,6 +144,8 @@ hello@forefronthq.co.uk
 
             order.confirmation_email_sent = True
             order.save()
+            import sys
+            print(f'Order {order.id} created and confirmation email sent to {email}', file=sys.stderr)
 
         except Exception as e:
             import sys
