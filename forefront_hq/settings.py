@@ -10,7 +10,7 @@ SECRET_KEY = 'django-insecure-gtmblg9s2)5t^4t5=vrohyzf97h*hsqzkjps*qj41_b)oexe()
 
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'forefront-hq-cd14dedc71a3.herokuapp.com']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'forefront-hq-new-a54ac6718d65.herokuapp.com']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
