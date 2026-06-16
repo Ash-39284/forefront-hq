@@ -269,10 +269,20 @@ payment_intent = session['payment_intent'] or ''
 New hostname: `forefront-hq-new-a54ac6718d65.herokuapp.com`. 
 Updated `ALLOWED_HOSTS` in `settings.py` accordingly.
 
+![Dangerous Site Screenshot](./static/images/dangerous-site-img.webp)
+
 ---
 
+### Bug 22 — Email Confirmation and Verification Pages Unstyled
+**Description:** After registering, the `/accounts/confirm-email/` page rendered without any site styling — no navbar, no dark theme, no layout. It showed raw allauth default markup with "Messages:" and "Menu:" labels.
+**Cause:** No custom template overrides existed for allauth's `verification_sent.html` or `email_confirm.html`. Django was falling back to allauth's built-in templates which extend `account/base_entrance.html` instead of the project's `base.html`. The `templates/account/` directory did not exist in the project.
+**Fix:** Created `templates/account/` inside the project's root templates directory and added two override templates:
+- `templates/account/verification_sent.html` — styled "check your inbox" page shown after registration
+- `templates/account/email_confirm.html` — styled confirmation page shown when clicking the email link
 
+Both templates extend `base.html` and use the existing `.auth-wrapper`, `.auth-card`, `.auth-title`, `.auth-sub`, and `.btn` classes to match the login and register pages.
 
+![Email Confirmation Page](./static/images/unstyled-confirm-email-img.webp)
 
 # Deployment 
 
