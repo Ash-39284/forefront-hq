@@ -257,6 +257,23 @@ payment_intent = session['payment_intent'] or ''
 **Cause:** The `{% for addon in addons %}` loop in `custom_summary.html` was opened but never displayed any content — the Additional Pages block and the total were inside the loop incorrectly.  
 **Fix:** Restructured the template to render the Additional Pages block and addon loop separately, with the total outside both.
 
+---
+
+### Bug 21 — Heroku App Flagged as "Dangerous Site" by Google Safe Browsing
+**Description:** The deployed app showed a full red "Dangerous site" warning in Chrome, blocking all users from accessing it.
+**Cause:** The `.herokuapp.com` subdomain (`forefront-hq-cd14dedc71a3.herokuapp.com`) had been previously assigned to another app by Heroku before being allocated to this project. That prior app had been flagged by Google Safe Browsing for phishing/malware, and the flag remained attached to the hostname.
+**Fix:** Renamed the Heroku app to get a fresh, unflagged subdomain:
+
+`heroku apps:rename forefront-hq-new`
+
+New hostname: `forefront-hq-new-a54ac6718d65.herokuapp.com`. 
+Updated `ALLOWED_HOSTS` in `settings.py` accordingly.
+
+---
+
+
+
+
 # Deployment 
 
 ## Deploying to Heroku
