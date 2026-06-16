@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+{% load account %}
+
+{% block title %}Confirm Email | Forefront HQ{% endblock %}
+
+{% block content %}
+<div class="auth-wrapper">
+<div class="auth-card">
+
+{% if confirmation %}
+<h1 class="auth-title">Confirm email address</h1>
+<p class="auth-sub">
+    Please confirm that <strong>{{ confirmation.email_address.email }}</strong> is your email address.
+</p>
+
+<form method="POST" action="{% url 'account_confirm_email' confirmation.key %}">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-primary btn-full">Confirm</button>
+</form>
+
+{% else %}
+
+{% url 'account_email' as email_url %}
+<h1 class="auth-title">Confirm email address</h1>
+<p class="auth-sub">
+    {% if email_url %}
+    This email confirmation link expired or is invalid. Please <a href="{{ email_url }}" class="auth-link">issue a new email confirmation request</a>.
+    {% else %}
+    This email confirmation link expired or is invalid.
+    {% endif %}
+</p>
+
+{% endif %}
+
+</div>
+</div>
+{% endblock %}

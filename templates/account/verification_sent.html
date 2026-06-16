@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}Verify Your Email | Forefront HQ{% endblock %}
+
+{% block content %}
+<div class="auth-wrapper">
+    <div class="auth-card" style="text-align: center;">
+
+        <!-- Icon -->
+        <div style="width: 56px; height: 56px; background: rgba(26,108,246,0.1); border: 1px solid rgba(26,108,246,0.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1A6CF6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="4" width="20" height="16" rx="2"/>
+                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+            </svg>
+        </div>
+
+        <p class="label" style="margin-bottom: 0.75rem;">step 2 of 2</p>
+        <h1 class="auth-title">Check your inbox</h1>
+        <p class="auth-sub">
+            We've sent you a verification email. Click the link inside to activate your account. If you don't see it, check your spam folder.
+        </p>
+
+        <div style="margin-top: 1.75rem; padding-top: 1.75rem; border-top: 1px solid rgba(107,132,160,0.15);">
+            <p style="font-size: 0.82rem; color: #6B84A0; margin-bottom: 1rem;">Already verified?</p>
+            <a href="/login/" class="btn btn-primary btn-full">Go to login →</a>
+        </div>
+
+    </div>
+</div>
+{% endblock %}
