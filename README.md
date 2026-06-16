@@ -1,5 +1,8 @@
 # Forefront HQ
 
+
+![Forefront Mockup](./static/images/forefront-hq-mock-ups.png)
+
 ## Table of Contents
 
 [Introduction](#introduction)
@@ -60,7 +63,7 @@
 
 ## View Live Site
 
-
+[ForeFront HQ Live Site](https://forefront-hq-new-a54ac6718d65.herokuapp.com/)
 
 # UX
 
