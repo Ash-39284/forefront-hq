@@ -18,44 +18,44 @@
 
             <div class="row g-4 mb-5">
                 {% for addon in addons %}
-<div class="col-12 col-md-6 col-lg-4">
-    <label class="addon-card" for="addon-{{ addon.id }}">
-        <div class="addon-card-inner">
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="addon-card">
+                        <div class="addon-card-inner">
 
-            {% if addon.name == 'Additional Page' %}
-            <!-- Number input for pages -->
-            <div class="addon-header">
-                <span class="addon-name">{{ addon.name }}</span>
-            </div>
-            <p class="addon-description">{{ addon.description }}</p>
-            <div class="addon-pages-row">
-                <input type="number" name="addon_pages" id="addon-pages-input"
-                       class="field addon-pages-input"
-                       min="0" max="30"
-                       data-price="{{ addon.price }}"
-                       data-addon-id="{{ addon.id }}"
-                       value="{{ selected_pages|default:0 }}">
-                <span class="addon-pages-label">pages (max 30)</span>
-            </div>
-            <p class="addon-price">£{{ addon.price|floatformat:0 }} per page</p>
+                            {% if addon.name == 'Additional Page' %}
+                            <!-- Number input for pages -->
+                            <div class="addon-header">
+                                <span class="addon-name">{{ addon.name }}</span>
+                            </div>
+                            <p class="addon-description">{{ addon.description }}</p>
+                            <div class="addon-pages-row">
+                                <input type="number" name="addon_pages" id="addon-pages-input"
+                                       class="field addon-pages-input"
+                                       min="0" max="30"
+                                       data-price="{{ addon.price }}"
+                                       data-addon-id="{{ addon.id }}"
+                                       value="{{ selected_pages|default:0 }}">
+                                <span class="addon-pages-label">pages (max 30)</span>
+                            </div>
+                            <p class="addon-price">£{{ addon.price|floatformat:0 }} per page</p>
 
-            {% else %}
-            <!-- Standard checkbox -->
-            <div class="addon-header">
-                <input type="checkbox" name="addons" value="{{ addon.id }}"
-                       id="addon-{{ addon.id }}" class="addon-checkbox"
-                       data-price="{{ addon.price }}"
-                       {% if addon.id|stringformat:"s" in selected_addon_ids %}checked{% endif %}>
-                <span class="addon-name">{{ addon.name }}</span>
-            </div>
-            <p class="addon-description">{{ addon.description }}</p>
-            <p class="addon-price">£{{ addon.price|floatformat:0 }}</p>
-            {% endif %}
+                            {% else %}
+                            <!-- Standard checkbox -->
+                            <div class="addon-header">
+                                <input type="checkbox" name="addons" value="{{ addon.id }}"
+                                       id="addon-{{ addon.id }}" class="addon-checkbox"
+                                       data-price="{{ addon.price }}"
+                                       {% if addon.id|stringformat:"s" in selected_addon_ids %}checked{% endif %}>
+                                <label for="addon-{{ addon.id }}" class="addon-name">{{ addon.name }}</label>
+                            </div>
+                            <p class="addon-description">{{ addon.description }}</p>
+                            <p class="addon-price">£{{ addon.price|floatformat:0 }}</p>
+                            {% endif %}
 
-        </div>
-    </label>
-</div>
-{% endfor %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
             </div>
 
             <!-- Running total -->
