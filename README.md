@@ -119,6 +119,16 @@ Overall, the focus is on building something that works end-to-end and feels like
 
 ## Design Choices
 
+
+---
+
+## ERD
+
+![ERD Diagram](./static/images/ERD-FHQ.png)
+
+
+---
+
 # Testing
 
 
