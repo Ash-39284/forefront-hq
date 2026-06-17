@@ -188,6 +188,37 @@ The stylesheet was validated using the [W3C CSS Validator](https://jigsaw.w3.org
 
 ---
 
+### JavaScript Unit Tests (Jest)
+ 
+Unit tests for `script.js` were written using [Jest](https://jestjs.io/) with the `jest-environment-jsdom` package to simulate a browser DOM environment. Tests are located at `static/js/script.test.js` and were run from the project root using `npm test`.
+ 
+| Test | Result |
+|---|---|
+| Alert is still visible before 5 seconds | ✓ Pass |
+| Alert begins fading after 5 seconds | ✓ Pass |
+| Alert is removed from DOM after fade completes | ✓ Pass |
+| Transition is set before fade out | ✓ Pass |
+| Multiple alerts are all dismissed | ✓ Pass |
+| No error when no alerts are present | ✓ Pass |
+| Total is 0 when no checkboxes are checked and pages is 0 | ✓ Pass |
+| Total reflects a single checked addon | ✓ Pass |
+| Total reflects multiple checked addons | ✓ Pass |
+| Total includes page cost when pages are set | ✓ Pass |
+| Total combines addons and pages correctly | ✓ Pass |
+| Summary button is disabled when total is 0 | ✓ Pass |
+| Summary button is enabled when total is greater than 0 | ✓ Pass |
+| Checking an addon updates the total | ✓ Pass |
+| Unchecking an addon reduces the total | ✓ Pass |
+| Unchecking all addons disables the summary button | ✓ Pass |
+| Changing page input updates the total | ✓ Pass |
+| Setting pages to 0 removes page cost from total | ✓ Pass |
+| Invalid page input treated as 0 | ✓ Pass |
+| No error when page input is absent | ✓ Pass |
+ 
+**Test Suites: 1 passed — Tests: 20 passed — Time: 0.573s**
+
+![JavaScript Jest Testing](./static/images/jest-test.png)
+
 
 ## Bugs Discovered
 
