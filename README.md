@@ -71,7 +71,17 @@ The platform focuses on simplicity and transparency, giving potential clients a 
 
 ## Project Goals
 
+The goal of Forefront HQ is to build a full-stack business website where potential clients can explore services, view previous work, and purchase packages directly through the site. The focus is on making the process of hiring a digital agency feel simple and transparent, from first impression through to checkout.
+
+The project uses Django and PostgreSQL to handle the backend, with a database designed around users, packages, portfolio projects, and Stripe payments. On the frontend, the aim is to bring a dark, minimal design to life with a consistent and responsive layout across every page.
+
+Users will be able to create accounts, browse services and portfolio work, and purchase packages or build their own custom one. The project is also structured in a way that makes it straightforward to add new services, packages, and portfolio entries over time.
+
+---
+
 ## User Goals
+
+
 
 ## User Stories
 
