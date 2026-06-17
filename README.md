@@ -127,9 +127,32 @@ Overall, the focus is on building something that works end-to-end and feels like
 ![ERD Diagram](./static/images/ERD-FHQ.png)
 
 
+
 ---
 
 # Testing
+
+## Code Validation
+ 
+### HTML Validation
+ 
+All HTML was validated using the [W3C HTML Validator](https://validator.w3.org/) by entering the live Heroku URL directly into the validator. This checks the fully rendered HTML returned by the server, which correctly handles Django template tags that would cause false errors if the raw template source were pasted in directly.
+ 
+| Page | Result |
+|---|---|
+| Home | ✓ No errors |
+| About | ✓ No errors |
+| Services | ✓ No errors |
+| Packages | ✓ No errors |
+| Custom Package Builder | ✓ No errors |
+| Custom Package Summary | ✓ No errors |
+| Portfolio | ✓ No errors |
+| Contact | ✓ No errors |
+| Login | ✓ No errors |
+| Register | ✓ No errors |
+| Payment Success | ✓ No errors |
+
+
 
 
 ## Bugs Discovered
