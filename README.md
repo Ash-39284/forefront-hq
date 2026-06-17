@@ -174,6 +174,20 @@ All HTML was validated using the [W3C HTML Validator](https://validator.w3.org/)
 
 ![Payment Success Page Validation](./static/images/payment_succesful.html-validation-screenshot.png)
 
+---
+
+### CSS Validation
+ 
+The stylesheet was validated using the [W3C CSS Validator](https://jigsaw.w3.org/css-validator/) by direct input of `static/css/style.css`.
+ 
+| File | Result |
+|---|---|
+| static/css/style.css | ✓ No errors |
+
+![CSS Validation](./static/images/css-validation-FHQ.png)
+
+---
+
 
 ## Bugs Discovered
 
