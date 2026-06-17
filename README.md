@@ -81,9 +81,17 @@ Users will be able to create accounts, browse services and portfolio work, and p
 
 ## User Goals
 
+Users of Forefront HQ should be able to quickly understand what the company offers and whether it is the right fit for their business. The goal is to give potential clients a clear and professional experience where they can go from discovering the company to making a purchase without any friction.
 
+A user should be able to browse the services and portfolio, view package pricing, and either contact the company or proceed straight to checkout. They should also be able to create an account, sign in with Google, and purchase a package securely through Stripe.
+
+The overall experience should feel clean and intuitive, so users can find what they are looking for quickly and feel confident in the company before committing.
+
+---
 
 ## User Stories
+
+
 
 ## Developer Goals
 
