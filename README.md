@@ -95,6 +95,18 @@ The overall experience should feel clean and intuitive, so users can find what t
 
 ## Developer Goals
 
+The goal for this project is to build a full-stack web application that connects a Django backend with a custom frontend, handling real user interactions and payments rather than just displaying static content. I want to get comfortable working with models, views, templates, and third-party integrations together so the site feels like a real product.
+
+Another aim is to implement a relational database structured around users, packages, portfolio entries, and orders, making sure everything is organised properly and can scale as the business grows.
+
+I also want to improve my ability to translate a UI design into a working application, keeping the layout consistent, responsive, and on-brand across every page. This includes building reusable template components that extend a single base layout.
+
+On top of that, the project is about gaining confidence working with third-party services — specifically Stripe for payments and webhooks, and django-allauth for authentication including Google OAuth. Managing environment variables, deploying to Heroku, and handling production-specific issues are also key parts of the learning process.
+
+Overall, the focus is on building something that works end-to-end and feels like something a real client could use, not just a collection of features put together for the sake of it.
+
+---
+
 ## Design Choices
 
 # Testing
