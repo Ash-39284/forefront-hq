@@ -1,0 +1,16 @@
+{
+  "name": "forefront-hq",
+  "version": "1.0.0",
+  "description": "Forefront HQ JavaScript tests",
+  "scripts": {
+    "test": "jest"
+  },
+  "devDependencies": {
+    "jest": "^29.0.0",
+    "jest-environment-jsdom": "^29.0.0"
+  },
+  "jest": {
+    "testEnvironment": "jsdom",
+    "testMatch": ["**/static/js/**/*.test.js"]
+  }
+}
