@@ -54,7 +54,6 @@
     - [Content](#content)
     - [Code](#code)
     - [Images](#images)
-    - [API](#api)
     - [Acknowledgements](#acknowledgdements)
 
 ## Introduction 
@@ -290,8 +289,6 @@ Both templates extend `base.html` and use the existing `.auth-wrapper`, `.auth-c
 
 ![Email Confirmation Page](./static/images/unstyled-confirm-email-img.webp)
 
-# Deployment 
-
 ## Deploying to Heroku
 
 The project was deployed to Heroku by connecting the GitHub repository through the Heroku dashboard. The following steps were followed:
@@ -306,11 +303,21 @@ The project was deployed to Heroku by connecting the GitHub repository through t
 | `DATABASE_URL` | Your Heroku PostgreSQL URL (added automatically) |
 | `SECRET_KEY` | Your Django secret key |
 | `DEBUG` | `False` |
+| `DJANGO_SETTINGS_MODULE` | `forefront_hq.settings` |
+| `STRIPE_SECRET_KEY` | Your Stripe secret key |
+| `STRIPE_PUBLIC_KEY` | Your Stripe publishable key |
+| `STRIPE_WEBHOOK_SECRET` | Your Stripe webhook signing secret |
 
 5. In the **Deploy** tab, select **GitHub** as the deployment method
 6. Search for your repository name and click **Connect**
 7. Scroll down to **Manual Deploy**, select the `main` branch and click **Deploy Branch**
 8. Once the build completes, click **Open App** to view the live site
+
+> **Note:** After deployment, if your app is assigned an existing Heroku subdomain that has a Google Safe Browsing flag from a previous tenant, rename the app via the CLI to get a fresh hostname:
+> ```
+> heroku apps:rename your-new-app-name
+> ```
+> Then update `ALLOWED_HOSTS` in `settings.py` with the new hostname.
 
 ---
 
@@ -324,42 +331,48 @@ To clone this project from GitHub:
 4. In your local IDE open **Git Bash**
 5. Change the current working directory to the location where you want the cloned directory
 6. Type `git clone` followed by the URL you copied, then press **Enter**:
-    ```bash
+```bash
     git clone https://github.com/Ash-39284/forefront-hq
-    ```
+```
 7. Navigate into the cloned directory:
-    ```bash
+```bash
     cd forefront_hq
-    ```
+```
 8. Create and activate a virtual environment:
-    ```bash
-    python -m venv venv
-    source venv/bin/activate  # On Windows: venv\Scripts\activate
-    ```
+```bash
+    python -m venv .venv
+    source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+```
 9. Install the required dependencies:
-    ```bash
+```bash
     pip install -r requirements.txt
-    ```
+```
 10. Create an `env.py` file in the root directory and add your environment variables:
-    ```python
+```python
     import os
     os.environ["SECRET_KEY"] = "your-secret-key"
     os.environ["DATABASE_URL"] = "your-database-url"
-    ```
+    os.environ["STRIPE_SECRET_KEY"] = "your-stripe-secret-key"
+    os.environ["STRIPE_PUBLIC_KEY"] = "your-stripe-publishable-key"
+    os.environ["STRIPE_WEBHOOK_SECRET"] = "your-stripe-webhook-secret"
+```
 11. Run the database migrations:
-    ```bash
+```bash
     python manage.py migrate
-    ```
+```
 12. Create a superuser to access the admin panel:
-    ```bash
+```bash
     python manage.py createsuperuser
-    ```
-13. Start the development server:
-    ```bash
+```
+13. Collect static files:
+```bash
+    python manage.py collectstatic
+```
+14. Start the development server:
+```bash
     python manage.py runserver
-    ```
-14. Open your browser and navigate to `http://127.0.0.1:8000/`
-
+```
+15. Open your browser and navigate to `http://127.0.0.1:8000/`
 
 
 ---
