@@ -91,7 +91,17 @@ The overall experience should feel clean and intuitive, so users can find what t
 
 ## User Stories
 
+Users should be able to browse the services Forefront HQ offers so they can decide whether the company is the right fit for their needs. They should be able to view the portfolio to see examples of previous work and get a sense of the quality and style on offer.
 
+Users should be able to view available packages and pricing so they can find an option that suits their budget. They should also be able to build a custom package by selecting only the add-ons they need, rather than being locked into a fixed offering.
+
+Once they have decided, users should be able to purchase a package securely through Stripe, or contact the company directly if they have questions before committing. The checkout process should feel straightforward and trustworthy.
+
+Users should be able to create an account or sign in with Google so they can manage their details and access their purchases. The registration process should include email verification to keep accounts secure.
+
+Overall the site should be easy to navigate and feel professional at every step, so users never have to think too hard about where to go or what to do next.
+
+---
 
 ## Developer Goals
 
