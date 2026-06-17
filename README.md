@@ -152,7 +152,27 @@ All HTML was validated using the [W3C HTML Validator](https://validator.w3.org/)
 | Register | ✓ No errors |
 | Payment Success | ✓ No errors |
 
+![Home Page Validation](./static/images/home.html-validation-screenshot.png)
 
+![About Page Validation](./static/images/about.html-validation-screenshot.png)
+
+![Services Page Validation](./static/images/services.html-validation-screenshot.png)
+
+![Packages Page Validation](./static/images/packages.html-validation-screenshot.png)
+
+![Custom Package Builder Validation](./static/images/custom_package.html-validation-screenshot.png)
+
+![Custom Package Summary Validation](./static/images/custom_package_summary.html-validation-screenshot.png)
+
+![Portfolio Page Validation](./static/images/portfolio.html-validation-screenshot.png)
+
+![Contact Page Validation](./static/images/contact.html-validation-screenshot.png)
+
+![Login Page Validation](./static/images/login.html-validation-screenshot.png)
+
+![Register Page Validation](./static/images/create_account.html-validation-screenshot.png)
+
+![Payment Success Page Validation](./static/images/payment_succesful.html-validation-screenshot.png)
 
 
 ## Bugs Discovered
