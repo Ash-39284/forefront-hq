@@ -59,7 +59,10 @@
 
 ## Introduction 
 
-**Forefront HQ** is a business website where potential clients can explore the companies services, 
+**Forefront HQ** is a business website where startups and small businesses can explore digital services, view previous work and purchase tailored packages to help them grow online.
+
+The platform focuses on simplicity and transparency, giving potential clients a clear picture of what's on offer before they commit. From browsing the portfolio to building a custom package and checking out securely via Stripe, Forefront HQ makes it easy for businesses to take their next step forward.
+
 
 ## View Live Site
 
