@@ -374,6 +374,22 @@ confirming that Django was correctly accepting requests from the Heroku domain.
 
 ---
 
+## Known Bugs
+ 
+### Known Bug 1 — Confirmation Email Not Sending After Successful Payment
+ 
+**Description:** The Stripe webhook processes successfully and creates the `Order` and `Payment` records correctly, but the confirmation email is not delivered to the customer after checkout.
+ 
+**Evidence:** Heroku logs confirm the webhook receives the `checkout.session.completed` event and the order is created in the database. The `send_mail()` call executes without raising an exception and `confirmation_email_sent` is set to `True` on the order, but no email arrives in the customer's inbox.
+ 
+**Suspected Cause:** The Google Workspace SMTP credentials (`EMAIL_HOST_USER` and `EMAIL_HOST_PASSWORD`) are correctly set as Heroku config vars, however the sending alias (`hello@forefronthq.co.uk`) may be getting rejected silently by Gmail's SMTP relay when called from within the webhook handler context on Heroku, rather than from a standard request/response cycle.
+ 
+**Status:** Unresolved at time of submission. The webhook itself is fully functional — orders and payments are created correctly. The email sending logic is in place and works in local development with the same credentials.
+
+![Stripe Webhook confirmation](./static/images/stripe-webhook-confirmation-screenshot.png)
+
+---
+
 ## Code Validation
  
 ### HTML Validation
@@ -778,6 +794,7 @@ This section tests that data flows correctly through the application — from cr
 | Custom summary — remove pages | Pages reset to zero and total recalculated | ✓ Pass |
  
 ---
+
 
 ## Deploying to Heroku
 
