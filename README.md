@@ -474,6 +474,41 @@ Both templates extend `base.html` and use the existing `.auth-wrapper`, `.auth-c
 
 ![Email Confirmation Page](./static/images/unstyled-confirm-email-img.webp)
 
+---
+
+### Bug 23 — Heroku Deployment Returning 400 Bad Request
+**Description:** After deploying the application to Heroku, visiting the live site displayed a plain "Bad Request (400)" page instead of the homepage. The application loaded correctly in local development but rejected requests made through the Heroku domain.
+**Cause:** The project was configured to load ALLOWED_HOSTS and SECRET_KEY from environment variables:
+`ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split(',')`
+`SECRET_KEY = os.environ.get('SECRET_KEY')`
+While these values existed in the local .env file, they had not been added to Heroku Config Vars. As a result:
+`ALLOWED_HOSTS` evaluated to `['']`
+The Heroku domain was not recognised as a valid host
+Django rejected incoming requests and returned HTTP 400 responses
+Heroku logs confirmed repeated requests returning:
+GET / HTTP/1.1" 400
+status=400
+**Fix:** Added the required environment variables to Heroku:
+`heroku config:set SECRET_KEY="your-secret-key"`
+`heroku config:set ALLOWED_HOSTS="127.0.0.1,localhost,forefront-hq-new-a54ac6718d65.herokuapp.com"`
+The application was then restarted:
+`heroku restart --app forefront-hq-new`
+After deployment, the logs showed successful responses:
+`GET / HTTP/1.1" 200`
+`status=200`
+confirming that Django was correctly accepting requests from the Heroku domain.
+**Result:** The deployed application loaded successfully and all static assets were served correctly.
+
+**Before fix**
+
+![Bad request 400 error](./static/images/bug23-before-fix.png)
+
+**After Fix**
+
+![400 request fixed](./static/images/bug23-after-fix.png)
+
+---
+
 ## Deploying to Heroku
 
 The project was deployed to Heroku by connecting the GitHub repository through the Heroku dashboard. The following steps were followed:
