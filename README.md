@@ -219,6 +219,53 @@ Unit tests for `script.js` were written using [Jest](https://jestjs.io/) with th
 
 ![JavaScript Jest Testing](./static/images/jest-test.png)
 
+---
+
+### Python Validation
+ 
+All Python files were validated using the [CI Python Linter](https://pep8ci.herokuapp.com/) to check for PEP8 compliance.
+ 
+| File | Result |
+|---|---|
+| forefront_hq/settings.py | ✓ No errors |
+| forefront_hq/urls.py | ✓ No errors |
+| about/models.py | ✓ No errors |
+| about/views.py | ✓ No errors |
+| about/urls.py | ✓ No errors |
+| about/admin.py | ✓ No errors |
+| about/tests.py | ✓ No errors |
+| accounts/models.py | ✓ No errors |
+| accounts/views.py | ✓ No errors |
+| accounts/urls.py | ✓ No errors |
+| accounts/tests.py | ✓ No errors |
+| contact/models.py | ✓ No errors |
+| contact/views.py | ✓ No errors |
+| contact/urls.py | ✓ No errors |
+| contact/admin.py | ✓ No errors |
+| contact/tests.py | ✓ No errors |
+| orders/models.py | ✓ No errors |
+| orders/admin.py | ✓ No errors |
+| orders/tests.py | ✓ No errors |
+| packages/models.py | ✓ No errors |
+| packages/views.py | ✓ No errors |
+| packages/urls.py | ✓ No errors |
+| packages/admin.py | ✓ No errors |
+| packages/tests.py | ✓ No errors |
+| portfolio/models.py | ✓ No errors |
+| portfolio/views.py | ✓ No errors |
+| portfolio/urls.py | ✓ No errors |
+| portfolio/admin.py | ✓ No errors |
+| portfolio/tests.py | ✓ No errors |
+| services/models.py | ✓ No errors |
+| services/views.py | ✓ No errors |
+| services/urls.py | ✓ No errors |
+| services/admin.py | ✓ No errors |
+| services/tests.py | ✓ No errors |
+ 
+
+ 
+---
+
 
 ## Bugs Discovered
 
