@@ -439,8 +439,47 @@ Pages were tested using Chrome DevTools Lighthouse in desktop mode against the l
  
 ---
 
+## Responsiveness Testing
+ 
+The site was tested across mobile, tablet, and desktop screen widths using Chrome DevTools device emulation.
+ 
+| Page | Mobile (375px) | Tablet (768px) | Desktop (1440px) |
+|---|---|---|---|
+| Home | ✓ Pass | ✓ Pass | ✓ Pass |
+| About | ✓ Pass | ✓ Pass | ✓ Pass |
+| Services | ✓ Pass | ✓ Pass | ✓ Pass |
+| Packages | ✓ Pass | ✓ Pass | ✓ Pass |
+| Custom Package Builder | ✓ Pass | ✓ Pass | ✓ Pass |
+| Custom Package Summary | ✓ Pass | ✓ Pass | ✓ Pass |
+| Portfolio | ✓ Pass | ✓ Pass | ✓ Pass |
+| Contact | ✓ Pass | ✓ Pass | ✓ Pass |
+| Login | ✓ Pass | ✓ Pass | ✓ Pass |
+| Register | ✓ Pass | ✓ Pass | ✓ Pass |
 
+### Mobile View
 
+![Mobile View](./static/images/mobile-view.png)
+
+### Tablet View
+
+![Tablet View](./static/images/tablet-view.png)
+
+### Desktop View
+
+![Desktop View](./static/images/desktop-view.png)
+
+---
+
+## Browser Compatibility
+ 
+| Browser | Result |
+|---|---|
+| Chrome | ✓ Pass |
+| Firefox | ✓ Pass |
+| Safari | ✓ Pass |
+| Edge | ✓ Pass |
+ 
+---
 
 ## Bugs Discovered
 
