@@ -143,7 +143,33 @@ Two typefaces are used throughout the site, both loaded via Google Fonts:
 - **Space Grotesk** — used for all headings and UI labels. A geometric sans-serif that feels modern and technical without being cold.
 - **Space Mono** — used for code-style labels, tags, and accent text. Adds a developer character to the brand without overusing it.
 
-
+### FrontEnd Designs
+ 
+All pages were designed in Canva prior to development and perfected with Google stitch. The designs served as the reference point for layout, spacing, colour usage, and component structure throughout the build.
+ 
+#### Home Page
+![Home Page Design](./static/images/front-end-designs/Home-page.png)
+ 
+#### About Page
+![About Page Design](./static/images/front-end-designs/about-page.png)
+ 
+#### Services Page
+![Services Page Design](./static/images/front-end-designs/services-pge-screenshot.png)
+ 
+#### Packages Page
+![Packages Page Design](./static/images/front-end-designs/package-page.png)
+ 
+#### Portfolio Page
+![Portfolio Page Design](./static/images/front-end-designs/portfolio-page.png)
+ 
+#### Contact Page
+![Contact Page Design](./static/images/front-end-designs/contact-page.png)
+ 
+#### Sign In Page
+![Sign In Page Design](./static/images/front-end-designs/sign-in-page.png)
+ 
+#### Create Account Page
+![Create Account Page Design](./static/images/front-end-designs/create-account-page.png)
 
 ---
 
