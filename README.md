@@ -264,7 +264,7 @@ All Python files were validated using the [CI Python Linter](https://pep8ci.hero
  
 ---
 
-## Unit Tests (Django)
+## Automated Testing (Django)
  
 All Python unit tests were written using Django's built-in `TestCase` class and run using:
  
@@ -274,20 +274,172 @@ python manage.py test
  
 Tests cover models, views, and business logic across all apps.
  
-| App | Test Classes | Tests |
-|---|---|---|
-| packages | 15 | 54 |
-| accounts | 4 | 32 |
-| services | 2 | 10 |
-| orders | 2 | 18 |
-| portfolio | 4 | 16 |
-| contact | 2 | 24 |
-| about | 2 | 12 |
-| **Total** | **31** | **173** |
+| App | Test Classes | Tests | Result |
+|---|---|---|---|
+| packages | 15 | 54 | ✓ Pass |
+| accounts | 4 | 32 | ✓ Pass |
+| services | 2 | 10 | ✓ Pass |
+| orders | 2 | 18 | ✓ Pass |
+| portfolio | 4 | 16 | ✓ Pass |
+| contact | 2 | 24 | ✓ Pass |
+| about | 2 | 12 | ✓ Pass |
+| **Total** | **31** | **173** | **All passing** |
+ 
+```
+Found 173 test(s).
+Creating test database for alias 'default'...
+System check identified no issues (0 silenced).
+.........................................................................
+----------------------------------------------------------------------
+Ran 173 tests in 15.414s
+ 
+OK
+Destroying test database for alias 'default'...
+```
  
 ![Python test screenshot](./static/images/python-tests-screenshot.png)
  
 ---
+
+## Lighthouse Testing
+ 
+Pages were tested using Chrome DevTools Lighthouse in desktop mode against the live Heroku deployment.
+ 
+| Page | Performance | Accessibility | Best Practices | SEO |
+|---|---|---|---|---|
+| Home | 99 | 92 | 100 | 100 |
+
+![Lighhouse Report](./static/images/lighthouse-summary-FHQ.png)
+
+---
+
+## Manual Testing
+ 
+### User Stories
+ 
+| User Story | Expected Outcome | Result |
+|---|---|---|
+| As a visitor, I can view all available packages | Packages page displays all active packages with pricing | ✓ Pass |
+| As a visitor, I can build a custom package | Custom builder shows addons with running total | ✓ Pass |
+| As a visitor, I can view the portfolio | Portfolio page displays all live projects | ✓ Pass |
+| As a visitor, I can view available services | Services page lists all active services | ✓ Pass |
+| As a visitor, I can submit a contact enquiry | Form submits and success message is shown | ✓ Pass |
+| As a visitor, I can register for an account | Registration creates user and sends verification email | ✓ Pass |
+| As a user, I can log in with my email and password | Login authenticates user and redirects | ✓ Pass |
+| As a user, I cannot log in without verifying my email | Unverified users are blocked with an error message | ✓ Pass |
+| As a user, I can sign in with Google | Google OAuth redirects and logs user in | ✓ Pass |
+| As a user, I can purchase a package via Stripe | Checkout redirects to Stripe and order is created on success | ✓ Pass |
+| As a user, I can build and purchase a custom package | Custom checkout redirects to Stripe with correct line items | ✓ Pass |
+| As a user, I receive a confirmation email after purchase | Email sent to user on successful webhook event | ✓ Pass |
+| As a user, I can log out | Logout clears session and redirects to home | ✓ Pass |
+ 
+---
+
+### Navigation
+ 
+| Feature | Action | Expected Result | Result |
+|---|---|---|---|
+| Navbar logo | Click FHQ logo | Redirects to home page | ✓ Pass |
+| Navbar — Packages | Click Packages | Navigates to packages page | ✓ Pass |
+| Navbar — Portfolio | Click Portfolio | Navigates to portfolio page | ✓ Pass |
+| Navbar — Contact | Click Contact | Navigates to contact page | ✓ Pass |
+| Navbar — Login (logged out) | Click Login | Redirects to login page | ✓ Pass |
+| Navbar — Register (logged out) | Click Register | Redirects to register page | ✓ Pass |
+| Navbar — Logout (logged in) | Click Logout | Logs user out and redirects to home | ✓ Pass |
+| Mobile navbar | Click hamburger | Menu expands with all nav links | ✓ Pass |
+| Footer links | Click any footer link | Navigates to correct page | ✓ Pass |
+ 
+---
+
+### Authentication
+ 
+| Feature | Action | Expected Result | Result |
+|---|---|---|---|
+| Register — valid details | Submit form with valid email and matching passwords | User created, verification email sent, redirected to confirmation page | ✓ Pass |
+| Register — passwords do not match | Submit mismatched passwords | Error message shown, no user created | ✓ Pass |
+| Register — duplicate email | Submit an email already registered | Error message shown, no user created | ✓ Pass |
+| Register — short password | Submit password under 8 characters | Error message shown, no user created | ✓ Pass |
+| Register — already logged in | Visit /register/ while logged in | Redirected to home | ✓ Pass |
+| Login — valid credentials | Submit correct email and password | User logged in and redirected | ✓ Pass |
+| Login — wrong password | Submit incorrect password | Error message shown, not logged in | ✓ Pass |
+| Login — unknown email | Submit email not in system | Error message shown, not logged in | ✓ Pass |
+| Login — unverified email | Submit valid credentials before verifying email | Blocked with message to check inbox | ✓ Pass |
+| Login — already logged in | Visit /login/ while logged in | Redirected to home | ✓ Pass |
+| Login — next param | Log in with ?next=/packages/ in URL | Redirected to /packages/ after login | ✓ Pass |
+| Google OAuth | Click Sign in with Google | OAuth flow completes and user is logged in | ✓ Pass |
+| Logout | Click Logout | Session cleared, redirected to home, success message shown | ✓ Pass |
+ 
+---
+
+### Packages
+ 
+| Feature | Action | Expected Result | Result |
+|---|---|---|---|
+| Packages page | Visit /packages/ | All active packages displayed | ✓ Pass |
+| Package CTA — logged out | Click Get Started | Redirected to login | ✓ Pass |
+| Package CTA — logged in | Click Get Started | Redirected to Stripe Checkout | ✓ Pass |
+| Stripe Checkout | Complete payment | Redirected to success page, order created, confirmation email sent | ✓ Pass |
+| Payment cancel | Click back/cancel on Stripe | Redirected to packages page with error message | ✓ Pass |
+| Custom package builder | Visit /packages/custom/ | Addons displayed with running total | ✓ Pass |
+| Custom builder — select addon | Check an addon checkbox | Running total updates immediately | ✓ Pass |
+| Custom builder — deselect addon | Uncheck an addon | Running total decreases | ✓ Pass |
+| Custom builder — add pages | Enter a number in pages input | Total updates to include page cost | ✓ Pass |
+| Custom builder — summary button | Total is 0 | Summary button is disabled | ✓ Pass |
+| Custom builder — summary button | Total is greater than 0 | Summary button is enabled | ✓ Pass |
+| Custom summary page | Submit addon selection | Summary page shows selected addons and total | ✓ Pass |
+| Custom summary — remove addon | Click remove on an addon | Addon removed, total recalculated | ✓ Pass |
+| Custom summary — remove pages | Click remove on pages | Pages removed, total recalculated | ✓ Pass |
+| Custom checkout — logged out | Visit /packages/custom/checkout/ | Redirected to login | ✓ Pass |
+| Custom checkout — no addons | Visit with empty selection | Redirected back to custom package builder | ✓ Pass |
+| Custom checkout — logged in | Proceed with addons selected | Redirected to Stripe Checkout with correct line items | ✓ Pass |
+ 
+---
+
+### Portfolio
+ 
+| Feature | Action | Expected Result | Result |
+|---|---|---|---|
+| Portfolio page | Visit /portfolio/ | All live projects displayed | ✓ Pass |
+| Portfolio — draft project | Check unlive project | Not visible on portfolio page | ✓ Pass |
+| Portfolio — ordering | View projects | Ordered by most recently completed | ✓ Pass |
+| Portfolio — tags | View project cards | Tags display correctly on each card | ✓ Pass |
+ 
+---
+
+### Services
+ 
+| Feature | Action | Expected Result | Result |
+|---|---|---|---|
+| Services page | Visit /services/ | All active services displayed | ✓ Pass |
+| Services — inactive service | Check hidden service | Not visible on services page | ✓ Pass |
+| Services — ordering | View page | Services ordered by display_order | ✓ Pass |
+ 
+---
+
+### Contact
+ 
+| Feature | Action | Expected Result | Result |
+|---|---|---|---|
+| Contact page | Visit /contact/ | Form loads with active services in dropdown | ✓ Pass |
+| Contact — submit logged out | Submit form as anonymous user | Enquiry created with no user, success message shown | ✓ Pass |
+| Contact — submit logged in | Submit form as authenticated user | Enquiry created and linked to user, success message shown | ✓ Pass |
+| Contact — no service selected | Submit form with no service | Enquiry created with service as null | ✓ Pass |
+| Contact — with service | Submit form with service selected | Enquiry linked to correct service | ✓ Pass |
+| Contact — redirect | Submit form | Redirected back to contact page | ✓ Pass |
+ 
+---
+ 
+### About
+ 
+| Feature | Action | Expected Result | Result |
+|---|---|---|---|
+| About page | Visit /about/ | Active team members displayed | ✓ Pass |
+| About — inactive member | Check hidden member | Not visible on about page | ✓ Pass |
+| About — ordering | View page | Members ordered by display_order | ✓ Pass |
+ 
+---
+
+
 
 
 ## Bugs Discovered
