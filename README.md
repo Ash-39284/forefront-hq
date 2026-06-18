@@ -262,7 +262,30 @@ All Python files were validated using the [CI Python Linter](https://pep8ci.hero
 | services/admin.py | ✓ No errors |
 | services/tests.py | ✓ No errors |
  
+---
 
+## Unit Tests (Django)
+ 
+All Python unit tests were written using Django's built-in `TestCase` class and run using:
+ 
+```
+python manage.py test
+```
+ 
+Tests cover models, views, and business logic across all apps.
+ 
+| App | Test Classes | Tests |
+|---|---|---|
+| packages | 15 | 54 |
+| accounts | 4 | 32 |
+| services | 2 | 10 |
+| orders | 2 | 18 |
+| portfolio | 4 | 16 |
+| contact | 2 | 24 |
+| about | 2 | 12 |
+| **Total** | **31** | **173** |
+ 
+![Python test screenshot](./static/images/python-tests-screenshot.png)
  
 ---
 
