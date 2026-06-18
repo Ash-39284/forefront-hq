@@ -121,6 +121,30 @@ Overall, the focus is on building something that works end-to-end and feels like
  
 The design for Forefront HQ was planned in Canva before any code was written. The goal was a dark, minimal aesthetic that feels professional and trustworthy — the kind of site a startup would expect from a digital studio. All page layouts were designed as full desktop mockups first, then adapted for mobile and tablet during development.
 
+### Colour Palette
+ 
+The brand colour palette was created using Canva and Google Stitch and uses six core colours consistently across the site. The image below was created by claude ai to represent them visually.
+ 
+![Colour Palette](./static/images/front-end-designs/colour-pallette.png)
+ 
+| Colour | Hex | Usage |
+|---|---|---|
+| Brand Blue | `#1A6CF6` | Buttons, links, logo |
+| Dark Base | `#080D14` | Page background |
+| Surface | `#0B1220` | Cards, nav |
+| Elevated | `#162947` | Hover states, raised elements |
+| Text White | `#E8EDF5` | Headings, body text |
+| Muted | `#6B84A0` | Captions, labels |
+
+### Typography
+ 
+Two typefaces are used throughout the site, both loaded via Google Fonts:
+ 
+- **Space Grotesk** — used for all headings and UI labels. A geometric sans-serif that feels modern and technical without being cold.
+- **Space Mono** — used for code-style labels, tags, and accent text. Adds a developer character to the brand without overusing it.
+
+
+
 ---
 
 ## ERD
