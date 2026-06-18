@@ -118,7 +118,8 @@ Overall, the focus is on building something that works end-to-end and feels like
 ---
 
 ## Design Choices
-
+ 
+The design for Forefront HQ was planned in Canva before any code was written. The goal was a dark, minimal aesthetic that feels professional and trustworthy — the kind of site a startup would expect from a digital studio. All page layouts were designed as full desktop mockups first, then adapted for mobile and tablet during development.
 
 ---
 
