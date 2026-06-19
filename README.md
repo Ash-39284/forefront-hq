@@ -201,6 +201,16 @@ The ERD was designed during the planning phase and used as the blueprint for eve
 
 ---
 
+# Agile Development 
+
+### GitHub Project Board
+
+Development was managed using a GitHub Projects board with issues and user stories tracked throughout the build. Tasks were broken down into individual issues and moved through columns as work progressed.
+ 
+![GitHub Projects Board](./static/images/github-project-board.png)
+
+---
+
 # Testing
 
 ## Bugs Discovered
@@ -866,8 +876,9 @@ This section tests that data flows correctly through the application — from cr
  
 ---
 
+## Deployment
 
-## Deploying to Heroku
+### Deploying to Heroku
 
 The project was deployed to Heroku by connecting the GitHub repository through the Heroku dashboard. The following steps were followed:
 
