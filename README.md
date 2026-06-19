@@ -16,7 +16,8 @@
     - [Developer Goals](#developer-goals)
     - [Design Choices](#design-choices)
         - [Colour Palette](#colour-palette)
-        - [Frontend Design](#frontend-designs)
+        - [Typography](#typography)
+        - [Frontend Designs](#frontend-designs)
             - [Home Page](#home-page)
             - [About Page](#about-page)
             - [Services Page](#services-page)
@@ -39,23 +40,24 @@
     - [Features to Implement](#features-to-implement)
 4. [Technologies Used](#technologies-used)
 5. [Testing](#testing)
-    - [Code Validation](#code-validation)
     - [Bugs Discovered](#bugs-discovered)
-    - [Usability Testing](#usability-testing)
-    - [Responsiveness Testing](#responsiveness-testing)
-    - [Data Managemnt Testing](#data-management-testing)
-    - [Manual Testing](#manual-testing)
-    - [Automated Testing](#automated-testing)
+    - [Known Bugs](#known-bugs)
+    - [Code Validation](#code-validation)
+    - [Automated Testing](#automated-testing-django)
     - [Lighthouse Testing](#lighthouse-testing)
+    - [Manual Testing](#manual-testing)
+    - [Responsiveness Testing](#responsiveness-testing)
+    - [Browser Compatibility](#browser-compatibility)
+    - [Usability Testing](#usability-testing)
+    - [Data Management Testing](#data-management-testing)
 6. [Deployment](#deployment)
-    - [Prerequisites](#prerequisites)
     - [Deploying to Heroku](#deploying-to-heroku)
     - [How To Run The Project Locally](#how-to-run-the-project-locally)
 7. [Credits](#credits)
     - [Content](#content)
     - [Code](#code)
     - [Images](#images)
-    - [Acknowledgements](#acknowledgdements)
+    - [Acknowledgements](#acknowledgements)
 
 ## Introduction 
 
@@ -66,7 +68,7 @@ The platform focuses on simplicity and transparency, giving potential clients a 
 
 ## View Live Site
 
-[ForeFront HQ Live Site](https://forefront-hq-new-a54ac6718d65.herokuapp.com/)
+[Forefront HQ Live Site](https://forefront-hq-new-a54ac6718d65.herokuapp.com/)
 
 # UX
 
@@ -124,7 +126,7 @@ The design for Forefront HQ was planned in Canva before any code was written. Th
 
 ### Colour Palette
  
-The brand colour palette was created using Canva and Google Stitch and uses six core colours consistently across the site. The image below was created by claude ai to represent them visually.
+The brand colour palette was created using Canva and Google Stitch and uses six core colours consistently across the site. The image below was created by Claude AI to represent them visually.
  
 ![Colour Palette](./static/images/front-end-designs/colour-pallette.png)
  
@@ -144,9 +146,9 @@ Two typefaces are used throughout the site, both loaded via Google Fonts:
 - **Space Grotesk** — used for all headings and UI labels. A geometric sans-serif that feels modern and technical without being cold.
 - **Space Mono** — used for code-style labels, tags, and accent text. Adds a developer character to the brand without overusing it.
 
-### FrontEnd Designs
+### Frontend Designs
  
-All pages were designed in Canva prior to development and perfected with Google stitch. The designs served as the reference point for layout, spacing, colour usage, and component structure throughout the build.
+All pages were designed in Canva prior to development and perfected with Google Stitch. The designs served as the reference point for layout, spacing, colour usage, and component structure throughout the build.
  
 #### Home Page
 ![Home Page Design](./static/images/front-end-designs/Home-page.png)
@@ -176,7 +178,7 @@ All pages were designed in Canva prior to development and perfected with Google 
 
 ## Wireframes
 
-Each page was wireframed using google stitch across mobile, tablet and desktop breakpoints after the frontend designs were created. The wireframes focus on layout and content hierarchy. Focusing on where each section is placed, how much space it takes up and how the structure changes on different screen sizes. Working through this after the frontend design was created meant that the responsiveness break points and behabiours were planned before any coding happened. 
+Each page was wireframed using Google Stitch across mobile, tablet and desktop breakpoints after the frontend designs were created. The wireframes focus on layout and content hierarchy, focusing on where each section is placed, how much space it takes up and how the structure changes on different screen sizes. Working through this after the frontend design was created meant that the responsiveness breakpoints and behaviours were planned before any coding happened. 
 
 ### Mobile 
 
@@ -511,7 +513,7 @@ A custom 404 page is shown for any unmatched URL, keeping the user within the si
 - **Invoice generation** — automatic PDF invoice generation after a successful purchase
 - **Package enquiry flow** — an option to enquire about a package rather than purchasing directly, for clients who want to discuss requirements first
 - **Testimonials** — a database-driven testimonials section on the home page managed through the admin
-- **Digital Marketing packages** - an option to add digital marketing services to custom package or purchase sepereate packaged digital marketing packages.
+- **Digital marketing packages** — an option to add digital marketing services to a custom package, or to purchase separate, packaged digital marketing options
 
 ---
 
@@ -542,7 +544,7 @@ A custom 404 page is shown for any unmatched URL, keeping the user within the si
 - **SQLite** — local development database
 - **Google Workspace** — SMTP email sending via `hello@forefronthq.co.uk`
 - **Google Cloud Console** — Google OAuth credentials and redirect URI configuration
-- **claude ai** - for colour pallette representations, agile approach graph and assistance with debugging
+- **Claude AI** — for colour palette representations, the Agile timeline graph, and assistance with debugging
 - **Stripe Dashboard** — product, price, and webhook management
 - **Canva** — UI design and page mockups
 - **Google Stitch** — colour palette generation
@@ -746,9 +748,9 @@ payment_intent = session['payment_intent'] or ''
 **Description:** The deployed app showed a full red "Dangerous site" warning in Chrome, blocking all users from accessing it.
 **Cause:** The `.herokuapp.com` subdomain (`forefront-hq-cd14dedc71a3.herokuapp.com`) had been previously assigned to another app by Heroku before being allocated to this project. That prior app had been flagged by Google Safe Browsing for phishing/malware, and the flag remained attached to the hostname.
 **Fix:** Renamed the Heroku app to get a fresh, unflagged subdomain:
-
-`heroku apps:rename forefront-hq-new`
-
+```
+heroku apps:rename forefront-hq-new
+```
 New hostname: `forefront-hq-new-a54ac6718d65.herokuapp.com`. 
 Updated `ALLOWED_HOSTS` in `settings.py` accordingly.
 
@@ -771,25 +773,37 @@ Both templates extend `base.html` and use the existing `.auth-wrapper`, `.auth-c
 
 ### Bug 23 — Heroku Deployment Returning 400 Bad Request
 **Description:** After deploying the application to Heroku, visiting the live site displayed a plain "Bad Request (400)" page instead of the homepage. The application loaded correctly in local development but rejected requests made through the Heroku domain.
-**Cause:** The project was configured to load ALLOWED_HOSTS and SECRET_KEY from environment variables:
-`ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split(',')`
-`SECRET_KEY = os.environ.get('SECRET_KEY')`
-While these values existed in the local .env file, they had not been added to Heroku Config Vars. As a result:
-`ALLOWED_HOSTS` evaluated to `['']`
-The Heroku domain was not recognised as a valid host
-Django rejected incoming requests and returned HTTP 400 responses
+**Cause:** The project was configured to load `ALLOWED_HOSTS` and `SECRET_KEY` from environment variables:
+```python
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split(',')
+SECRET_KEY = os.environ.get('SECRET_KEY')
+```
+While these values existed in the local `.env` file, they had not been added to Heroku Config Vars. As a result:
+- `ALLOWED_HOSTS` evaluated to `['']`
+- The Heroku domain was not recognised as a valid host
+- Django rejected incoming requests and returned HTTP 400 responses
+
 Heroku logs confirmed repeated requests returning:
+```
 GET / HTTP/1.1" 400
 status=400
+```
 **Fix:** Added the required environment variables to Heroku:
-`heroku config:set SECRET_KEY="your-secret-key"`
-`heroku config:set ALLOWED_HOSTS="127.0.0.1,localhost,forefront-hq-new-a54ac6718d65.herokuapp.com"`
+```
+heroku config:set SECRET_KEY="your-secret-key"
+heroku config:set ALLOWED_HOSTS="127.0.0.1,localhost,forefront-hq-new-a54ac6718d65.herokuapp.com"
+```
 The application was then restarted:
-`heroku restart --app forefront-hq-new`
+```
+heroku restart --app forefront-hq-new
+```
 After deployment, the logs showed successful responses:
-`GET / HTTP/1.1" 200`
-`status=200`
+```
+GET / HTTP/1.1" 200
+status=200
+```
 confirming that Django was correctly accepting requests from the Heroku domain.
+
 **Result:** The deployed application loaded successfully and all static assets were served correctly.
 
 **Before fix**
@@ -816,12 +830,11 @@ confirming that Django was correctly accepting requests from the Heroku domain.
 
 ![Stripe Webhook confirmation](./static/images/stripe-webhook-confirmation-screenshot.png)
 
-### Known Bug 2 - Social media links, privacy policy and terms & conditions footer links. Not directed to these pages.
+### Known Bug 2 — Footer Links Not Yet Pointing to Live Pages
 
-**Description** The links are live on the footer throughout the project. They do direct th user to what is described currently. 
+**Description:** The social media, privacy policy, and terms & conditions links are live in the footer throughout the project, but they do not currently direct the user to the pages described.
 
-**Status** Unresolved at this time. Until the relevant social media pages are live and active. Also the privacy policy and terms & conditions are written and pages implemented into the project.
-
+**Status:** Unresolved at this time, pending the relevant social media pages going live, and the privacy policy and terms & conditions pages being written and implemented into the project.
 
 ---
 
@@ -1230,7 +1243,7 @@ This section tests that data flows correctly through the application — from cr
  
 ---
 
-## Deployment
+# Deployment
 
 ## Deploying to Heroku
  
@@ -1240,6 +1253,7 @@ The project was deployed to Heroku by connecting the GitHub repository through t
 2. Give the app a unique name and select your region, then click **Create app**
 3. In the **Resources** tab, search for **Heroku Postgres** and add it as an add-on to provision the database
 4. In the **Settings** tab, click **Reveal Config Vars** and add the following environment variables:
+
 | Key | Value |
 |---|---|
 | `DATABASE_URL` | Your Heroku PostgreSQL URL (added automatically) |
@@ -1257,6 +1271,7 @@ The project was deployed to Heroku by connecting the GitHub repository through t
 6. Search for your repository name and click **Connect**
 7. Scroll down to **Manual Deploy**, select the `main` branch and click **Deploy Branch**
 8. Once the build completes, click **Open App** to view the live site
+
 > **Note:** After deployment, if your app is assigned an existing Heroku subdomain that has a Google Safe Browsing flag from a previous tenant, rename the app via the CLI to get a fresh hostname:
 > ```
 > heroku apps:rename your-new-app-name
@@ -1342,10 +1357,9 @@ All written content — including service descriptions, package features, and pa
  
 - Portfolio project images hosted via [imgbb](https://imgbb.com/)
 - FHQ logo and brand assets created by Ashley Roberts in Canva
-- Page mockup designs created by Ashley Roberts in Canva an in Google stitch
-- Colour pallette was made by claude ai 
-- 
+- Page mockup designs created by Ashley Roberts in Canva and Google Stitch
+- Colour palette was made by Claude AI
 
-### Acknowledgdements
+### Acknowledgements
 
 This project was developed and coded by Ashley Roberts in 2026.
