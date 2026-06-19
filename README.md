@@ -16,14 +16,15 @@
     - [Developer Goals](#developer-goals)
     - [Design Choices](#design-choices)
         - [Colour Palette](#colour-palette)
-        - [Frontend Design (Canva)](#frontend-design-canva)
+        - [Frontend Design](#frontend-designs)
             - [Home Page](#home-page)
             - [About Page](#about-page)
-            - [Genre Page](#genre-page)
-            - [Explore Page](#explore-page)
-            - [Album Discussion Page](#album-discussion-page)
-            - [Login Page](#login-page)
-            - [Signup Page](#signup-page)
+            - [Services Page](#services-page)
+            - [Packages Page](#packages-page)
+            - [Portfolio Page](#portfolio-page)
+            - [Contact Page](#contact-page)
+            - [Sign In Page](#sign-in-page)
+            - [Create Account Page](#create-account-page)
         - [Wireframes](#wireframes)
             - [Mobile](#mobile)
             - [Tablet](#tablet)
@@ -170,6 +171,20 @@ All pages were designed in Canva prior to development and perfected with Google 
  
 #### Create Account Page
 ![Create Account Page Design](./static/images/front-end-designs/create-account-page.png)
+
+---
+
+## Wireframes
+
+Each page was wireframed using google stitch across mobile, tablet and desktop breakpoints after the frontend designs were created. The wireframes focus on layout and content hierarchy. Focusing on where each section is placed, how much space it takes up and how the structure changes on different screen sizes. Working through this after the frontend design was created meant that the responsiveness break points and behabiours were planned before any coding happened. 
+
+### Mobile 
+
+
+
+### Tablet
+
+### Desktop
 
 ---
 
@@ -618,6 +633,7 @@ confirming that Django was correctly accepting requests from the Heroku domain.
 **Description** The links are live on the footer throughout the project. They do direct th user to what is described currently. 
 
 **Status** Unresolved at this time. Until the relevant social media pages are live and active. Also the privacy policy and terms & conditions are written and pages implemented into the project.
+
 
 ---
 
