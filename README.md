@@ -1018,42 +1018,43 @@ This section tests that data flows correctly through the application — from cr
 
 ## Deployment
 
-### Deploying to Heroku
-
+## Deploying to Heroku
+ 
 The project was deployed to Heroku by connecting the GitHub repository through the Heroku dashboard. The following steps were followed:
-
+ 
 1. Log in to [Heroku](https://www.heroku.com/) and click **New → Create new app**
 2. Give the app a unique name and select your region, then click **Create app**
 3. In the **Resources** tab, search for **Heroku Postgres** and add it as an add-on to provision the database
 4. In the **Settings** tab, click **Reveal Config Vars** and add the following environment variables:
-
 | Key | Value |
-|-----|-------|
+|---|---|
 | `DATABASE_URL` | Your Heroku PostgreSQL URL (added automatically) |
 | `SECRET_KEY` | Your Django secret key |
+| `ALLOWED_HOSTS` | Your Heroku hostname and localhost |
 | `DEBUG` | `False` |
 | `DJANGO_SETTINGS_MODULE` | `forefront_hq.settings` |
 | `STRIPE_SECRET_KEY` | Your Stripe secret key |
 | `STRIPE_PUBLIC_KEY` | Your Stripe publishable key |
 | `STRIPE_WEBHOOK_SECRET` | Your Stripe webhook signing secret |
-
+| `EMAIL_HOST_USER` | Your Google Workspace email address |
+| `EMAIL_HOST_PASSWORD` | Your Google Workspace app password |
+ 
 5. In the **Deploy** tab, select **GitHub** as the deployment method
 6. Search for your repository name and click **Connect**
 7. Scroll down to **Manual Deploy**, select the `main` branch and click **Deploy Branch**
 8. Once the build completes, click **Open App** to view the live site
-
 > **Note:** After deployment, if your app is assigned an existing Heroku subdomain that has a Google Safe Browsing flag from a previous tenant, rename the app via the CLI to get a fresh hostname:
 > ```
 > heroku apps:rename your-new-app-name
 > ```
-> Then update `ALLOWED_HOSTS` in `settings.py` with the new hostname.
+> Then update `ALLOWED_HOSTS` in your Heroku config vars with the new hostname.
 
 ---
 
 ## How To Run The Project Locally
-
+ 
 To clone this project from GitHub:
-
+ 
 1. Follow this link to the [GitHub Repository](https://github.com/Ash-39284/forefront-hq)
 2. Under the repository name, click the green **Code** button to reveal a dropdown menu
 3. Select the **HTTPS** tab and copy the URL
@@ -1061,51 +1062,78 @@ To clone this project from GitHub:
 5. Change the current working directory to the location where you want the cloned directory
 6. Type `git clone` followed by the URL you copied, then press **Enter**:
 ```bash
-    git clone https://github.com/Ash-39284/forefront-hq
+git clone https://github.com/Ash-39284/forefront-hq
 ```
 7. Navigate into the cloned directory:
 ```bash
-    cd forefront_hq
+cd forefront_hq
 ```
 8. Create and activate a virtual environment:
 ```bash
-    python -m venv .venv
-    source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+python -m venv .venv
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 ```
 9. Install the required dependencies:
 ```bash
-    pip install -r requirements.txt
+pip install -r requirements.txt
 ```
-10. Create an `env.py` file in the root directory and add your environment variables:
-```python
-    import os
-    os.environ["SECRET_KEY"] = "your-secret-key"
-    os.environ["DATABASE_URL"] = "your-database-url"
-    os.environ["STRIPE_SECRET_KEY"] = "your-stripe-secret-key"
-    os.environ["STRIPE_PUBLIC_KEY"] = "your-stripe-publishable-key"
-    os.environ["STRIPE_WEBHOOK_SECRET"] = "your-stripe-webhook-secret"
+10. Create a `.env` file in the root directory and add your environment variables:
+```
+SECRET_KEY=your-secret-key
+ALLOWED_HOSTS=127.0.0.1,localhost
+STRIPE_SECRET_KEY=your-stripe-secret-key
+STRIPE_PUBLIC_KEY=your-stripe-publishable-key
+STRIPE_WEBHOOK_SECRET=your-stripe-webhook-secret
+EMAIL_HOST_USER=your-google-workspace-email
+EMAIL_HOST_PASSWORD=your-google-workspace-app-password
 ```
 11. Run the database migrations:
 ```bash
-    python manage.py migrate
+python manage.py migrate
 ```
 12. Create a superuser to access the admin panel:
 ```bash
-    python manage.py createsuperuser
+python manage.py createsuperuser
 ```
 13. Collect static files:
 ```bash
-    python manage.py collectstatic
+python manage.py collectstatic
 ```
 14. Start the development server:
 ```bash
-    python manage.py runserver
+python manage.py runserver
 ```
 15. Open your browser and navigate to `http://127.0.0.1:8000/`
 
-
 ---
 
-## Acknowledgdements
+# Credits
+
+### Content 
+
+All written content — including service descriptions, package features, and page copy — was written by Ashley Roberts.
+
+### Code
+
+## Code
+ 
+- [Django Documentation](https://docs.djangoproject.com/) — models, views, forms, authentication, admin, testing
+- [django-allauth Documentation](https://docs.allauth.org/) — email verification, Google OAuth, custom template overrides
+- [Stripe Documentation](https://stripe.com/docs) — Checkout sessions, webhook handler, signature verification
+- [Google Cloud Documentation](https://cloud.google.com/docs) — OAuth 2.0 credentials and redirect URI setup
+- [Heroku Documentation](https://devcenter.heroku.com/) — deployment, config vars, Postgres setup
+- [W3Schools](https://www.w3schools.com/) — HTML, CSS, and JavaScript reference
+- [Bootstrap 5 Documentation](https://getbootstrap.com/docs/5.3/) — grid system, navbar, responsive utilities
+- [Jest Documentation](https://jestjs.io/docs/getting-started) — JavaScript unit testing setup and configuration
+
+## Images
+ 
+- Portfolio project images hosted via [imgbb](https://imgbb.com/)
+- FHQ logo and brand assets created by Ashley Roberts in Canva
+- Page mockup designs created by Ashley Roberts in Canva an in Google stitch
+- Colour pallette was made by claude ai 
+- 
+
+### Acknowledgdements
 
 This project was developed and coded by Ashley Roberts in 2026.
