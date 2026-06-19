@@ -203,6 +203,8 @@ The ERD was designed during the planning phase and used as the blueprint for eve
 
 # Agile Development 
 
+Forefront HQ was planned and built using an Agile approach throughout. GitHub Projects was used as the Kanban board to manage all work, tracking issues from backlog through to completion across five development phases.
+
 ### GitHub Project Board
 
 Development was managed using a GitHub Projects board with issues and user stories tracked throughout the build. Tasks were broken down into individual issues and moved through columns as work progressed.
@@ -244,6 +246,8 @@ Django unit tests across all apps, Jest tests for JavaScript, HTML/CSS/Python va
  
 **Phase 7 — README and Submission**
 Full README written and final deployment checks.
+
+![Agile timeline graph](./static/images/agile_timeline.svg)
 
 ---
 
@@ -1109,11 +1113,9 @@ python manage.py runserver
 
 # Credits
 
-### Content 
+## Content 
 
 All written content — including service descriptions, package features, and page copy — was written by Ashley Roberts.
-
-### Code
 
 ## Code
  
