@@ -184,36 +184,65 @@ Each page was wireframed using google stitch across mobile, tablet and desktop b
 
 ![Home Page Wireframe Mobile](./static/images/mobile-wireframes-fhq/home-page.png)
 
+On mobile the home page stacks all content into a single column. The navbar collapses to a hamburger menu to preserve space at the top. The hero sits first with the tagline, subtitle, and two CTA buttons stacked vertically. The business card mockup follows below the hero text rather than sitting beside it, since there is not enough horizontal space for a two-column layout at this width. The footer sits at the bottom with navigation links stacked into a compact column.
 
+---
 
 **About Page**
 
 ![About Page Wireframe Mobile](./static/images/mobile-wireframes-fhq/about-page.png)
 
+The about page on mobile stacks the logo, intro text, and team member cards into a single column. The team cards that appear in a grid on larger screens each become a full-width row on mobile, keeping the profile image, name, job title, and bio readable without shrinking the content. The call to action buttons sit below the team section, followed by the footer.
+
+---
 
 **Services Page**
 
 ![Services Page Wireframe Desktop](./static/images/mobile-wireframes-fhq/services-page.png)
 
+The services page on mobile places each service card as a full-width block, stacked vertically. Each card shows the service icon, name, tagline, description, and feature checklist. Stacking them this way ensures the checklist items have enough room to remain readable rather than being compressed into a narrow column.
+
+---
+
 **Packages Page**
 
 ![Packages Page Wireframe Mobile](./static/images/mobile-wireframes-fhq/packages-page.png)
+
+On mobile the packages page stacks the Starter and Growth cards vertically, each taking the full screen width. The Build Your Own section follows below with addon cards stacked in a single column. The running total bar and Review My Package button sit at the bottom of the builder section, giving the user a clear summary of their selection before proceeding.
+
+---
 
 **Portfolio Page**
 
 ![Portfolio Page Wireframe Mobile](./static/images/mobile-wireframes-fhq/portfolio-page.png)
 
+Portfolio project cards stack into a single full-width column on mobile. Each card shows the project image at the top, followed by the live badge, category label, client name, description, and tags. Stacking the cards vertically means the image and text have room to breathe and the project details are easy to read on a small screen. The Start a Project button sits at the bottom of the project list.
+ 
+---
+
 **Contact Page**
 
 ![Contact Page Wireframe Mobile](./static/images/mobile-wireframes-fhq/contact-page.png)
+
+The contact page on mobile stacks the hero text and contact info block above the form. All four form fields — name, email, service dropdown, and message textarea — stack vertically and take the full available width. The Send Message button sits at the bottom of the form, also full width. This layout keeps the form simple and easy to complete on a small screen without any horizontal scrolling.
+ 
+---
 
 **Login Page**
 
 ![Login Page Wireframe Mobile](./static/images/mobile-wireframes-fhq/sign-in-page.png)
 
+The login page on mobile uses a centred auth card that fills the available width with comfortable padding. The Google sign-in button sits at the top of the card above the OR divider. Below it the email and password fields stack vertically, followed by the Forgot Password link and the Sign In button. The simplicity of this layout means there is nothing competing with the form, which is especially important on a small screen where space is limited.
+ 
+---
+
 **Sign Up Page**
 
 ![Signup Page Wireframe Mobile](./static/images/mobile-wireframes-fhq/sign-up-page.png)
+
+The register page mirrors the login layout — a centred form card filling the available width. The Google sign-up button sits above the OR divider, with the email, password, and confirm password fields stacked below. The Create Account button sits at the bottom. Keeping the two auth pages visually consistent means users moving between login and register always see a familiar structure.
+ 
+---
 
 ### Tablet
 
@@ -270,7 +299,7 @@ Each page was wireframed using google stitch across mobile, tablet and desktop b
 
 **Portfolio Page**
 
-![](./static/images/desktop-wireframes-fhq/portfolio-page-desktop.png)
+![Portfolio Page Wireframe Mobile](./static/images/desktop-wireframes-fhq/portfolio-page-desktop.png)
 
 **Contact Page**
 
