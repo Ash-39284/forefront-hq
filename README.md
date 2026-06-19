@@ -209,6 +209,17 @@ Development was managed using a GitHub Projects board with issues and user stori
  
 ![GitHub Projects Board](./static/images/github-project-board.png)
 
+## MoSCoW Prioritisation
+ 
+User stories and features were prioritised using the MoSCoW method to keep the project focused on delivering a working product within the available time.
+ 
+| Priority | Items |
+|---|---|
+| **Must Have** | User registration and login, email verification, packages page, Stripe checkout, webhook order creation, portfolio page, contact form, services page |
+| **Should Have** | Custom package builder, Google OAuth, order confirmation email, UserProfile model, admin content management |
+| **Could Have** | Package addon pages counter, custom package summary page, portfolio tags, staff about page |
+| **Won't Have** | Client dashboard, invoice generation, live chat, subscription billing |
+
 ---
 
 # Testing
