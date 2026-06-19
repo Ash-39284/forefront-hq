@@ -247,6 +247,57 @@ Full README written and final deployment checks.
 
 ---
 
+# Features
+ 
+## Existing Features
+ 
+### Navigation
+A fully responsive navbar is present on every page, built with Bootstrap 5.3.3. On desktop it shows all navigation links, the login/register buttons when logged out, and a logout button when logged in. On mobile it collapses to a hamburger menu. The active page is highlighted in the nav.
+ 
+### Home Page
+The home page introduces Forefront HQ with a hero section, tagline, and two CTAs — View Packages and See Our Work. A live business card mockup sits alongside the hero text.
+ 
+### About Page
+Displays active team members pulled from the `StaffAbout` model. Members are ordered by `display_order` and managed entirely through the Django admin.
+ 
+### Services Page
+Lists all active services from the `Service` model in order of `display_order`. Each service card shows the name, tagline, description, and a checklist of features. Content is fully database-driven and editable through the admin.
+ 
+### Packages Page
+Displays the Starter and Growth packages from the `Package` model with pricing, features, and CTA buttons. Logged-in users are taken directly to Stripe Checkout. Logged-out users are redirected to login first.
+ 
+### Custom Package Builder
+Allows users to select individual addons and specify the number of additional pages they need. A live running total updates as checkboxes are ticked using vanilla JavaScript. The summary button is disabled until at least one item is selected.
+ 
+### Custom Package Summary
+Shows the user's selected addons and total before checkout. Individual addons and the additional pages item can be removed from the summary, with the total updating accordingly. Proceeds to a dynamic Stripe Checkout session with line items matching the selection.
+ 
+### Portfolio Page
+Displays live portfolio projects from the `PortfolioProject` model, ordered by most recently completed. Each card shows the project image, title, client, category, description, and tags. Draft projects with `is_live=False` are hidden.
+ 
+### Contact Page
+A contact form that stores enquiries in the `ContactEnquiry` model. Logged-in users are automatically linked to their account. A service of interest dropdown shows all active services. Submissions redirect back to the contact page with a success message.
+ 
+### User Registration
+Custom registration view with email and password validation. On success, an allauth `EmailAddress` record is created and a confirmation email is sent. Users cannot log in until they verify their email.
+ 
+### User Login
+Email-based login with allauth integration. Unverified users are blocked and shown an appropriate message. Google OAuth is available as an alternative sign-in method.
+ 
+### Stripe Payments
+Full Stripe Checkout integration for both fixed packages and custom builds. On successful payment, a Stripe webhook fires and creates an `Order` and `Payment` record in the database. The customer's Stripe ID is saved to their `UserProfile`.
+ 
+### Order Confirmation Email
+After a successful webhook event, a confirmation email is sent to the customer with the package name, amount, and order date.
+ 
+### Django Admin
+All content — packages, addons, services, portfolio projects, team members, orders, payments, and contact enquiries — is managed through the Django admin panel.
+ 
+### 404 Page
+A custom 404 page is shown for any unmatched URL, keeping the user within the site's design and navigation.
+ 
+---
+
 # Testing
 
 ## Bugs Discovered
