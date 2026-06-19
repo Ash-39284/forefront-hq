@@ -613,6 +613,12 @@ confirming that Django was correctly accepting requests from the Heroku domain.
 
 ![Stripe Webhook confirmation](./static/images/stripe-webhook-confirmation-screenshot.png)
 
+### Known Bug 2 - Social media links, privacy policy and terms & conditions footer links. Not directed to these pages.
+
+**Description** The links are live on the footer throughout the project. They do direct th user to what is described currently. 
+
+**Status** Unresolved at this time. Until the relevant social media pages are live and active. Also the privacy policy and terms & conditions are written and pages implemented into the project.
+
 ---
 
 ## Code Validation
