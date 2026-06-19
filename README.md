@@ -328,7 +328,28 @@ A custom 404 page is shown for any unmatched URL, keeping the user within the si
 - **python-dotenv** — loading environment variables from `.env` in development
 - **Jest 29** — JavaScript unit testing with `jest-environment-jsdom`
 
+## Tools and Services
+ 
+- **Heroku** — cloud platform used for deployment
+- **Heroku Postgres** — production database
+- **SQLite** — local development database
+- **Google Workspace** — SMTP email sending via `hello@forefronthq.co.uk`
+- **Google Cloud Console** — Google OAuth credentials and redirect URI configuration
+- **claude ai** - for colour pallette representations, agile approach graph and assistance with debugging
+- **Stripe Dashboard** — product, price, and webhook management
+- **Canva** — UI design and page mockups
+- **Google Stitch** — colour palette generation
+- **Font Awesome** — Google icon on the login page
+- **Google Fonts** — Space Grotesk and Space Mono typefaces
+- **imgbb** — image hosting for portfolio project images
+- **Git** — version control
+- **GitHub** — repository hosting and project board
+- **VS Code** — development environment
+- **CI Python Linter** — PEP8 validation
+- **W3C HTML Validator** — HTML validation
+- **W3C CSS Validator** — CSS validation
 
+---
 
 # Testing
 
