@@ -250,33 +250,65 @@ The register page mirrors the login layout — a centred form card filling the a
 
 ![Home Page Wireframe Tablet](./static/images/tablet-wireframes-fhq/home-page-tablet.png)
 
+On tablet the home page introduces a two-column layout for the hero section — the title, tagline, and CTA buttons sit on the left while the business card mockup sits on the right. This makes better use of the wider screen without going to a full desktop layout. The navbar expands to show all links. The services section moves to a two-column grid so two cards sit side by side before wrapping.
+ 
+---
+
 **About Page**
 
 ![About Page Wireframe Tablet](./static/images/tablet-wireframes-fhq/about-page-tablet.png)
+
+The tablet about page moves the hero into a two-column layout, with the logo on the left and the intro text on the right. Team member cards switch to a two-column grid, with two members visible side by side before wrapping. This is more efficient than the single-column mobile layout while avoiding the squeeze that would come from forcing three cards into a narrower container.
+ 
+---
 
 **Services Page**
 
 ![Services Page Wireframe Tablet](./static/images/tablet-wireframes-fhq/services-page-tablet.png)
 
+On tablet the services page moves to a two-column grid so two service cards sit side by side. This makes better use of the available width and allows users to compare services more easily than on mobile where each card takes the full screen width.
+ 
+---
+
 **Packages Page**
 
 ![Packages Page Wireframe Tablet](./static/images/tablet-wireframes-fhq/packages-page-tablet.png)
+
+The Starter and Growth package cards sit side by side on tablet in a two-column layout. The Build Your Own addon cards also move to a two-column grid. The running total bar spans the full width at the bottom of the builder section.
+ 
+---
 
 **Portfolio Page**
 
 ![Portfolio Page Wireframe Tablet](./static/images/tablet-wireframes-fhq/portfolio-page-tablet.png)
 
+Portfolio project cards switch to a two-column grid on tablet. Two project cards sit side by side, showing more work per row than on mobile while keeping each card large enough to display the image and details comfortably. The Start a Project button sits below the grid, centred on the page.
+ 
+---
+
 **Contact Page**
 
 ![Contact Page Wireframe Tablet](./static/images/tablet-wireframes-fhq/contact-page-tablet.png)
+
+The contact page on tablet benefits from the extra width but remains largely single-column. The hero text and contact info sit above the form card, which now has more breathing room than on mobile. The four form fields take the full width of the card, and the Send Message button spans the full card width.
+ 
+---
 
 **Login Page**
 
 ![Login Page Wireframe Tablet](./static/images/tablet-wireframes-fhq/login-page-tablet.png)
 
+On tablet the login form card narrows slightly relative to the full screen width so it does not stretch uncomfortably wide. The background is visible on both sides of the card, giving the page a more composed feel. The field order and button placement remain the same as on mobile.
+ 
+---
+
 **Sign Up Page**
 
 ![Signup Page Wireframe Tablet](./static/images/tablet-wireframes-fhq/signup-page-tablet.png)
+
+The register page on tablet follows the same principle as the login page — a centred card that is narrower than the full screen width with the background visible either side. The three fields, Google button, and Create Account button maintain the same vertical order as on mobile.
+ 
+---
 
 
 ### Desktop
