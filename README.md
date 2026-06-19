@@ -310,41 +310,69 @@ The register page on tablet follows the same principle as the login page — a c
  
 ---
 
-
 ### Desktop
 
 **Home Page**
 
 ![Home Page Wireframe Mobile](./static/images/desktop-wireframes-fhq/home-page-desktop.png)
 
+The desktop home page uses the full page width. The navbar is fully expanded with all links visible. The hero remains two-column with the title and CTAs on the left and the business card mockup on the right, now with more space for both. The services section moves to a four-column grid, showing all four service cards in a single row. The footer sits at the bottom with logo, navigation, more links, and social media columns arranged side by side.
+ 
+---
+
 **About Page**
 
 ![About Page Wireframe Mobile](./static/images/desktop-wireframes-fhq/about-page-desktop.png)
+
+On desktop the about page hero remains two-column. Team member cards move to a three-column grid, with all members visible in a single row. Having all team members visible at once without scrolling reinforces the sense of a complete, professional team. The call to action and footer follow as full-width sections below.
+ 
+---
 
 **Services Page**
 
 ![Services Page Wireframe Mobile](./static/images/desktop-wireframes-fhq/services-page-desktop.png)
 
+The services page on desktop uses a four-column grid, displaying all four service cards in a single row. This is the most efficient use of the wider screen and gives users an immediate overview of everything on offer without needing to scroll. Each card has enough horizontal space to show the icon, name, tagline, and full feature checklist comfortably.
+ 
+---
+
 **Packages Page**
 
 ![Packages Page Wireframe Mobile](./static/images/desktop-wireframes-fhq/packages-desktop.png)
+
+On desktop the packages page shows the Starter and Growth cards side by side with a clear visual separation between them. The Build Your Own addon cards move to a three-column grid, showing all addons in fewer rows. The running total bar spans the full width at the bottom, keeping the total and checkout button always in view as the user makes selections.
+ 
+---
 
 **Portfolio Page**
 
 ![Portfolio Page Wireframe Mobile](./static/images/desktop-wireframes-fhq/portfolio-page-desktop.png)
 
+The desktop portfolio page uses a three-column project grid. Three cards visible per row means users immediately get a strong sense of the breadth of work on the page without needing to scroll to understand how much is there. Each card has space for the project image, live badge, category, client name, description, and tags all at once.
+ 
+---
+
 **Contact Page**
 
 ![Contact Page Wireframe Mobile](./static/images/desktop-wireframes-fhq/contact-page-desktop.png)
+
+The contact page on desktop splits into two columns. The left column holds the hero heading, intro text, and contact info icons — email, response time, location, and consultation details. The right column holds the form card with all four fields and the Send Message button. This two-column layout makes the page feel more spacious and allows users to see the contact information and the form side by side without needing to scroll between them.
+ 
+---
 
 **Login Page**
 
 ![Login Page Wireframe Mobile](./static/images/desktop-wireframes-fhq/login-page-desktop.png)
 
+On desktop the login form card is wider than on tablet but stops well short of the full page width, keeping the form contained and focused. The dark background remains visible on both sides of the card, maintaining the site's visual identity. The field layout and button placement are identical to tablet and mobile, so users always know what to expect regardless of the device they are using.
+ 
+---
+
 **Sign Up Page**
 
 ![Sign Up Page Wireframe Mobile](./static/images/desktop-wireframes-fhq/sign-up-page-desktop.png)
 
+The register page on desktop follows the same principle as login — a centred card that is proportional to the screen width without stretching across it. The Google sign-up button, email field, password field, confirm password field, and Create Account button sit in a clean vertical stack. Keeping both auth pages visually consistent across all three breakpoints means users switching between login and register always see a familiar layout.
 
 ---
 
