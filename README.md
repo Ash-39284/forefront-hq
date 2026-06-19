@@ -306,6 +306,30 @@ A custom 404 page is shown for any unmatched URL, keeping the user within the si
 - **Testimonials** — a database-driven testimonials section on the home page managed through the admin
 - **Digital Marketing packages** - an option to add digital marketing services to custom package or purchase sepereate packaged digital marketing packages.
 
+---
+
+# Technologies Used
+ 
+## Languages
+ 
+- **HTML5** — page structure and templates
+- **CSS3** — custom styling via `static/css/style.css`
+- **JavaScript** — flash message auto-dismiss and custom package builder interactivity (`static/js/script.js`)
+- **Python** — all backend logic via Django
+
+## Frameworks and Libraries
+ 
+- **Django 6.0.5** — the core web framework handling models, views, templates, and URL routing
+- **django-allauth 65.17.0** — authentication including email verification and Google OAuth
+- **Bootstrap 5.3.3** — responsive grid, navbar, and utility classes
+- **Stripe** — payment processing via Stripe Checkout and webhooks
+- **Whitenoise 6.12.0** — serving static files in production on Heroku
+- **Gunicorn 26.0.0** — WSGI server for production deployment
+- **python-dotenv** — loading environment variables from `.env` in development
+- **Jest 29** — JavaScript unit testing with `jest-environment-jsdom`
+
+
+
 # Testing
 
 ## Bugs Discovered
