@@ -298,6 +298,14 @@ A custom 404 page is shown for any unmatched URL, keeping the user within the si
  
 ---
 
+## Features to Implement
+ 
+- **Client dashboard** — a logged-in area where clients can view their order history and download invoices
+- **Invoice generation** — automatic PDF invoice generation after a successful purchase
+- **Package enquiry flow** — an option to enquire about a package rather than purchasing directly, for clients who want to discuss requirements first
+- **Testimonials** — a database-driven testimonials section on the home page managed through the admin
+- **Digital Marketing packages** - an option to add digital marketing services to custom package or purchase sepereate packaged digital marketing packages.
+
 # Testing
 
 ## Bugs Discovered
