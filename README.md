@@ -220,6 +220,31 @@ User stories and features were prioritised using the MoSCoW method to keep the p
 | **Could Have** | Package addon pages counter, custom package summary page, portfolio tags, staff about page |
 | **Won't Have** | Client dashboard, invoice generation, live chat, subscription billing |
 
+## Development Phases
+ 
+The project was built in phases, with each phase focused on a specific area of functionality before moving to the next.
+ 
+**Phase 1 — Project Setup**
+Django project created, apps registered, base template built, static files configured, deployed to Heroku early.
+ 
+**Phase 2 — Authentication**
+Custom login and register views, django-allauth integrated, email verification flow, Google OAuth, allauth template overrides.
+ 
+**Phase 3 — Core Pages**
+Home, about, services, portfolio, and contact pages built and wired to the database via their respective models.
+ 
+**Phase 4 — Packages and Stripe**
+Package and addon models, packages page, Stripe Checkout integration, webhook handler, order and payment models, success and cancel pages.
+ 
+**Phase 5 — Custom Package Builder**
+Addon selection with session storage, running total JavaScript, summary page, remove addon/pages views, custom Stripe checkout with dynamic line items.
+ 
+**Phase 6 — Testing and Validation**
+Django unit tests across all apps, Jest tests for JavaScript, HTML/CSS/Python validation, bug fixes, Lighthouse testing.
+ 
+**Phase 7 — README and Submission**
+Full README written and final deployment checks.
+
 ---
 
 # Testing
