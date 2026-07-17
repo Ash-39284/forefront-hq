@@ -10,7 +10,10 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'forefront-hq-production-4972.up.railway.app']
+ALLOWED_HOSTS=127.0.0.1,localhost,forefront-hq-production-4972.up.railway.app
+
+CSRF_TRUSTED_ORIGINS = ['https://forefront-hq-production-4972.up.railway.app']
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -128,3 +131,4 @@ STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY')
 STRIPE_WEBHOOK_SECRET = os.environ.get('STRIPE_WEBHOOK_SECRET')
 
 LOGIN_URL = '/login/'
+
