@@ -10,7 +10,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 
 DEBUG = False
 
-ALLOWED_HOSTS=127.0.0.1,localhost,forefront-hq-production-4972.up.railway.app
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'forefront-hq-production-4972.up.railway.app']
 
 CSRF_TRUSTED_ORIGINS = ['https://forefront-hq-production-4972.up.railway.app']
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
