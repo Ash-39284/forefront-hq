@@ -24,4 +24,4 @@ staticfiles/
 .DS_Store
 
 # VS Code
-.vscode/
+.vscode/datadump.json
