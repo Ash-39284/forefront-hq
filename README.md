@@ -3,6 +3,8 @@
 
 ![Forefront Mockup](./static/images/forefront-hq-mock-ups.png)
 
+> **Post-submission update:** Since the original build, Forefront HQ has been migrated from Heroku to Railway, and the Stripe-powered packages/checkout system has been removed in favour of a simpler enquiry-based flow. The sections below have been updated to reflect the current live version of the site. Historical bug entries relating to the original Heroku/Stripe build have been kept for record, with a new section documenting the Railway migration and refactor added afterwards.
+
 ## Table of Contents
 
 [Introduction](#introduction)
@@ -37,10 +39,12 @@
     - [Development Phases](#development-phases)
 3. [Features](#features)
     - [Existing Features](#existing-features)
+    - [Removed Features](#removed-features)
     - [Features to Implement](#features-to-implement)
 4. [Technologies Used](#technologies-used)
 5. [Testing](#testing)
     - [Bugs Discovered](#bugs-discovered)
+    - [Railway Migration & Refactor Log](#railway-migration--refactor-log)
     - [Known Bugs](#known-bugs)
     - [Code Validation](#code-validation)
     - [Automated Testing](#automated-testing-django)
@@ -51,7 +55,7 @@
     - [Usability Testing](#usability-testing)
     - [Data Management Testing](#data-management-testing)
 6. [Deployment](#deployment)
-    - [Deploying to Heroku](#deploying-to-heroku)
+    - [Deploying to Railway](#deploying-to-railway)
     - [How To Run The Project Locally](#how-to-run-the-project-locally)
 7. [Credits](#credits)
     - [Content](#content)
@@ -61,34 +65,34 @@
 
 ## Introduction 
 
-**Forefront HQ** is a business website where startups and small businesses can explore digital services, view previous work and purchase tailored packages to help them grow online.
+**Forefront HQ** is a business website where startups and small businesses can explore digital services and view previous work before getting in touch to discuss their project.
 
-The platform focuses on simplicity and transparency, giving potential clients a clear picture of what's on offer before they commit. From browsing the portfolio to building a custom package and checking out securely via Stripe, Forefront HQ makes it easy for businesses to take their next step forward.
+The platform focuses on simplicity and transparency, giving potential clients a clear picture of what's on offer before they commit. From browsing the portfolio to submitting an enquiry, Forefront HQ makes it easy for businesses to take their next step forward.
 
 
 ## View Live Site
 
-[Forefront HQ Live Site](https://forefront-hq-new-a54ac6718d65.herokuapp.com/)
+[Forefront HQ Live Site](https://forefronthq.co.uk/)
 
 # UX
 
 ## Project Goals
 
-The goal of Forefront HQ is to build a full-stack business website where potential clients can explore services, view previous work, and purchase packages directly through the site. The focus is on making the process of hiring a digital agency feel simple and transparent, from first impression through to checkout.
+The goal of Forefront HQ is to build a full-stack business website where potential clients can explore services, view previous work, and get in touch directly through the site. The focus is on making the process of hiring a digital agency feel simple and transparent, from first impression through to enquiry.
 
-The project uses Django and PostgreSQL to handle the backend, with a database designed around users, packages, portfolio projects, and Stripe payments. On the frontend, the aim is to bring a dark, minimal design to life with a consistent and responsive layout across every page.
+The project uses Django and PostgreSQL to handle the backend, with a database designed around users, portfolio projects, and enquiries. On the frontend, the aim is to bring a dark, minimal design to life with a consistent and responsive layout across every page.
 
-Users will be able to create accounts, browse services and portfolio work, and purchase packages or build their own custom one. The project is also structured in a way that makes it straightforward to add new services, packages, and portfolio entries over time.
+Users will be able to create accounts, browse services and portfolio work, and submit an enquiry to start a conversation about their project. The project is also structured in a way that makes it straightforward to add new services and portfolio entries over time.
 
 ---
 
 ## User Goals
 
-Users of Forefront HQ should be able to quickly understand what the company offers and whether it is the right fit for their business. The goal is to give potential clients a clear and professional experience where they can go from discovering the company to making a purchase without any friction.
+Users of Forefront HQ should be able to quickly understand what the company offers and whether it is the right fit for their business. The goal is to give potential clients a clear and professional experience where they can go from discovering the company to reaching out without any friction.
 
-A user should be able to browse the services and portfolio, view package pricing, and either contact the company or proceed straight to checkout. They should also be able to create an account, sign in with Google, and purchase a package securely through Stripe.
+A user should be able to browse the services and portfolio and either contact the company or submit an enquiry to start a project. They should also be able to create an account and sign in with Google.
 
-The overall experience should feel clean and intuitive, so users can find what they are looking for quickly and feel confident in the company before committing.
+The overall experience should feel clean and intuitive, so users can find what they are looking for quickly and feel confident in the company before getting in touch.
 
 ---
 
@@ -96,11 +100,9 @@ The overall experience should feel clean and intuitive, so users can find what t
 
 Users should be able to browse the services Forefront HQ offers so they can decide whether the company is the right fit for their needs. They should be able to view the portfolio to see examples of previous work and get a sense of the quality and style on offer.
 
-Users should be able to view available packages and pricing so they can find an option that suits their budget. They should also be able to build a custom package by selecting only the add-ons they need, rather than being locked into a fixed offering.
+Users should be able to submit an enquiry so they can start a conversation about their project without any payment friction up front. The enquiry process should feel straightforward and trustworthy.
 
-Once they have decided, users should be able to purchase a package securely through Stripe, or contact the company directly if they have questions before committing. The checkout process should feel straightforward and trustworthy.
-
-Users should be able to create an account or sign in with Google so they can manage their details and access their purchases. The registration process should include email verification to keep accounts secure.
+Users should be able to create an account or sign in with Google so they can manage their details. The registration process should include email verification to keep accounts secure.
 
 Overall the site should be easy to navigate and feel professional at every step, so users never have to think too hard about where to go or what to do next.
 
@@ -108,13 +110,13 @@ Overall the site should be easy to navigate and feel professional at every step,
 
 ## Developer Goals
 
-The goal for this project is to build a full-stack web application that connects a Django backend with a custom frontend, handling real user interactions and payments rather than just displaying static content. I want to get comfortable working with models, views, templates, and third-party integrations together so the site feels like a real product.
+The goal for this project is to build a full-stack web application that connects a Django backend with a custom frontend, handling real user interactions rather than just displaying static content. I want to get comfortable working with models, views, templates, and third-party integrations together so the site feels like a real product.
 
-Another aim is to implement a relational database structured around users, packages, portfolio entries, and orders, making sure everything is organised properly and can scale as the business grows.
+Another aim is to implement a relational database structured around users, portfolio entries, and enquiries, making sure everything is organised properly and can scale as the business grows.
 
 I also want to improve my ability to translate a UI design into a working application, keeping the layout consistent, responsive, and on-brand across every page. This includes building reusable template components that extend a single base layout.
 
-On top of that, the project is about gaining confidence working with third-party services — specifically Stripe for payments and webhooks, and django-allauth for authentication including Google OAuth. Managing environment variables, deploying to Heroku, and handling production-specific issues are also key parts of the learning process.
+On top of that, the project is about gaining confidence working with third-party services — specifically django-allauth for authentication including Google OAuth, and (originally) Stripe for payments and webhooks. Managing environment variables, deploying to production, and handling production-specific issues are also key parts of the learning process. A significant part of this learning process ended up being the migration itself — moving the project from Heroku to Railway, debugging environment configuration from scratch, and safely removing a payment system without breaking the rest of the application.
 
 Overall, the focus is on building something that works end-to-end and feels like something a real client could use, not just a collection of features put together for the sake of it.
 
@@ -123,6 +125,8 @@ Overall, the focus is on building something that works end-to-end and feels like
 ## Design Choices
  
 The design for Forefront HQ was planned in Canva before any code was written. The goal was a dark, minimal aesthetic that feels professional and trustworthy — the kind of site a startup would expect from a digital studio. All page layouts were designed as full desktop mockups first, then adapted for mobile and tablet during development.
+
+> **Note:** The Packages page and custom package builder shown in the design, wireframe, and validation sections below were part of the original build. This functionality — along with Stripe checkout — has since been removed from the live site in favour of a simpler enquiry-based flow. These sections are kept as a record of the original design and development process.
 
 ### Colour Palette
  
@@ -161,6 +165,8 @@ All pages were designed in Canva prior to development and perfected with Google 
  
 #### Packages Page
 ![Packages Page Design](./static/images/front-end-designs/package-page.png)
+
+*(Retained for historical reference — this page has since been removed from the live site.)*
  
 #### Portfolio Page
 ![Portfolio Page Design](./static/images/front-end-designs/portfolio-page.png)
@@ -178,7 +184,9 @@ All pages were designed in Canva prior to development and perfected with Google 
 
 ## Wireframes
 
-Each page was wireframed using Google Stitch across mobile, tablet and desktop breakpoints after the frontend designs were created. The wireframes focus on layout and content hierarchy, focusing on where each section is placed, how much space it takes up and how the structure changes on different screen sizes. Working through this after the frontend design was created meant that the responsiveness breakpoints and behaviours were planned before any coding happened. 
+Each page was wireframed using Google Stitch across mobile, tablet and desktop breakpoints after the frontend designs were created. The wireframes focus on layout and content hierarchy, focusing on where each section is placed, how much space it takes up and how the structure changes on different screen sizes. Working through this after the frontend design was created meant that the responsiveness breakpoints and behaviours were planned before any coding happened.
+
+*(The Packages page wireframes below are retained for historical reference — this page has since been removed from the live site and replaced with a simple enquiry form.)*
 
 ### Mobile 
 
@@ -210,7 +218,7 @@ The services page on mobile places each service card as a full-width block, stac
 
 ![Packages Page Wireframe Mobile](./static/images/mobile-wireframes-fhq/packages-page.png)
 
-On mobile the packages page stacks the Starter and Growth cards vertically, each taking the full screen width. The Build Your Own section follows below with addon cards stacked in a single column. The running total bar and Review My Package button sit at the bottom of the builder section, giving the user a clear summary of their selection before proceeding.
+On mobile the packages page stacked the Starter and Growth cards vertically, each taking the full screen width, with the Build Your Own section below. This page has since been removed from the live site.
 
 ---
 
@@ -276,7 +284,7 @@ On tablet the services page moves to a two-column grid so two service cards sit 
 
 ![Packages Page Wireframe Tablet](./static/images/tablet-wireframes-fhq/packages-page-tablet.png)
 
-The Starter and Growth package cards sit side by side on tablet in a two-column layout. The Build Your Own addon cards also move to a two-column grid. The running total bar spans the full width at the bottom of the builder section.
+Retained for historical reference — this page has since been removed from the live site.
  
 ---
 
@@ -342,7 +350,7 @@ The services page on desktop uses a four-column grid, displaying all four servic
 
 ![Packages Page Wireframe Mobile](./static/images/desktop-wireframes-fhq/packages-desktop.png)
 
-On desktop the packages page shows the Starter and Growth cards side by side with a clear visual separation between them. The Build Your Own addon cards move to a three-column grid, showing all addons in fewer rows. The running total bar spans the full width at the bottom, keeping the total and checkout button always in view as the user makes selections.
+Retained for historical reference — this page has since been removed from the live site.
  
 ---
 
@@ -382,19 +390,17 @@ The register page on desktop follows the same principle as login — a centred c
 
 ![ERD Diagram](./static/images/ERD-FHQ.png)
 
-The ERD was designed during the planning phase and used as the blueprint for every Django model in the project. The structure is built around the user journey from discovery through to purchase — a user arrives, browses services and portfolio work, selects a package, and checks out. The database reflects that flow, with `django_user` and `user_profile` at the centre, branching out into orders, payments, packages, and content models. The final models stayed very close to the ERD, with a small number of fields added during development as requirements became clearer.
+The ERD was designed during the planning phase and used as the blueprint for every Django model in the project. The structure was originally built around the user journey from discovery through to purchase — a user arrives, browses services and portfolio work, selects a package, and checks out. The diagram below reflects the **original** database design; several elements described here (`PACKAGE`, `PACKAGE_ADDON`, `PAYMENT`, `CUSTOM_PACKAGE_SELECTION`) have since been removed from the live application as part of the Stripe/packages removal (see [Railway Migration & Refactor Log](#railway-migration--refactor-log)). The `ORDER` model remains, but has been simplified into a general enquiry record rather than a payment record.
+
+**DJANGO_USER** is Django's built-in `auth.User` model rather than a custom table. The ERD shows it with `email`, `password`, `is_active`, `is_staff`, `date_joined` and `last_login` fields to illustrate the relationships, but in practice these are handled entirely by Django's authentication system and django-allauth. The user sits at the centre of the diagram because almost everything on the site either belongs to a user or is triggered by one — orders and contact enquiries trace back to this table. The `user_profile` extends it with a one-to-one relationship, adding `phone`, `company_name`, `stripe_customer_id`, and `created_at` fields. The `stripe_customer_id` field is a legacy leftover from the original Stripe integration and is no longer populated.
  
-**DJANGO_USER** is Django's built-in `auth.User` model rather than a custom table. The ERD shows it with `email`, `password`, `is_active`, `is_staff`, `date_joined` and `last_login` fields to illustrate the relationships, but in practice these are handled entirely by Django's authentication system and django-allauth. The user sits at the centre of the diagram because almost everything on the site either belongs to a user or is triggered by one — orders, payments, custom package selections, and contact enquiries all trace back to this table. The `user_profile` extends it with a one-to-one relationship, adding `phone`, `company_name`, `stripe_customer_id`, and `created_at` fields that are not part of Django's default user model but are needed for the business logic around payments and client management.
+**USER_PROFILE** has a one-to-one relationship with `django_user`, meaning every user has exactly one profile and every profile belongs to exactly one user. The `CASCADE` delete behaviour means that if a user account is deleted, their profile is removed with it.
  
-**USER_PROFILE** has a one-to-one relationship with `django_user`, meaning every user has exactly one profile and every profile belongs to exactly one user. The `stripe_customer_id` field is populated automatically by the webhook handler when a user completes their first purchase — this ties the Django user record to their Stripe customer record and is stored here so it can be reused on future purchases without creating duplicate Stripe customers. The `CASCADE` delete behaviour means that if a user account is deleted, their profile is removed with it.
- 
-**ORDER** links `user_profile` and `package` together as the record of a completed transaction. The `user_profile` foreign key uses `CASCADE` so that orders are removed if a user deletes their account, while the `package` foreign key uses `SET_NULL` so that deleting a package does not wipe out the historical order record — the order remains in the database with `package` set to null, preserving the financial history. The `status` field uses a `choices` list of `pending`, `paid`, `cancelled`, and `refunded`, and the `confirmation_email_sent` boolean tracks whether the post-payment email was dispatched successfully by the webhook handler. One field that does not appear in the original ERD is `confirmation_email_sent` — this was added during development once the webhook email flow was implemented, to give the admin panel a clear indicator of whether the customer received their confirmation.
- 
-**PAYMENT** has a one-to-one relationship with `order`, meaning each order has exactly one payment record and each payment belongs to exactly one order. It stores the `stripe_payment_intent`, `stripe_customer_id`, `amount`, `currency`, `status`, and `paid_at` fields returned by Stripe's webhook event. Storing the payment intent ID separately from the order allows the admin panel to cross-reference transactions directly in the Stripe dashboard. The `CASCADE` delete behaviour means that deleting an order also removes its associated payment record.
- 
-**PACKAGE** is the central content model for the purchasing flow. It holds `name`, `code`, `tier`, `price`, `is_recommended`, `is_active`, `display_order`, `cta_label`, and `stripe_price_id`. The `stripe_price_id` field was added during development — it was not in the original ERD but is essential for Stripe Checkout, as it references the pre-configured price object in the Stripe dashboard rather than passing a raw amount. The `is_active` flag allows packages to be hidden from the packages page without deleting them, and `display_order` controls the left-to-right order in which they appear. `PACKAGE_FEATURE` has a many-to-one relationship with `package`, holding the individual feature checklist items displayed on each package card.
- 
-**PACKAGE_ADDON** powers the custom package builder. Each addon has a `name`, `description`, `price`, `is_active`, and `display_order`. The `is_active` flag allows addons to be retired without deletion. The `CUSTOM_PACKAGE_SELECTION` model links a user to a set of chosen addons via a many-to-many relationship through `packages_custompackageselection_addons`, and also stores a `session_key` for anonymous selections. The `get_total()` method on `CustomPackageSelection` sums the prices of all selected addons dynamically rather than storing a cached total, keeping the data consistent if addon prices change.
+**ORDER** (in the current build) is a simple enquiry record, linking optionally to `user_profile`. It stores `full_name`, `email`, `message`, `status` (`new`, `contacted`, `closed`), `created_at`, and `confirmation_email_sent`. Originally this model linked to `package` and had a `order_total` field to record completed transactions — both were removed when the packages/Stripe system was taken out, and the model was repurposed as a lightweight enquiry form submission record.
+
+~~**PAYMENT** originally had a one-to-one relationship with `order`, storing Stripe payment details. This model has been removed entirely along with the rest of the Stripe integration.~~
+
+~~**PACKAGE**, **PACKAGE_FEATURE**, **PACKAGE_ADDON**, and **CUSTOM_PACKAGE_SELECTION** originally powered the packages page and custom package builder. These models, along with their database tables, have been removed from the live application.~~
  
 **SERVICE** is a simple content model holding `name`, `slug`, `short_description`, `description`, `is_active`, and `display_order`. It powers the services page and also populates the service of interest dropdown on the contact form. The `is_active` flag and `display_order` field give the admin full control over what appears and in what order, without touching any code.
  
@@ -402,7 +408,7 @@ The ERD was designed during the planning phase and used as the blueprint for eve
  
 **PORTFOLIO_PROJECT** holds all the fields needed to display a client project card — `title`, `slug`, `client_name`, `category`, `description`, `image_url`, `live_url`, `is_live`, `is_featured`, `completed_at`, and `created_at`. The `is_live` flag controls visibility on the portfolio page, allowing draft projects to be prepared in the admin before going public. Projects are ordered by `completed_at` descending so the most recent work always appears first. Tags are attached via a many-to-many relationship through `PORTFOLIO_PROJECT_TAG`, which enforces a `unique_together` constraint on `(project, tag)` to prevent duplicate tag assignments.
  
-**STAFF_ABOUT** is a simple content model for the about page, holding `name`, `profile_img_url`, `job_title`, `bio_description`, `is_active`, and `display_order`. Like the service and package models, the `is_active` flag and `display_order` field give the admin full control over what appears and in what sequence without any code changes.
+**STAFF_ABOUT** is a simple content model for the about page, holding `name`, `profile_img_url`, `job_title`, `bio_description`, `is_active`, and `display_order`. Like the service model, the `is_active` flag and `display_order` field give the admin full control over what appears and in what sequence without any code changes.
 
 ---
 
@@ -422,9 +428,9 @@ User stories and features were prioritised using the MoSCoW method to keep the p
  
 | Priority | Items |
 |---|---|
-| **Must Have** | User registration and login, email verification, packages page, Stripe checkout, webhook order creation, portfolio page, contact form, services page |
-| **Should Have** | Custom package builder, Google OAuth, order confirmation email, UserProfile model, admin content management |
-| **Could Have** | Package addon pages counter, custom package summary page, portfolio tags, staff about page |
+| **Must Have** | User registration and login, email verification, portfolio page, contact form, services page, enquiry form |
+| **Should Have** | Google OAuth, UserProfile model, admin content management |
+| **Could Have** | Portfolio tags, staff about page |
 | **Won't Have** | Client dashboard, invoice generation, live chat, subscription billing |
 
 ## Development Phases
@@ -440,10 +446,10 @@ Custom login and register views, django-allauth integrated, email verification f
 **Phase 3 — Core Pages**
 Home, about, services, portfolio, and contact pages built and wired to the database via their respective models.
  
-**Phase 4 — Packages and Stripe**
+**Phase 4 — Packages and Stripe** *(removed post-launch — see below)*
 Package and addon models, packages page, Stripe Checkout integration, webhook handler, order and payment models, success and cancel pages.
  
-**Phase 5 — Custom Package Builder**
+**Phase 5 — Custom Package Builder** *(removed post-launch — see below)*
 Addon selection with session storage, running total JavaScript, summary page, remove addon/pages views, custom Stripe checkout with dynamic line items.
  
 **Phase 6 — Testing and Validation**
@@ -451,6 +457,9 @@ Django unit tests across all apps, Jest tests for JavaScript, HTML/CSS/Python va
  
 **Phase 7 — README and Submission**
 Full README written and final deployment checks.
+
+**Phase 8 — Railway Migration and Packages/Stripe Removal**
+Migrated hosting from Heroku to Railway, migrated the production database from SQLite to PostgreSQL, added a custom domain, and removed the packages app and Stripe integration entirely, simplifying the `orders` app into a lightweight enquiry form. See the [Railway Migration & Refactor Log](#railway-migration--refactor-log) for full details.
 
 ![Agile timeline graph](./static/images/agile_timeline.svg)
 
@@ -464,7 +473,7 @@ Full README written and final deployment checks.
 A fully responsive navbar is present on every page, built with Bootstrap 5.3.3. On desktop it shows all navigation links, the login/register buttons when logged out, and a logout button when logged in. On mobile it collapses to a hamburger menu. The active page is highlighted in the nav.
  
 ### Home Page
-The home page introduces Forefront HQ with a hero section, tagline, and two CTAs — View Packages and See Our Work. A live business card mockup sits alongside the hero text.
+The home page introduces Forefront HQ with a hero section, tagline, and CTAs — Get in Touch and See Our Work. A live business card mockup sits alongside the hero text.
  
 ### About Page
 Displays active team members pulled from the `StaffAbout` model. Members are ordered by `display_order` and managed entirely through the Django admin.
@@ -472,20 +481,14 @@ Displays active team members pulled from the `StaffAbout` model. Members are ord
 ### Services Page
 Lists all active services from the `Service` model in order of `display_order`. Each service card shows the name, tagline, description, and a checklist of features. Content is fully database-driven and editable through the admin.
  
-### Packages Page
-Displays the Starter and Growth packages from the `Package` model with pricing, features, and CTA buttons. Logged-in users are taken directly to Stripe Checkout. Logged-out users are redirected to login first.
- 
-### Custom Package Builder
-Allows users to select individual addons and specify the number of additional pages they need. A live running total updates as checkboxes are ticked using vanilla JavaScript. The summary button is disabled until at least one item is selected.
- 
-### Custom Package Summary
-Shows the user's selected addons and total before checkout. Individual addons and the additional pages item can be removed from the summary, with the total updating accordingly. Proceeds to a dynamic Stripe Checkout session with line items matching the selection.
- 
 ### Portfolio Page
 Displays live portfolio projects from the `PortfolioProject` model, ordered by most recently completed. Each card shows the project image, title, client, category, description, and tags. Draft projects with `is_live=False` are hidden.
  
 ### Contact Page
 A contact form that stores enquiries in the `ContactEnquiry` model. Logged-in users are automatically linked to their account. A service of interest dropdown shows all active services. Submissions redirect back to the contact page with a success message.
+
+### Enquiry Form
+A simple enquiry form (replacing the previous package checkout flow) that lets a visitor submit their name, email, and a message describing their project. Submissions are stored as `Order` records with a status of `new`, and a confirmation email is sent to the visitor to let them know their enquiry has been received.
  
 ### User Registration
 Custom registration view with email and password validation. On success, an allauth `EmailAddress` record is created and a confirmation email is sent. Users cannot log in until they verify their email.
@@ -493,27 +496,34 @@ Custom registration view with email and password validation. On success, an alla
 ### User Login
 Email-based login with allauth integration. Unverified users are blocked and shown an appropriate message. Google OAuth is available as an alternative sign-in method.
  
-### Stripe Payments
-Full Stripe Checkout integration for both fixed packages and custom builds. On successful payment, a Stripe webhook fires and creates an `Order` and `Payment` record in the database. The customer's Stripe ID is saved to their `UserProfile`.
- 
-### Order Confirmation Email
-After a successful webhook event, a confirmation email is sent to the customer with the package name, amount, and order date.
- 
 ### Django Admin
-All content — packages, addons, services, portfolio projects, team members, orders, payments, and contact enquiries — is managed through the Django admin panel.
+All content — services, portfolio projects, team members, enquiries (orders), and contact enquiries — is managed through the Django admin panel.
  
 ### 404 Page
 A custom 404 page is shown for any unmatched URL, keeping the user within the site's design and navigation.
+
+---
+
+## Removed Features
+
+The following features were part of the original build but have since been removed from the live site:
+
+- **Packages page** — displayed fixed-tier packages (Starter/Growth) with pricing and features
+- **Custom package builder** — allowed visitors to select individual addons and build a bespoke package with a live running total
+- **Stripe Checkout integration** — handled payment for both fixed and custom packages
+- **Stripe webhook handler** — created `Order` and `Payment` records and triggered confirmation emails on successful payment
+- **Payment model** — stored Stripe payment intent, customer ID, amount, and status per order
+
+These were removed to simplify the site into a lead-generation/enquiry-based model rather than a direct checkout model. See the [Railway Migration & Refactor Log](#railway-migration--refactor-log) for the technical detail of how this was done safely.
  
 ---
 
 ## Features to Implement
  
-- **Client dashboard** — a logged-in area where clients can view their order history and download invoices
-- **Invoice generation** — automatic PDF invoice generation after a successful purchase
-- **Package enquiry flow** — an option to enquire about a package rather than purchasing directly, for clients who want to discuss requirements first
+- **Client dashboard** — a logged-in area where clients can view their enquiry history
+- **Package enquiry flow** — reintroducing indicative pricing/package information for visitors to reference when submitting an enquiry, without direct checkout
 - **Testimonials** — a database-driven testimonials section on the home page managed through the admin
-- **Digital marketing packages** — an option to add digital marketing services to a custom package, or to purchase separate, packaged digital marketing options
+- **CRM-style enquiry management** — richer status tracking and notes on enquiries within the Django admin
 
 ---
 
@@ -523,7 +533,7 @@ A custom 404 page is shown for any unmatched URL, keeping the user within the si
  
 - **HTML5** — page structure and templates
 - **CSS3** — custom styling via `static/css/style.css`
-- **JavaScript** — flash message auto-dismiss and custom package builder interactivity (`static/js/script.js`)
+- **JavaScript** — flash message auto-dismiss (`static/js/script.js`)
 - **Python** — all backend logic via Django
 
 ## Frameworks and Libraries
@@ -531,21 +541,24 @@ A custom 404 page is shown for any unmatched URL, keeping the user within the si
 - **Django 6.0.5** — the core web framework handling models, views, templates, and URL routing
 - **django-allauth 65.17.0** — authentication including email verification and Google OAuth
 - **Bootstrap 5.3.3** — responsive grid, navbar, and utility classes
-- **Stripe** — payment processing via Stripe Checkout and webhooks
-- **Whitenoise 6.12.0** — serving static files in production on Heroku
+- **Whitenoise 6.12.0** — serving static files in production
 - **Gunicorn 26.0.0** — WSGI server for production deployment
+- **psycopg2-binary** — PostgreSQL database adapter for Django
+- **dj-database-url** — parses the `DATABASE_URL` environment variable provided by Railway
 - **python-dotenv** — loading environment variables from `.env` in development
 - **Jest 29** — JavaScript unit testing with `jest-environment-jsdom`
 
+*Stripe was used in the original build for payment processing via Stripe Checkout and webhooks. It has since been removed — see [Removed Features](#removed-features).*
+
 ## Tools and Services
  
-- **Heroku** — cloud platform used for deployment
-- **Heroku Postgres** — production database
+- **Railway** — cloud platform used for deployment (migrated from Heroku)
+- **Railway PostgreSQL** — production database (migrated from Heroku Postgres / local SQLite)
 - **SQLite** — local development database
+- **Hostinger** — domain registration and DNS management for the custom domain
 - **Google Workspace** — SMTP email sending via `hello@forefronthq.co.uk`
 - **Google Cloud Console** — Google OAuth credentials and redirect URI configuration
-- **Claude AI** — for colour palette representations, the Agile timeline graph, and assistance with debugging
-- **Stripe Dashboard** — product, price, and webhook management
+- **Claude AI** — for colour palette representations, the Agile timeline graph, and assistance with debugging and the Railway migration
 - **Canva** — UI design and page mockups
 - **Google Stitch** — colour palette generation
 - **Font Awesome** — Google icon on the login page
@@ -563,6 +576,8 @@ A custom 404 page is shown for any unmatched URL, keeping the user within the si
 # Testing
 
 ## Bugs Discovered
+
+*The following bugs were discovered during the original Heroku-based build. They are retained here as a record of the development process. See the [Railway Migration & Refactor Log](#railway-migration--refactor-log) below for bugs encountered during the later migration to Railway.*
 
 ### Bug 1 — `ModuleNotFoundError: No module named 'forefront_hq'`
 **Description:** After renaming the Django config package from `webhive` to `forefront_hq`, Heroku could not find the settings module on deployment.  
@@ -816,25 +831,90 @@ confirming that Django was correctly accepting requests from the Heroku domain.
 
 ---
 
+## Railway Migration & Refactor Log
+
+*This section documents the migration of Forefront HQ from Heroku to Railway, and the subsequent removal of the packages/Stripe system, including every issue encountered along the way.*
+
+### Migration Bug 1 — SQLite Data at Risk of Loss on Heroku
+**Description:** On checking `settings.py`, the app was found to be running on SQLite in production on Heroku rather than Postgres, despite Heroku's filesystem being ephemeral and wiped on every dyno restart/redeploy.
+**Cause:** No `DATABASE_URL`/Postgres add-on had ever been attached to the Heroku app; `settings.py` used a hardcoded SQLite `DATABASES` config.
+**Fix:** Captured the live SQLite database directly from the running dyno using `heroku run` piped through `base64`, and downloaded it locally before it could be lost, ahead of migrating it into Railway's Postgres.
+
+---
+
+### Migration Bug 2 — `ModuleNotFoundError: No module named 'psycopg2'`
+**Description:** Running `manage.py migrate` against Railway's Postgres failed immediately.
+**Cause:** The project's `requirements.txt` had never included a PostgreSQL driver, since the original app only ever used SQLite.
+**Fix:** Installed and added `psycopg2-binary` to `requirements.txt`.
+
+---
+
+### Migration Bug 3 — `django.db.utils.IntegrityError` on `loaddata`
+**Description:** Loading the dumped SQLite data into Railway's Postgres failed with a `UniqueViolation` on `accounts_userprofile_user_id_key`.
+**Cause:** A `post_save` signal on the `User` model automatically created a `UserProfile` for every new user — including during `loaddata`, which then conflicted with the actual `UserProfile` record already present in the fixture.
+**Fix:** Updated both signal handlers in `accounts/signals.py` to check for Django's `raw` flag (set specifically during fixture loading) and skip execution in that case:
+```python
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, raw=False, **kwargs):
+    if raw:
+        return
+    if created:
+        UserProfile.objects.create(user=instance)
+```
+
+---
+
+### Migration Bug 4 — GitHub Push Protection Blocked Push (Secrets in `datadump.json`)
+**Description:** `git push` was repeatedly rejected by GitHub's secret scanning, flagging a Google OAuth Client ID and Secret.
+**Cause:** The `dumpdata` export (`datadump.json`), used to migrate data from SQLite to Postgres, included the `socialaccount` app's data — which contained the live Google OAuth credentials — and had been accidentally committed.
+**Fix:** Removed `datadump.json` from git tracking, added it to `.gitignore`, and used `git reset --soft` to rewrite the local commit history before the secret was ever pushed, avoiding the need for a full history rewrite on a shared branch. Also discovered and fixed a `.gitignore` formatting bug where `.vscode/` and `datadump.json` had been concatenated onto a single line, silently disabling both ignore rules.
+
+---
+
+### Migration Bug 5 — `SyntaxError: invalid decimal literal` in `settings.py`
+**Description:** The Railway deployment crashed on boot with a Python syntax error on the `ALLOWED_HOSTS` line.
+**Cause:** `ALLOWED_HOSTS` had been written as a raw, unquoted comma-separated string (`ALLOWED_HOSTS=127.0.0.1,localhost,...`) rather than valid Python — Python attempted to parse `127.0.0.1` as a numeric literal.
+**Fix:** Corrected the line to valid Python list syntax:
+```python
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'forefront-hq-production-4972.up.railway.app']
+```
+
+---
+
+### Migration Bug 6 — 500 Error Due to Missing Environment Variables on Railway
+**Description:** After DNS/hosting was working, all pages returned a 500 error.
+**Cause:** The Railway web service had no environment variables configured at all — `DATABASE_URL`, `SECRET_KEY`, `STRIPE_*`, and `EMAIL_*` were all unset, despite the Postgres plugin existing in the same project (it was never linked to the web service).
+**Fix:** Linked `DATABASE_URL` to the Postgres plugin using Railway's variable reference syntax (`${{Postgres.DATABASE_URL}}`), generated a fresh `SECRET_KEY`, and bulk-imported the remaining config from Heroku using `heroku config -s -a <app> ` piped into Railway's Raw Editor.
+
+---
+
+### Migration Bug 7 — 403 Forbidden on Django Admin Login
+**Description:** The site loaded correctly, but submitting the admin login form returned a 403 Forbidden error.
+**Cause:** Django's CSRF protection did not trust the new Railway domain as a valid origin for POST requests, and the app was not correctly recognising requests as HTTPS behind Railway's proxy.
+**Fix:** Added the Railway (and later custom) domains to `CSRF_TRUSTED_ORIGINS`, and set `SECURE_PROXY_SSL_HEADER` so Django correctly recognises HTTPS requests forwarded through Railway's proxy:
+```python
+CSRF_TRUSTED_ORIGINS = ['https://forefront-hq-production-4972.up.railway.app', 'https://forefronthq.co.uk', 'https://www.forefronthq.co.uk']
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+```
+
+---
+
+### Migration Bug 8 — Migration Rollback Failure When Removing `packages`
+**Description:** Running `migrate packages zero` to remove the packages tables failed with `IntegrityError: column "order_total" of relation "orders_order" contains null values`.
+**Cause:** Django's migration dependency graph still linked `orders`'s migrations to `packages` (from when `Order.package` was a foreign key), so unapplying `packages` triggered Django to also try reversing `orders`'s later migration — which would have recreated a `NOT NULL` column that no longer had data.
+**Fix:** Used `migrate packages zero --fake` to update Django's migration bookkeeping without running the destructive reverse SQL, then manually dropped the leftover `packages_*` tables directly via `manage.py dbshell`. This preserved all existing `orders_order` data untouched.
+
+---
+
 ## Known Bugs
  
-### Known Bug 1 — Confirmation Email Not Sending After Successful Payment
- 
-**Description:** The Stripe webhook processes successfully and creates the `Order` and `Payment` records correctly, but the confirmation email is not delivered to the customer after checkout.
- 
-**Evidence:** Heroku logs confirm the webhook receives the `checkout.session.completed` event and the order is created in the database. The `send_mail()` call executes without raising an exception and `confirmation_email_sent` is set to `True` on the order, but no email arrives in the customer's inbox.
- 
-**Suspected Cause:** The Google Workspace SMTP credentials (`EMAIL_HOST_USER` and `EMAIL_HOST_PASSWORD`) are correctly set as Heroku config vars, however the sending alias (`hello@forefronthq.co.uk`) may be getting rejected silently by Gmail's SMTP relay when called from within the webhook handler context on Heroku, rather than from a standard request/response cycle.
- 
-**Status:** Unresolved at time of submission. The webhook itself is fully functional — orders and payments are created correctly. The email sending logic is in place and works in local development with the same credentials.
-
-![Stripe Webhook confirmation](./static/images/stripe-webhook-confirmation-screenshot.png)
-
-### Known Bug 2 — Footer Links Not Yet Pointing to Live Pages
+### Known Bug 1 — Footer Links Not Yet Pointing to Live Pages
 
 **Description:** The social media, privacy policy, and terms & conditions links are live in the footer throughout the project, but they do not currently direct the user to the pages described.
 
 **Status:** Unresolved at this time, pending the relevant social media pages going live, and the privacy policy and terms & conditions pages being written and implemented into the project.
+
+*(The previous "Confirmation Email Not Sending After Successful Payment" known bug, which related to the Stripe webhook, is no longer applicable following the removal of the packages/Stripe system.)*
 
 ---
 
@@ -842,21 +922,21 @@ confirming that Django was correctly accepting requests from the Heroku domain.
  
 ### HTML Validation
  
-All HTML was validated using the [W3C HTML Validator](https://validator.w3.org/) by entering the live Heroku URL directly into the validator. This checks the fully rendered HTML returned by the server, which correctly handles Django template tags that would cause false errors if the raw template source were pasted in directly.
+All HTML was validated using the [W3C HTML Validator](https://validator.w3.org/) against the live deployment at the time of the original build. This checks the fully rendered HTML returned by the server, which correctly handles Django template tags that would cause false errors if the raw template source were pasted in directly.
  
 | Page | Result |
 |---|---|
 | Home | ✓ No errors |
 | About | ✓ No errors |
 | Services | ✓ No errors |
-| Packages | ✓ No errors |
-| Custom Package Builder | ✓ No errors |
-| Custom Package Summary | ✓ No errors |
+| Packages *(since removed)* | ✓ No errors |
+| Custom Package Builder *(since removed)* | ✓ No errors |
+| Custom Package Summary *(since removed)* | ✓ No errors |
 | Portfolio | ✓ No errors |
 | Contact | ✓ No errors |
 | Login | ✓ No errors |
 | Register | ✓ No errors |
-| Payment Success | ✓ No errors |
+| Payment Success *(since removed)* | ✓ No errors |
 
 ![Home Page Validation](./static/images/home.html-validation-screenshot.png)
 
@@ -896,7 +976,7 @@ The stylesheet was validated using the [W3C CSS Validator](https://jigsaw.w3.org
 
 ### JavaScript Unit Tests (Jest)
  
-Unit tests for `script.js` were written using [Jest](https://jestjs.io/) with the `jest-environment-jsdom` package to simulate a browser DOM environment. Tests are located at `static/js/script.test.js` and were run from the project root using `npm test`.
+Unit tests for `script.js` were written using [Jest](https://jestjs.io/) with the `jest-environment-jsdom` package to simulate a browser DOM environment. Tests are located at `static/js/script.test.js` and were run from the project root using `npm test`. Note: the custom package builder total/checkbox tests below relate to functionality that has since been removed; the flash message tests remain current.
  
 | Test | Result |
 |---|---|
@@ -906,20 +986,20 @@ Unit tests for `script.js` were written using [Jest](https://jestjs.io/) with th
 | Transition is set before fade out | ✓ Pass |
 | Multiple alerts are all dismissed | ✓ Pass |
 | No error when no alerts are present | ✓ Pass |
-| Total is 0 when no checkboxes are checked and pages is 0 | ✓ Pass |
-| Total reflects a single checked addon | ✓ Pass |
-| Total reflects multiple checked addons | ✓ Pass |
-| Total includes page cost when pages are set | ✓ Pass |
-| Total combines addons and pages correctly | ✓ Pass |
-| Summary button is disabled when total is 0 | ✓ Pass |
-| Summary button is enabled when total is greater than 0 | ✓ Pass |
-| Checking an addon updates the total | ✓ Pass |
-| Unchecking an addon reduces the total | ✓ Pass |
-| Unchecking all addons disables the summary button | ✓ Pass |
-| Changing page input updates the total | ✓ Pass |
-| Setting pages to 0 removes page cost from total | ✓ Pass |
-| Invalid page input treated as 0 | ✓ Pass |
-| No error when page input is absent | ✓ Pass |
+| Total is 0 when no checkboxes are checked and pages is 0 *(removed feature)* | ✓ Pass |
+| Total reflects a single checked addon *(removed feature)* | ✓ Pass |
+| Total reflects multiple checked addons *(removed feature)* | ✓ Pass |
+| Total includes page cost when pages are set *(removed feature)* | ✓ Pass |
+| Total combines addons and pages correctly *(removed feature)* | ✓ Pass |
+| Summary button is disabled when total is 0 *(removed feature)* | ✓ Pass |
+| Summary button is enabled when total is greater than 0 *(removed feature)* | ✓ Pass |
+| Checking an addon updates the total *(removed feature)* | ✓ Pass |
+| Unchecking an addon reduces the total *(removed feature)* | ✓ Pass |
+| Unchecking all addons disables the summary button *(removed feature)* | ✓ Pass |
+| Changing page input updates the total *(removed feature)* | ✓ Pass |
+| Setting pages to 0 removes page cost from total *(removed feature)* | ✓ Pass |
+| Invalid page input treated as 0 *(removed feature)* | ✓ Pass |
+| No error when page input is absent *(removed feature)* | ✓ Pass |
  
 **Test Suites: 1 passed — Tests: 20 passed — Time: 0.573s**
 
@@ -929,7 +1009,7 @@ Unit tests for `script.js` were written using [Jest](https://jestjs.io/) with th
 
 ### Python Validation
  
-All Python files were validated using the [CI Python Linter](https://pep8ci.herokuapp.com/) to check for PEP8 compliance.
+All Python files were validated using the [CI Python Linter](https://pep8ci.herokuapp.com/) to check for PEP8 compliance at the time of the original build. `packages/*` files no longer exist following the removal of that app.
  
 | File | Result |
 |---|---|
@@ -951,12 +1031,8 @@ All Python files were validated using the [CI Python Linter](https://pep8ci.hero
 | contact/tests.py | ✓ No errors |
 | orders/models.py | ✓ No errors |
 | orders/admin.py | ✓ No errors |
-| orders/tests.py | ✓ No errors |
-| packages/models.py | ✓ No errors |
-| packages/views.py | ✓ No errors |
-| packages/urls.py | ✓ No errors |
-| packages/admin.py | ✓ No errors |
-| packages/tests.py | ✓ No errors |
+| orders/views.py | ✓ No errors |
+| orders/urls.py | ✓ No errors |
 | portfolio/models.py | ✓ No errors |
 | portfolio/views.py | ✓ No errors |
 | portfolio/urls.py | ✓ No errors |
@@ -978,21 +1054,20 @@ All Python unit tests were written using Django's built-in `TestCase` class and 
 python manage.py test
 ```
  
-Tests cover models, views, and business logic across all apps.
+Tests cover models, views, and business logic across all apps. The table below reflects the original test suite from the Heroku build; `packages` tests no longer apply and `orders` tests are being rewritten to reflect the simplified enquiry model.
  
 | App | Test Classes | Tests | Result |
 |---|---|---|---|
-| packages | 15 | 54 | ✓ Pass |
 | accounts | 4 | 32 | ✓ Pass |
 | services | 2 | 10 | ✓ Pass |
-| orders | 2 | 18 | ✓ Pass |
+| orders | — | — | Pending rewrite for enquiry model |
 | portfolio | 4 | 16 | ✓ Pass |
 | contact | 2 | 24 | ✓ Pass |
 | about | 2 | 12 | ✓ Pass |
-| **Total** | **31** | **173** | **All passing** |
+| **Total (excl. orders/packages)** | **14** | **94** | **All passing** |
  
 ```
-Found 173 test(s).
+Found 173 test(s). [original Heroku build result]
 Creating test database for alias 'default'...
 System check identified no issues (0 silenced).
 .........................................................................
@@ -1009,7 +1084,7 @@ Destroying test database for alias 'default'...
 
 ## Lighthouse Testing
  
-Pages were tested using Chrome DevTools Lighthouse in desktop mode against the live Heroku deployment.
+Pages were tested using Chrome DevTools Lighthouse in desktop mode against the live deployment.
  
 | Page | Performance | Accessibility | Best Practices | SEO |
 |---|---|---|---|---|
@@ -1025,19 +1100,17 @@ Pages were tested using Chrome DevTools Lighthouse in desktop mode against the l
  
 | User Story | Expected Outcome | Result |
 |---|---|---|
-| As a visitor, I can view all available packages | Packages page displays all active packages with pricing | ✓ Pass |
-| As a visitor, I can build a custom package | Custom builder shows addons with running total | ✓ Pass |
 | As a visitor, I can view the portfolio | Portfolio page displays all live projects | ✓ Pass |
 | As a visitor, I can view available services | Services page lists all active services | ✓ Pass |
 | As a visitor, I can submit a contact enquiry | Form submits and success message is shown | ✓ Pass |
+| As a visitor, I can submit a project enquiry | Enquiry form submits and success message is shown | ✓ Pass |
 | As a visitor, I can register for an account | Registration creates user and sends verification email | ✓ Pass |
 | As a user, I can log in with my email and password | Login authenticates user and redirects | ✓ Pass |
 | As a user, I cannot log in without verifying my email | Unverified users are blocked with an error message | ✓ Pass |
 | As a user, I can sign in with Google | Google OAuth redirects and logs user in | ✓ Pass |
-| As a user, I can purchase a package via Stripe | Checkout redirects to Stripe and order is created on success | ✓ Pass |
-| As a user, I can build and purchase a custom package | Custom checkout redirects to Stripe with correct line items | ✓ Pass |
-| As a user, I receive a confirmation email after purchase | Email sent to user on successful webhook event | ✓ Pass |
 | As a user, I can log out | Logout clears session and redirects to home | ✓ Pass |
+
+*Package/Stripe-related user stories from the original build (viewing packages, custom package builder, purchasing via Stripe, receiving a payment confirmation email) are no longer applicable following the removal of that functionality.*
  
 ---
 
@@ -1046,7 +1119,6 @@ Pages were tested using Chrome DevTools Lighthouse in desktop mode against the l
 | Feature | Action | Expected Result | Result |
 |---|---|---|---|
 | Navbar logo | Click FHQ logo | Redirects to home page | ✓ Pass |
-| Navbar — Packages | Click Packages | Navigates to packages page | ✓ Pass |
 | Navbar — Portfolio | Click Portfolio | Navigates to portfolio page | ✓ Pass |
 | Navbar — Contact | Click Contact | Navigates to contact page | ✓ Pass |
 | Navbar — Login (logged out) | Click Login | Redirects to login page | ✓ Pass |
@@ -1054,6 +1126,8 @@ Pages were tested using Chrome DevTools Lighthouse in desktop mode against the l
 | Navbar — Logout (logged in) | Click Logout | Logs user out and redirects to home | ✓ Pass |
 | Mobile navbar | Click hamburger | Menu expands with all nav links | ✓ Pass |
 | Footer links | Click any footer link | Navigates to correct page | ✓ Pass |
+
+*The "Navbar — Packages" test from the original build no longer applies, as the packages nav link has been removed.*
  
 ---
 
@@ -1071,33 +1145,21 @@ Pages were tested using Chrome DevTools Lighthouse in desktop mode against the l
 | Login — unknown email | Submit email not in system | Error message shown, not logged in | ✓ Pass |
 | Login — unverified email | Submit valid credentials before verifying email | Blocked with message to check inbox | ✓ Pass |
 | Login — already logged in | Visit /login/ while logged in | Redirected to home | ✓ Pass |
-| Login — next param | Log in with ?next=/packages/ in URL | Redirected to /packages/ after login | ✓ Pass |
 | Google OAuth | Click Sign in with Google | OAuth flow completes and user is logged in | ✓ Pass |
 | Logout | Click Logout | Session cleared, redirected to home, success message shown | ✓ Pass |
  
 ---
 
-### Packages
- 
+### Enquiry Form
+
 | Feature | Action | Expected Result | Result |
 |---|---|---|---|
-| Packages page | Visit /packages/ | All active packages displayed | ✓ Pass |
-| Package CTA — logged out | Click Get Started | Redirected to login | ✓ Pass |
-| Package CTA — logged in | Click Get Started | Redirected to Stripe Checkout | ✓ Pass |
-| Stripe Checkout | Complete payment | Redirected to success page, order created, confirmation email sent | ✓ Pass |
-| Payment cancel | Click back/cancel on Stripe | Redirected to packages page with error message | ✓ Pass |
-| Custom package builder | Visit /packages/custom/ | Addons displayed with running total | ✓ Pass |
-| Custom builder — select addon | Check an addon checkbox | Running total updates immediately | ✓ Pass |
-| Custom builder — deselect addon | Uncheck an addon | Running total decreases | ✓ Pass |
-| Custom builder — add pages | Enter a number in pages input | Total updates to include page cost | ✓ Pass |
-| Custom builder — summary button | Total is 0 | Summary button is disabled | ✓ Pass |
-| Custom builder — summary button | Total is greater than 0 | Summary button is enabled | ✓ Pass |
-| Custom summary page | Submit addon selection | Summary page shows selected addons and total | ✓ Pass |
-| Custom summary — remove addon | Click remove on an addon | Addon removed, total recalculated | ✓ Pass |
-| Custom summary — remove pages | Click remove on pages | Pages removed, total recalculated | ✓ Pass |
-| Custom checkout — logged out | Visit /packages/custom/checkout/ | Redirected to login | ✓ Pass |
-| Custom checkout — no addons | Visit with empty selection | Redirected back to custom package builder | ✓ Pass |
-| Custom checkout — logged in | Proceed with addons selected | Redirected to Stripe Checkout with correct line items | ✓ Pass |
+| Enquiry page | Visit /enquiry/ | Form loads with name, email, and message fields | ✓ Pass |
+| Enquiry — submit valid form | Submit with all fields completed | Order (enquiry) record created, confirmation email sent, success message shown | ✓ Pass |
+| Enquiry — submit while logged in | Submit as an authenticated user | Enquiry linked to the user's profile | ✓ Pass |
+| Enquiry — submit while logged out | Submit as an anonymous visitor | Enquiry saved with no linked user profile | ✓ Pass |
+
+*(The original build's Packages/Stripe checkout manual testing table has been removed, as this functionality no longer exists on the live site.)*
  
 ---
 
@@ -1154,11 +1216,9 @@ The site was tested across mobile, tablet, and desktop screen widths using Chrom
 | Home | ✓ Pass | ✓ Pass | ✓ Pass |
 | About | ✓ Pass | ✓ Pass | ✓ Pass |
 | Services | ✓ Pass | ✓ Pass | ✓ Pass |
-| Packages | ✓ Pass | ✓ Pass | ✓ Pass |
-| Custom Package Builder | ✓ Pass | ✓ Pass | ✓ Pass |
-| Custom Package Summary | ✓ Pass | ✓ Pass | ✓ Pass |
 | Portfolio | ✓ Pass | ✓ Pass | ✓ Pass |
 | Contact | ✓ Pass | ✓ Pass | ✓ Pass |
+| Enquiry | ✓ Pass | ✓ Pass | ✓ Pass |
 | Login | ✓ Pass | ✓ Pass | ✓ Pass |
 | Register | ✓ Pass | ✓ Pass | ✓ Pass |
 
@@ -1189,21 +1249,18 @@ The site was tested across mobile, tablet, and desktop screen widths using Chrom
 
 ## Usability Testing
  
-Usability testing was carried out manually to confirm that the site is easy to navigate and use for someone visiting for the first time. The focus was on whether key interactions gave clear feedback, whether the purchase flow was intuitive, and whether the site communicated its purpose without friction.
+Usability testing was carried out manually to confirm that the site is easy to navigate and use for someone visiting for the first time. The focus was on whether key interactions gave clear feedback, whether the enquiry flow was intuitive, and whether the site communicated its purpose without friction.
  
 | Scenario | Expectation | Result |
 |---|---|---|
 | First-time visitor lands on home page | Tagline and CTAs communicate site purpose immediately | ✓ Pass |
-| Visitor clicks View Packages | Navigates to packages page and all options are clearly laid out | ✓ Pass |
-| Visitor clicks Build Your Own | Custom package builder loads with addons and a live running total | ✓ Pass |
-| Logged-out user clicks Get Started on a package | Redirected to login with the package checkout as the next destination | ✓ Pass |
+| Visitor clicks Get in Touch | Navigates to the enquiry form | ✓ Pass |
 | User submits registration with mismatched passwords | Inline error message shown before any account is created | ✓ Pass |
 | User submits registration with a short password | Clear error message explaining the 8 character minimum | ✓ Pass |
 | User registers successfully | Redirected to a styled confirmation page explaining to check their inbox | ✓ Pass |
 | User logs in with wrong password | Error message displayed, form does not reset the email field | ✓ Pass |
 | User attempts to log in before verifying email | Blocked with a clear message directing them to check their inbox | ✓ Pass |
-| User completes Stripe payment | Redirected to a success page confirming the order | ✓ Pass |
-| User cancels Stripe payment | Redirected back to packages page with an error message | ✓ Pass |
+| User submits an enquiry | Success message confirms the enquiry was sent | ✓ Pass |
 | User submits contact form | Success message confirms the message was sent | ✓ Pass |
 | User on mobile opens nav menu | Hamburger expands all navigation links correctly | ✓ Pass |
 | User navigates to a non-existent URL | Custom 404 page is displayed with navigation intact | ✓ Pass |
@@ -1212,12 +1269,10 @@ Usability testing was carried out manually to confirm that the site is easy to n
 
 ## Data Management Testing
  
-This section tests that data flows correctly through the application — from creating and updating records through the Django admin, to enforcing model-level rules, to ensuring the Stripe webhook handles order creation and email confirmation reliably.
+This section tests that data flows correctly through the application — from creating and updating records through the Django admin, to enforcing model-level rules, to ensuring the enquiry flow handles submissions and confirmation emails reliably.
  
 | Test | Expected Behaviour | Result |
 |---|---|---|
-| Create a new package via admin | Package saved and visible on packages page | ✓ Pass |
-| Deactivate a package via admin | Package no longer appears on packages page | ✓ Pass |
 | Create a new service via admin | Service saved and visible on services page | ✓ Pass |
 | Deactivate a service via admin | Service no longer appears on services page | ✓ Pass |
 | Create a portfolio project as live | Project appears on portfolio page | ✓ Pass |
@@ -1226,57 +1281,54 @@ This section tests that data flows correctly through the application — from cr
 | Set staff member to inactive | Staff member no longer appears on about page | ✓ Pass |
 | Submit contact form as logged-in user | Enquiry saved with user FK and visible in admin | ✓ Pass |
 | Submit contact form as anonymous user | Enquiry saved with null user and visible in admin | ✓ Pass |
-| Delete a package | Associated orders retain the package as NULL rather than being deleted (SET_NULL) | ✓ Pass |
 | Delete a user | Associated orders and enquiries are cascade deleted | ✓ Pass |
-| Complete Stripe checkout | Order and Payment records created in database | ✓ Pass |
-| Complete Stripe checkout | Confirmation email sent to customer | ✓ Pass |
-| Complete Stripe checkout | confirmation_email_sent set to True on order | ✓ Pass |
-| Complete Stripe checkout | Stripe customer ID saved to UserProfile | ✓ Pass |
-| Complete custom package checkout | Order created with null package FK and correct total | ✓ Pass |
-| Webhook fires with no user_id in metadata | Webhook returns 200 but no order is created | ✓ Pass |
-| Webhook receives invalid signature | Returns 400, no order created | ✓ Pass |
-| Custom package — select and deselect addons | Running total updates correctly in real time | ✓ Pass |
-| Custom package — increase pages beyond 30 | Page count is capped at 30 | ✓ Pass |
-| Custom package — decrease pages below 1 | Page count cannot go below 1 | ✓ Pass |
-| Custom summary — remove addon | Addon removed from session and total recalculated | ✓ Pass |
-| Custom summary — remove pages | Pages reset to zero and total recalculated | ✓ Pass |
+| Submit project enquiry form | Order record created in database with correct fields | ✓ Pass |
+| Submit project enquiry form | Confirmation email sent to visitor | ✓ Pass |
+| Submit project enquiry form | confirmation_email_sent set to True on order | ✓ Pass |
+
+*Rows relating to package creation/deactivation, Stripe checkout, and webhook-driven order/payment creation have been removed, as this functionality no longer exists on the live site.*
  
 ---
 
 # Deployment
 
-## Deploying to Heroku
- 
-The project was deployed to Heroku by connecting the GitHub repository through the Heroku dashboard. The following steps were followed:
- 
-1. Log in to [Heroku](https://www.heroku.com/) and click **New → Create new app**
-2. Give the app a unique name and select your region, then click **Create app**
-3. In the **Resources** tab, search for **Heroku Postgres** and add it as an add-on to provision the database
-4. In the **Settings** tab, click **Reveal Config Vars** and add the following environment variables:
+## Deploying to Railway
+
+The project is deployed on [Railway](https://railway.app/), having been migrated from Heroku. The following steps outline the deployment process:
+
+1. Log in to [Railway](https://railway.app/) and click **New Project**
+2. Select **Deploy from GitHub repo** and connect the project's repository
+3. Add a **PostgreSQL** plugin to the project (**New → Database → Add PostgreSQL**)
+4. In the web service's **Variables** tab, add the following environment variables. `DATABASE_URL` should reference the Postgres plugin directly rather than being pasted as a raw string:
 
 | Key | Value |
 |---|---|
-| `DATABASE_URL` | Your Heroku PostgreSQL URL (added automatically) |
-| `SECRET_KEY` | Your Django secret key |
-| `ALLOWED_HOSTS` | Your Heroku hostname and localhost |
+| `DATABASE_URL` | `${{Postgres.DATABASE_URL}}` (references the Postgres plugin) |
+| `SECRET_KEY` | A freshly generated Django secret key |
+| `ALLOWED_HOSTS` | Comma-separated list including the Railway domain and any custom domain |
 | `DEBUG` | `False` |
-| `DJANGO_SETTINGS_MODULE` | `forefront_hq.settings` |
-| `STRIPE_SECRET_KEY` | Your Stripe secret key |
-| `STRIPE_PUBLIC_KEY` | Your Stripe publishable key |
-| `STRIPE_WEBHOOK_SECRET` | Your Stripe webhook signing secret |
-| `EMAIL_HOST_USER` | Your Google Workspace email address |
-| `EMAIL_HOST_PASSWORD` | Your Google Workspace app password |
- 
-5. In the **Deploy** tab, select **GitHub** as the deployment method
-6. Search for your repository name and click **Connect**
-7. Scroll down to **Manual Deploy**, select the `main` branch and click **Deploy Branch**
-8. Once the build completes, click **Open App** to view the live site
+| `EMAIL_HOST_USER` | Google Workspace email address |
+| `EMAIL_HOST_PASSWORD` | Google Workspace app password |
 
-> **Note:** After deployment, if your app is assigned an existing Heroku subdomain that has a Google Safe Browsing flag from a previous tenant, rename the app via the CLI to get a fresh hostname:
-> ```
-> heroku apps:rename your-new-app-name
-> ```
-> Then update `ALLOWED_HOSTS` in your Heroku config vars with the new hostname.
+5. Ensure `settings.py` reads the database configuration via `dj_database_url.config()`, falling back to local SQLite when `DATABASE_URL` is not set:
+```python
+DATABASES = {
+    'default': dj_database_url.config(
+        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
+        conn_max_age=600,
+    )
+}
+```
+6. Push to the connected branch — Railway will automatically build and deploy on every push
+7. Run migrations against the Railway database from a local terminal with `DATABASE_URL` exported to Railway's Postgres connection string:
+```bash
+export DATABASE_URL="<railway-postgres-connection-string>"
+python manage.py migrate
+```
+8. Once deployed, add a custom domain under **Settings → Networking → Custom Domain**, and add the corresponding DNS records (A record for the root domain, CNAME for `www`) at the domain registrar
+9. Add the custom domain to `ALLOWED_HOSTS` and `CSRF_TRUSTED_ORIGINS` in `settings.py`, and redeploy
+
+> **Note:** Railway does not automatically link a Postgres plugin to a web service's environment variables — this must be done explicitly by referencing `${{Postgres.DATABASE_URL}}` (or the relevant variable name) in the web service's own Variables tab. See [Migration Bug 6](#railway-migration--refactor-log) for the issue this caused.
 
 ---
 
@@ -1310,9 +1362,6 @@ pip install -r requirements.txt
 ```
 SECRET_KEY=your-secret-key
 ALLOWED_HOSTS=127.0.0.1,localhost
-STRIPE_SECRET_KEY=your-stripe-secret-key
-STRIPE_PUBLIC_KEY=your-stripe-publishable-key
-STRIPE_WEBHOOK_SECRET=your-stripe-webhook-secret
 EMAIL_HOST_USER=your-google-workspace-email
 EMAIL_HOST_PASSWORD=your-google-workspace-app-password
 ```
@@ -1346,12 +1395,12 @@ All written content — including service descriptions, package features, and pa
  
 - [Django Documentation](https://docs.djangoproject.com/) — models, views, forms, authentication, admin, testing
 - [django-allauth Documentation](https://docs.allauth.org/) — email verification, Google OAuth, custom template overrides
-- [Stripe Documentation](https://stripe.com/docs) — Checkout sessions, webhook handler, signature verification
+- [Railway Documentation](https://docs.railway.com/) — deployment, environment variables, Postgres setup, custom domains
 - [Google Cloud Documentation](https://cloud.google.com/docs) — OAuth 2.0 credentials and redirect URI setup
-- [Heroku Documentation](https://devcenter.heroku.com/) — deployment, config vars, Postgres setup
 - [W3Schools](https://www.w3schools.com/) — HTML, CSS, and JavaScript reference
 - [Bootstrap 5 Documentation](https://getbootstrap.com/docs/5.3/) — grid system, navbar, responsive utilities
 - [Jest Documentation](https://jestjs.io/docs/getting-started) — JavaScript unit testing setup and configuration
+- [Stripe Documentation](https://stripe.com/docs) and [Heroku Documentation](https://devcenter.heroku.com/) were used during the original build, prior to the migration to Railway and removal of the Stripe integration.
 
 ## Images
  
