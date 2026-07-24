@@ -7,6 +7,18 @@ from django.contrib.auth.models import User
 def home(request):
     return render(request, 'home.html')
 
+# Renders the privacy policy page
+def privacy_policy(request):
+    return render(request, 'privacy-policy.html')
+
+# Renders the terms & conditions page
+def terms_conditions(request):
+    return render(request, 'terms-conditions.html')
+
+# Renders the returns & cancellations page
+def returns_cancellations(request):
+    return render(request, 'returns-cancellations.html')
+
 # Handles user login — looks up user by email, authenticates,
 # logs in the user and returns them to previous page.
 def login_view(request):
