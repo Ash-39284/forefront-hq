@@ -61,8 +61,6 @@
                 {% if user.is_authenticated %}
                     <a href="#" class="btn btn-primary">Dashboard</a>
                     <a href="/logout/" class="btn btn-outline">Log out</a>
-                    <!-- <i class="fa-regular fa-gear"></i> -->
-                     <a href="#" class="fa-regular fa-gear"></a>
                 {% else %}
                     <a href="/register/?next={{ request.path }}" class="btn btn-outline">Create account</a>
                     <a href="/login/?next={{ request.path }}" class="btn btn-primary">Login</a>
