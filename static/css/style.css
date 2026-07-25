@@ -167,6 +167,44 @@ p { color: #6B84A0; line-height: 1.7; }
     .dropdown-content.show { display: block; }
 }
 
+@media (max-width: 767px) {
+    .navbar-nav {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        width: 100%;
+    }
+
+    .navbar-nav .nav-item {
+        width: 100%;
+    }
+
+    .navbar-nav .nav-link {
+        display: block;
+        width: 100%;
+        padding: 0.75rem 1rem !important;
+        border-radius: 0.5rem;
+    }
+
+    /* Dropdown should match — full width button + content */
+    .navbar-nav .dropdown {
+        width: 100%;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .navbar-nav .dropbtn {
+        width: 100%;
+        justify-content: space-between;
+        padding: 0.75rem 1rem;
+    }
+
+    .navbar-nav .dropdown-content.show {
+        width: 100%;
+        padding-left: 1rem;
+    }
+}
+
 /* home.html hero*/
 .hero {
     padding: 5rem 0;
