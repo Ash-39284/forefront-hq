@@ -1216,6 +1216,107 @@ p { color: #6B84A0; line-height: 1.7; }
     top: 0;
 }
 
+/* Legal pages (Privacy Policy, Terms & Conditions, Refund Policy) */
+
+.legal-section {
+    padding: 5rem 0 6rem;
+}
+
+.legal-section .container {
+    max-width: 780px;
+    margin: 0 auto;
+}
+
+.legal-title {
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    margin: 0.75rem 0 0.5rem;
+}
+
+.legal-updated {
+    font-size: 0.85rem;
+    color: #6B84A0;
+    margin-bottom: 2.5rem;
+}
+
+.legal-card {
+    background: #0B1220;
+    border: 1px solid rgba(107, 132, 160, 0.15);
+    border-radius: 1.25rem;
+    padding: 2.5rem;
+}
+
+.legal-card h2 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #E8EDF5;
+    margin: 2rem 0 0.75rem;
+}
+
+.legal-card h2:first-of-type {
+    margin-top: 0.5rem;
+}
+
+.legal-card h3 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #E8EDF5;
+    margin: 1.5rem 0 0.5rem;
+}
+
+.legal-card p {
+    font-size: 0.9rem;
+    color: #6B84A0;
+    line-height: 1.8;
+    margin-bottom: 1rem;
+}
+
+.legal-card a {
+    color: #1A6CF6;
+}
+.legal-card a:hover {
+    text-decoration: underline;
+}
+
+.legal-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    margin: 0 0 1.25rem;
+    padding-left: 0;
+}
+
+.legal-list li {
+    font-size: 0.9rem;
+    color: #6B84A0;
+    line-height: 1.7;
+    padding-left: 1.25rem;
+    position: relative;
+}
+
+.legal-list li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: #1A6CF6;
+}
+
+.legal-disclaimer {
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(22, 41, 71, 0.6);
+    font-size: 0.78rem;
+    color: #6B84A0;
+    font-style: italic;
+}
+
+@media (max-width: 767px) {
+    .legal-card {
+        padding: 1.75rem;
+    }
+}
+
 /* Responsive: stack the two-column card layout on mobile */
 @media (max-width: 768px) {
     .service-card-inner {
