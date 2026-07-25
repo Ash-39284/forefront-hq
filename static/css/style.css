@@ -71,6 +71,7 @@ p { color: #6B84A0; line-height: 1.7; }
     background: rgba(8, 13, 20, 0.85);
     backdrop-filter: blur(14px);
     border-bottom: 1px solid rgba(22, 41, 71, 0.7);
+    transition: top 0.3s;
 }
 
 .nav-link {
