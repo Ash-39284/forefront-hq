@@ -48,28 +48,28 @@
 
         <!-- Links + Auth -->
         <div class="collapse navbar-collapse" id="mobileMenu">
-    <ul class="navbar-nav mx-auto">
+        <ul class="navbar-nav mx-auto">
 
-        <li class="nav-item"><a href="{% url 'home' %}" class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}">home</a></li>
+            <li class="nav-item"><a href="{% url 'home' %}" class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}">home</a></li>
 
-        {% if user.is_authenticated %}
-            <li class="nav-item dropdown">
-                <button class="dropbtn">
-                    account <i class="fa fa-caret-down"></i>
-                </button>
-                <div class="dropdown-content">
-                    <a href="#">Account Settings</a>
-                    <a href="#">Dashboard</a>
-                </div>
-            </li>
-        {% endif %}
+            {% if user.is_authenticated %}
+                <li class="nav-item dropdown">
+                    <button class="dropbtn">
+                        account <i class="fa fa-caret-down"></i>
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="#">Account Settings</a>
+                        <a href="#">Dashboard</a>
+                    </div>
+                </li>
+            {% endif %}
 
-        <li class="nav-item"><a href="{% url 'about' %}" class="nav-link {% if request.resolver_match.url_name == 'about' %}active{% endif %}">about</a></li>
-        <li class="nav-item"><a href="{% url 'services' %}" class="nav-link {% if request.resolver_match.url_name == 'services' %}active{% endif %}">services</a></li>
-        <li class="nav-item"><a href="{% url 'portfolio' %}" class="nav-link {% if request.resolver_match.url_name == 'portfolio' %}active{% endif %}">portfolio</a></li>
-        <li class="nav-item"><a href="{% url 'contact' %}" class="nav-link {% if request.resolver_match.url_name == 'contact' %}active{% endif %}">contact</a></li>
-    </ul>
-</div>
+            <li class="nav-item"><a href="{% url 'about' %}" class="nav-link {% if request.resolver_match.url_name == 'about' %}active{% endif %}">about</a></li>
+            <li class="nav-item"><a href="{% url 'services' %}" class="nav-link {% if request.resolver_match.url_name == 'services' %}active{% endif %}">services</a></li>
+            <li class="nav-item"><a href="{% url 'portfolio' %}" class="nav-link {% if request.resolver_match.url_name == 'portfolio' %}active{% endif %}">portfolio</a></li>
+            <li class="nav-item"><a href="{% url 'contact' %}" class="nav-link {% if request.resolver_match.url_name == 'contact' %}active{% endif %}">contact</a></li>
+        </ul>
+    </div>
 
             <!-- Auth buttons -->
             <div class="nav-auth">
