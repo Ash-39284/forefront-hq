@@ -1222,6 +1222,11 @@ p { color: #6B84A0; line-height: 1.7; }
     padding: 5rem 0 6rem;
 }
 
+.legal-section .container {
+    max-width: 780px;
+    margin: 0 auto;
+}
+
 .legal-title {
     font-size: clamp(2rem, 4vw, 2.8rem);
     font-weight: 700;
@@ -1240,7 +1245,6 @@ p { color: #6B84A0; line-height: 1.7; }
     border: 1px solid rgba(107, 132, 160, 0.15);
     border-radius: 1.25rem;
     padding: 2.5rem;
-    max-width: 780px;
 }
 
 .legal-card h2 {
@@ -1252,6 +1256,13 @@ p { color: #6B84A0; line-height: 1.7; }
 
 .legal-card h2:first-of-type {
     margin-top: 0.5rem;
+}
+
+.legal-card h3 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #E8EDF5;
+    margin: 1.5rem 0 0.5rem;
 }
 
 .legal-card p {
