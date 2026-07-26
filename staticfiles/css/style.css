@@ -71,6 +71,7 @@ p { color: #6B84A0; line-height: 1.7; }
     background: rgba(8, 13, 20, 0.85);
     backdrop-filter: blur(14px);
     border-bottom: 1px solid rgba(22, 41, 71, 0.7);
+    transition: top 0.3s;
 }
 
 .nav-link {
@@ -90,10 +91,124 @@ p { color: #6B84A0; line-height: 1.7; }
 
 .burger-bar { display: block; height: 2px; width: 22px; background: #E8EDF5; border-radius: 2px; }
 
-@media (max-width: 767px) {
+/* Nav dropdown (account menu) — desktop styles */
+.dropdown {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.dropbtn {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: transparent;
+    border: none;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.875rem;
+    color: #6B84A0;
+    padding: 0.3rem 0.75rem;
+    border-radius: 0.4rem;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+.dropbtn:hover { color: #E8EDF5; }
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    left: 0;
+    min-width: 180px;
+    background: #0B1220;
+    border: 1px solid rgba(107, 132, 160, 0.15);
+    border-radius: 0.75rem;
+    padding: 0.5rem;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.35);
+    z-index: 200;
+}
+
+.dropdown-content a {
+    display: block;
+    padding: 0.6rem 0.75rem;
+    font-size: 0.85rem;
+    color: #6B84A0;
+    border-radius: 0.5rem;
+    transition: background 0.2s, color 0.2s;
+}
+
+.dropdown-content a:hover {
+    background: #162947;
+    color: #E8EDF5;
+}
+
+.dropdown:hover .dropdown-content,
+.dropdown:focus-within .dropdown-content {
+    display: block;
+}
+
+/* ============================================================
+   MOBILE NAV — consolidated into a single breakpoint that matches
+   Bootstrap's navbar-expand-md collapse point exactly (767.98px),
+   so our overrides never miss the window Bootstrap switches in.
+   ============================================================ */
+@media (max-width: 767.98px) {
     .navbar-collapse { padding: 1rem 0; border-top: 1px solid rgba(22, 41, 71, 0.6); }
-    .nav-auth { flex-direction: column; align-items: stretch; padding-top: 1rem; border-top: 1px solid rgba(22, 41, 71, 0.6); margin-top: 0.5rem; }
+
+    .nav-auth {
+        flex-direction: column;
+        align-items: stretch;
+        padding-top: 1rem;
+        border-top: 1px solid rgba(22, 41, 71, 0.6);
+        margin-top: 0.5rem;
+    }
     .nav-auth .btn { text-align: center; }
+
+    .navbar-nav {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        width: 100%;
+    }
+
+    .navbar-nav .nav-item { width: 100%; }
+
+    .navbar-nav .nav-link {
+        display: block;
+        width: 100%;
+        padding: 0.75rem 1rem !important;
+        border-radius: 0.5rem;
+    }
+
+    /* Dropdown: stacked full-width, opens indented underneath "account" */
+    .navbar-nav .dropdown {
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+    }
+
+    .navbar-nav .dropbtn {
+        width: 100%;
+        justify-content: space-between;
+        padding: 0.75rem 1rem;
+    }
+
+    .navbar-nav .dropdown-content {
+        display: none;
+        position: static;
+        width: 100%;
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        border-radius: 0;
+        padding: 0.25rem 0 0.25rem 1.75rem; /* indents links under "account" */
+    }
+
+    .navbar-nav .dropdown-content a {
+        padding: 0.6rem 0.75rem;
+        border-radius: 0.4rem;
+    }
+
+    .navbar-nav .dropdown-content.show { display: block; }
 }
 
 /* home.html hero*/
@@ -1311,14 +1426,14 @@ p { color: #6B84A0; line-height: 1.7; }
     font-style: italic;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 767.98px) {
     .legal-card {
         padding: 1.75rem;
     }
 }
 
 /* Responsive: stack the two-column card layout on mobile */
-@media (max-width: 768px) {
+@media (max-width: 767.98px) {
     .service-card-inner {
         flex-direction: column;
         gap: 24px;
@@ -1335,27 +1450,8 @@ p { color: #6B84A0; line-height: 1.7; }
     }
 }
 
-/* Responsive: stack the two-column card layout on mobile */
-@media (max-width: 768px) {
-    .service-card-inner {
-        flex-direction: column;
-        gap: 24px;
-    }
- 
-    .service-card-left {
-        flex: unset;
-    }
- 
-    .service-card-divider {
-        width: 100%;
-        height: 1px;
-        align-self: auto;
-    }
-}
- 
 /* Mobile fix for about page profile text */
-
-@media (max-width: 767px) {
+@media (max-width: 767.98px) {
     .team-feature {
         flex-direction: column;
         gap: 1.5rem;
