@@ -91,13 +91,7 @@ p { color: #6B84A0; line-height: 1.7; }
 
 .burger-bar { display: block; height: 2px; width: 22px; background: #E8EDF5; border-radius: 2px; }
 
-@media (max-width: 767px) {
-    .navbar-collapse { padding: 1rem 0; border-top: 1px solid rgba(22, 41, 71, 0.6); }
-    .nav-auth { flex-direction: column; align-items: stretch; padding-top: 1rem; border-top: 1px solid rgba(22, 41, 71, 0.6); margin-top: 0.5rem; }
-    .nav-auth .btn { text-align: center; }
-}
-
-/* Nav dropdown (account menu) */
+/* Nav dropdown (account menu) — desktop styles */
 .dropdown {
     position: relative;
     display: flex;
@@ -153,30 +147,30 @@ p { color: #6B84A0; line-height: 1.7; }
     display: block;
 }
 
-@media (max-width: 767px) {
-    .dropdown { flex-direction: column; align-items: flex-start; width: 100%; }
-    .dropdown-content {
-        display: none;
-        position: static;
-        box-shadow: none;
-        border: none;
-        background: transparent;
-        padding: 0.25rem 0 0 0.75rem;
-        width: 100%;
-    }
-    .dropdown-content.show { display: block; }
-}
+/* ============================================================
+   MOBILE NAV — consolidated into a single breakpoint that matches
+   Bootstrap's navbar-expand-md collapse point exactly (767.98px),
+   so our overrides never miss the window Bootstrap switches in.
+   ============================================================ */
+@media (max-width: 767.98px) {
+    .navbar-collapse { padding: 1rem 0; border-top: 1px solid rgba(22, 41, 71, 0.6); }
 
-@media (max-width: 767px) {
+    .nav-auth {
+        flex-direction: column;
+        align-items: stretch;
+        padding-top: 1rem;
+        border-top: 1px solid rgba(22, 41, 71, 0.6);
+        margin-top: 0.5rem;
+    }
+    .nav-auth .btn { text-align: center; }
+
     .navbar-nav {
         margin-left: 0 !important;
         margin-right: 0 !important;
         width: 100%;
     }
 
-    .navbar-nav .nav-item {
-        width: 100%;
-    }
+    .navbar-nav .nav-item { width: 100%; }
 
     .navbar-nav .nav-link {
         display: block;
@@ -185,12 +179,11 @@ p { color: #6B84A0; line-height: 1.7; }
         border-radius: 0.5rem;
     }
 
-    /* Dropdown should match — full width button + content */
+    /* Dropdown: stacked full-width, opens indented underneath "account" */
     .navbar-nav .dropdown {
+        flex-direction: column;
+        align-items: stretch;
         width: 100%;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
     }
 
     .navbar-nav .dropbtn {
@@ -199,10 +192,23 @@ p { color: #6B84A0; line-height: 1.7; }
         padding: 0.75rem 1rem;
     }
 
-    .navbar-nav .dropdown-content.show {
+    .navbar-nav .dropdown-content {
+        display: none;
+        position: static;
         width: 100%;
-        padding-left: 1rem;
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        border-radius: 0;
+        padding: 0.25rem 0 0.25rem 1.75rem; /* indents links under "account" */
     }
+
+    .navbar-nav .dropdown-content a {
+        padding: 0.6rem 0.75rem;
+        border-radius: 0.4rem;
+    }
+
+    .navbar-nav .dropdown-content.show { display: block; }
 }
 
 /* home.html hero*/
@@ -1420,14 +1426,14 @@ p { color: #6B84A0; line-height: 1.7; }
     font-style: italic;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 767.98px) {
     .legal-card {
         padding: 1.75rem;
     }
 }
 
 /* Responsive: stack the two-column card layout on mobile */
-@media (max-width: 768px) {
+@media (max-width: 767.98px) {
     .service-card-inner {
         flex-direction: column;
         gap: 24px;
@@ -1444,27 +1450,8 @@ p { color: #6B84A0; line-height: 1.7; }
     }
 }
 
-/* Responsive: stack the two-column card layout on mobile */
-@media (max-width: 768px) {
-    .service-card-inner {
-        flex-direction: column;
-        gap: 24px;
-    }
- 
-    .service-card-left {
-        flex: unset;
-    }
- 
-    .service-card-divider {
-        width: 100%;
-        height: 1px;
-        align-self: auto;
-    }
-}
- 
 /* Mobile fix for about page profile text */
-
-@media (max-width: 767px) {
+@media (max-width: 767.98px) {
     .team-feature {
         flex-direction: column;
         gap: 1.5rem;
