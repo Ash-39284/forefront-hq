@@ -21,7 +21,7 @@
                 <div class="portfolio-card">
 
                     <!-- Image -->
-                    <div class="portfolio-card-image">
+                    <div class="portfolio-card-image portfolio-card-image--completed">
                         {% if project.image %}
                             <img src="{{ project.image.url }}" alt="{{ project.title }}">
                         {% else %}
@@ -86,7 +86,7 @@
         <div class="portfolio-card">
 
             <!-- Image -->
-                <div class="portfolio-card-image">
+                <div class="portfolio-card-image portfolio-card-image--upcoming">
                     {% if project.image %}
                         <img src="{{ project.image.url }}" alt="{{ project.title }}">
                     {% else %}
