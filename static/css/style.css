@@ -985,12 +985,12 @@ p { color: #6B84A0; line-height: 1.7; }
 
 /* Completed projects: show full image, no cropping */
 .portfolio-card-image--completed img {
-    object-fit: contain;
+    object-fit: cover;
 }
 
 /* Upcoming projects: crop to fill */
 .portfolio-card-image--upcoming img {
-    object-fit: cover;
+    object-fit: contain;
 }
  
 .portfolio-card-placeholder {
