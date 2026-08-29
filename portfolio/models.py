@@ -1,11 +1,13 @@
 from django.db import models
 
+
 class ProjectTag(models.Model):
     name = models.CharField(max_length=100)
     slug = models.CharField(max_length=100)
 
     def __str__(self):
         return self.name
+
 
 class PortfolioProject(models.Model):
     title = models.CharField(max_length=200)
@@ -26,7 +28,16 @@ class PortfolioProject(models.Model):
 
     def __str__(self):
         return self.title
-    
+
+
+class PortfolioProjectTag(models.Model):
+    project = models.ForeignKey(PortfolioProject, on_delete=models.CASCADE)
+    tag = models.ForeignKey(ProjectTag, on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = ('project', 'tag')
+
+
 class PortfolioUpcoming(models.Model):
     title = models.CharField(max_length=200)
     slug = models.CharField(max_length=200, unique=True)
@@ -39,18 +50,21 @@ class PortfolioUpcoming(models.Model):
     is_featured = models.BooleanField(default=False)
     completed_at = models.DateField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    tags = models.ManyToManyField(ProjectTag, through='PortfolioProjectTag', blank=True)
+    tags = models.ManyToManyField(ProjectTag, through='PortfolioUpcomingTag', blank=True)
 
     class Meta:
         ordering = ['-completed_at']
-    
+
     def __str__(self):
         return self.title
 
-    
-class PortfolioProjectTag(models.Model):
-    project = models.ForeignKey(PortfolioProject, on_delete=models.CASCADE)
+
+class PortfolioUpcomingTag(models.Model):
+    upcoming = models.ForeignKey(PortfolioUpcoming, on_delete=models.CASCADE)
     tag = models.ForeignKey(ProjectTag, on_delete=models.CASCADE)
 
     class Meta:
-        unique_together = ('project', 'tag')
+        unique_together = ('upcoming', 'tag')
+
+    def __str__(self):
+        return f"{self.upcoming} - {self.tag}"
