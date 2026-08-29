@@ -985,12 +985,12 @@ p { color: #6B84A0; line-height: 1.7; }
 
 /* Completed projects: show full image, no cropping */
 .portfolio-card-image--completed img {
-    object-fit: cover;
+    object-fit: contain;
 }
 
 /* Upcoming projects: crop to fill */
 .portfolio-card-image--upcoming img {
-    object-fit: contain;
+    object-fit: cover;
 }
  
 .portfolio-card-placeholder {
@@ -1090,6 +1090,24 @@ p { color: #6B84A0; line-height: 1.7; }
     text-align: center;
     color: #6B84A0;
     padding: 3rem 0;
+}
+
+/* Divider between completed and upcoming sections */
+.portfolio-divider {
+    border: none;
+    border-top: 1px solid rgba(22, 41, 71, 0.8);
+    margin: 5rem 0 0;
+}
+
+/* Upcoming section gets a distinct tinted band, full-width */
+.portfolio-upcoming-section {
+    background: rgba(255, 255, 255, 0.02);
+    padding: 5rem 0;
+    margin-top: 0;
+}
+
+.portfolio-header--upcoming .label {
+    color: #F59E0B;
 }
 
 /* About page */
