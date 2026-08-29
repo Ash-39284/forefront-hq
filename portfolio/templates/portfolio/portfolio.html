@@ -22,8 +22,8 @@
 
                     <!-- Image -->
                     <div class="portfolio-card-image">
-                        {% if project.image_url %}
-                            <img src="{{ project.image_url }}" alt="{{ project.title }}">
+                        {% if project.image %}
+                            <img src="{{ project.image.url }}" alt="{{ project.title }}">
                         {% else %}
                             <div class="portfolio-card-placeholder">
                                 <span>{{ project.title }}</span>
@@ -86,15 +86,18 @@
         <div class="portfolio-card">
 
             <!-- Image -->
-            <div class="portfolio-card-image">
-                {% if project.image_url %}
-                    <img src="{{ project.image_url }}" alt="{{ project.title }}">
-                {% else %}
-                    <div class="portfolio-card-placeholder">
-                        <span>{{ project.title }}</span>
-                    </div>
-                {% endif %}
-            </div>
+                <div class="portfolio-card-image">
+                    {% if project.image %}
+                        <img src="{{ project.image.url }}" alt="{{ project.title }}">
+                    {% else %}
+                        <div class="portfolio-card-placeholder">
+                            <span>{{ project.title }}</span>
+                        </div>
+                    {% endif %}
+                    {% if project.is_live %}
+                    <span class="badge-live portfolio-live-badge">● LIVE</span>
+                    {% endif %}
+                </div>
 
             <!-- Content -->
             <div class="portfolio-card-content">
